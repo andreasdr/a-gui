@@ -1,5 +1,3 @@
-![LOGO](https://raw.githubusercontent.com/andreasdr/tdme2/master/resources/github/tdme2-logo.png)
-
 This is the documentation of MiniScript language within A-GUI. This document is WIP.
 
 # 1. Introduction
