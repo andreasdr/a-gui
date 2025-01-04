@@ -106,10 +106,6 @@ the requirements for stunning game graphical user interfaces.
 
 # 6. Collaboration
 - Interested in collaboration? Then drop me a line via mail or use the issues section on [a-gui@github](https://github.com/andreasdr/a-gui/issues)
-    - You can help with testing and reporting bugs 
-    - I have easy to hard task regarding engine/tools development
-    - I have tasks regarding documentation
-    - I even might have system administrator tasks
 
 # 7. Donation 
 - I have to pay my bills, beer and stuff, so if you have any use for this open source project, like educational, productive or fun, ..., consider a donation here [PayPal](https://www.paypal.me/andreasdrewke), here [GitHub Sponsors](https://github.com/sponsors/andreasdr) or via [Amazon Wishlist](https://www.amazon.de/hz/wishlist/ls/250IBUL4JSZVR?ref_=wl_share)
