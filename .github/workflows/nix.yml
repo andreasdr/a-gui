@@ -1,0 +1,19 @@
+name: CI Ubuntu
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: install required packages
+        run: sudo apt update && sudo apt-get install libglew-dev libopenal-dev libglfw3-dev libfreetype-dev
+      - uses: actions/checkout@v2
+      - name: make mains
+        run: make mains
