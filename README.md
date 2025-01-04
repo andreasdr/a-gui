@@ -96,7 +96,7 @@ the requirements for stunning game graphical user interfaces.
 # 5. Other information
 
 ## 5.1. Links
-- TDME2 How to build, see [README-BuildingHowTo.md](./README-BuildingHowTo.md)
+- A-GUI - How to build, see [README-BuildingHowTo.md](./README-BuildingHowTo.md)
 - The Mindty Kollektiv [Discord Server](https://discord.gg/tMqrmcp23Q)
 
 ## 5.2. Other credits

@@ -247,4 +247,5 @@ The boilerplate template code for a MiniScript GUI logic looks like: [gui_script
 ## 3.1. Links
 
 - A-GUI, see [README.md](./README.md)
-- A-GUI, how to build, see [README-BuildingHowTo.md](./README-BuildingHowTo.md)
+- A-GUI - How to build, see [README-BuildingHowTo.md](./README-BuildingHowTo.md)
+- The Mindty Kollektiv [Discord Server](https://discord.gg/tMqrmcp23Q)
