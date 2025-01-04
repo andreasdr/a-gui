@@ -800,3 +800,10 @@ This element supports \<tab-content\> and others as sub elements.
 | template                          | location of template XML file to override compound element XML                         | none              |
         
 This element supports all other elements as sub elements.
+
+# 3. Other information
+
+## 3.1. Links
+
+- A-GUI, see [README.md](./README.md)
+- A-GUI, how to build, see [README-BuildingHowTo.md](./README-BuildingHowTo.md)
