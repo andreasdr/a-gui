@@ -93,16 +93,9 @@ the requirements for stunning game graphical user interfaces.
     - Android(port pending)
     - iOS(port pending)
 
-# 5. Other information
-
-## 5.1. Links
+# 5. Links
 - A-GUI - How to build, see [README-BuildingHowTo.md](./README-BuildingHowTo.md)
 - The Mindty Kollektiv [Discord Server](https://discord.gg/tMqrmcp23Q)
-
-## 5.2. Other credits
-- Dominik Hepp
-- Kolja Gumpert
-- others
 
 # 6. Collaboration
 - Interested in collaboration? Then drop me a line via mail or use the issues section on [a-gui@github](https://github.com/andreasdr/a-gui/issues)
