@@ -20,8 +20,8 @@ the requirements for stunning game graphical user interfaces.
 - A-GUI is open source
   - please check the [license](https://github.com/andreasdr/a-gui/blob/master/LICENSE)
   - you find the source code at [https://github.com/andreasdr/a-gui](https://github.com/andreasdr/a-gui) 
-  - For TDME2 GUI XML documentation see [README-GUI-XML.md](./README-GUI-XML.md)
-  - For TDME2 GUI MiniScript documentation see [README-MiniScript.md](./README-MiniScript.md)
+  - For A-GUI GUI XML documentation see [README-GUI-XML.md](./README-GUI-XML.md)
+  - For A-GUI GUI MiniScript documentation see [README-MiniScript.md](./README-MiniScript.md)
 
 # 2. Features
 - borrows some ideas from Nifty-GUI regarding XML and layouting
