@@ -105,7 +105,7 @@ the requirements for stunning game graphical user interfaces.
 - others
 
 # 6. Collaboration
-- Interested in collaboration? Then drop me a line via mail or use the issues section on [a-gui@github](https://github.com/andreasdr/a-gui/issues) or on [a-gui@codecks](https://open.codecks.io/a-gui)
+- Interested in collaboration? Then drop me a line via mail or use the issues section on [a-gui@github](https://github.com/andreasdr/a-gui/issues)
     - You can help with testing and reporting bugs 
     - I have easy to hard task regarding engine/tools development
     - I have tasks regarding documentation
