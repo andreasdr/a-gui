@@ -5,7 +5,7 @@
 [![Windows/MSC Build Status](https://github.com/andreasdr/a-gui/actions/workflows/windows-msc.yml/badge.svg)](https://github.com/andreasdr/a-gui/actions)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/15611/badge.svg)](https://scan.coverity.com/projects/andreasdr-a-gui)  
   
-This is the home of A-GUI - A game graphical user interface developed in C++. 
+This is the home of A-GUI - C++ based graphical user interface for games
 
 This document and repository is WIP. Expect a BETA release around 2025-03-01.
 See section 3. for BETA release TODO list.
