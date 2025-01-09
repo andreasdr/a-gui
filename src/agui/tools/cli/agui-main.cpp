@@ -99,6 +99,8 @@ public:
 	void display() {
 		gui->handleEvents();
 		//
+		Application::getRenderer()->setViewPort(gui->getWidth(), gui->getHeight());
+		Application::getRenderer()->updateViewPort();
 		Application::getRenderer()->clear(Application::getRenderer()->CLEAR_DEPTH_BUFFER_BIT | Application::getRenderer()->CLEAR_COLOR_BUFFER_BIT);
 		//
 		gui->getGUIShader()->useProgram();
