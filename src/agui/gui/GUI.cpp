@@ -86,6 +86,7 @@ void GUI::initialize()
 	textureManager = make_unique<GUITextureManager>(Application::getRenderer());
 	vboManager = make_unique<GUIVBOManager>(Application::getRenderer());
 	guiShader = make_unique<GUIShader>(Application::getRenderer());
+	guiShader->initialize();
 }
 
 void GUI::reshape(int width, int height)

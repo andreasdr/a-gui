@@ -105,14 +105,12 @@ void GUIRenderer::initRendering()
 	setRenderAreaTop(SCREEN_TOP);
 	setRenderAreaRight(SCREEN_RIGHT);
 	setRenderAreaBottom(SCREEN_BOTTOM);
-	// TODO: Engine::getGUIShader()->useProgram();
 	renderer->getTextureMatrix(renderer->CONTEXTINDEX_DEFAULT).identity();
 }
 
 void GUIRenderer::doneRendering()
 {
 	renderer->unbindBufferObjects(renderer->CONTEXTINDEX_DEFAULT);
-	// TODO: Engine::getGUIShader()->unUseProgram();
 }
 
 void GUIRenderer::initScreen(GUIScreenNode* screenNode)

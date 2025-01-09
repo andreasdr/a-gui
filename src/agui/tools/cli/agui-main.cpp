@@ -7,6 +7,7 @@
 #include <agui/gui/GUIParser.h>
 #include <agui/gui/GUIVersion.h>
 #include <agui/gui/renderer/GUIRenderer.h>
+#include <agui/gui/renderer/GUIShader.h>
 #include <agui/os/filesystem/FileSystem.h>
 #include <agui/os/filesystem/FileSystemInterface.h>
 #include <agui/utilities/Console.h>
@@ -20,6 +21,7 @@ using agui::gui::GUI;
 using agui::gui::GUIParser;
 using agui::gui::GUIVersion;
 using agui::gui::renderer::GUIRenderer;
+using agui::gui::renderer::GUIShader;
 using agui::os::filesystem::FileSystem;
 using agui::os::filesystem::FileSystemInterface;
 using agui::utilities::Console;
@@ -60,6 +62,8 @@ public:
 		//
 		GUIParser::initialize();
 		//
+		Application::setInputEventHandler(gui.get());
+		//
 		auto screenNode = GUIParser::parse(
 			FileSystem::getStandardFileSystem()->getPathName(screenFileName),
 			FileSystem::getStandardFileSystem()->getFileName(screenFileName)
@@ -93,16 +97,13 @@ public:
 	 * Display
 	 */
 	void display() {
-		// update timing
-		//
 		gui->handleEvents();
 		//
-		Application::getRenderer()->initializeFrame();
-		//
 		Application::getRenderer()->clear(Application::getRenderer()->CLEAR_DEPTH_BUFFER_BIT | Application::getRenderer()->CLEAR_COLOR_BUFFER_BIT);
-		gui->render();
 		//
-		Application::getRenderer()->finishFrame();
+		gui->getGUIShader()->useProgram();
+		gui->render();
+		gui->getGUIShader()->unUseProgram();
 	}
 
 private:
