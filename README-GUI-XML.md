@@ -1,3 +1,5 @@
+![LOGO](https://raw.githubusercontent.com/andreasdr/a-gui/main/resources/github/agui-logo.png)
+
 This is the documentation of supported TDME2-GUI XML elements and their attributes. This document is WIP (It misses effects, some more descriptions and maybe even some graphical presentation and for sure examples).
 
 # 1. Primitive nodes

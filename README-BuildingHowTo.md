@@ -1,3 +1,5 @@
+![LOGO](https://raw.githubusercontent.com/andreasdr/a-gui/main/resources/github/agui-logo.png)
+
 # 1. How to build A-GUI?
 
 ## 1.1. FreeBSD(tested on FreeBSD 13.0)

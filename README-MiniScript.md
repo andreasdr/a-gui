@@ -1,3 +1,5 @@
+![LOGO](https://raw.githubusercontent.com/andreasdr/a-gui/main/resources/github/agui-logo.png)
+
 This is the documentation of MiniScript language within A-GUI. This document is WIP.
 
 # 1. Introduction

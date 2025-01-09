@@ -4,6 +4,8 @@
 [![Windows/MINGW Build Status](https://github.com/andreasdr/a-gui/actions/workflows/windows-mingw.yml/badge.svg)](https://github.com/andreasdr/a-gui/actions)
 [![Windows/MSC Build Status](https://github.com/andreasdr/a-gui/actions/workflows/windows-msc.yml/badge.svg)](https://github.com/andreasdr/a-gui/actions)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/15611/badge.svg)](https://scan.coverity.com/projects/andreasdr-a-gui)  
+
+![LOGO](https://raw.githubusercontent.com/andreasdr/a-gui/main/resources/github/agui-logo.png)
   
 This is the home of A-GUI - A game graphical user interface developed in C++. 
 
