@@ -51,32 +51,26 @@ ifeq ($(OS), Darwin)
 		INCLUDES := $(INCLUDES) -Iext/glfw3/include -Iext/freetype/include
 		LIBS_LDFLAGS := -framework Cocoa -framework IOKit -framework Carbon -framework OpenAL -Lext/glfw3/lib/macosx/arm64 -lglfw.3 -lGLEW -lGL -Lext/freetype/lib/macosx/arm64 -lfreetype.6
 	endif
-	OFLAGS := -O3
 else ifeq ($(OS), FreeBSD)
 	# FreeBSD
 	INCLUDES := $(INCLUDES) -I/usr/local/include -I/usr/local/include/freetype2
 	LIBS_LDFLAGS := -L/usr/local/lib -ldl -lglfw -lGLEW -lGL -lopenal -lexecinfo
-	OFLAGS := -O3
 else ifeq ($(OS), NetBSD)
 	# NetBSD
 	INCLUDES := $(INCLUDES) -I/usr/X11R7/include -I/usr/pkg/include -I/usr/pkg/include/freetype2
 	LIBS_LDFLAGS := -L/usr/X11R7/lib -L/usr/pkg/lib -lglfw -lGLEW -lGL -lopenal -lexecinfo -lfreetype
-	OFLAGS := -O3
 else ifeq ($(OS), OpenBSD)
 	# OpenBSD
 	INCLUDES := $(INCLUDES) -I/usr/X11R6/include -I/usr/local/include -I/usr/local/include/freetype2
 	LIBS_LDFLAGS := -L/usr/X11R6/lib -L/usr/local/lib -lm -lstdc++ -ldl -lglfw -lGLEW -lGL -lopenal -lfreetype
-	OFLAGS := -O3
 else ifeq ($(OS), Haiku)
 	# Haiku
 	INCLUDES := $(INCLUDES) -I/boot/system/develop/headers -I/boot/system/develop/headers/freetype2
 	LIBS_LDFLAGS := -lnetwork -lglfw -lGLEW -lGL -lopenal -lfreetype
-	OFLAGS := -O3
 else ifeq ($(OS), Linux)
 	# Linux
 	INCLUDES := $(INCLUDES) -I/usr/include/freetype2
 	LIBS_LDFLAGS := -L/usr/lib64 -ldl -lglfw -lGLEW -lGL -lopenal -lfreetype
-	OFLAGS := -O3
 else
 	# Windows
 	INCLUDES := $(INCLUDES) -I/mingw64/include -I/mingw64/include/freetype2
@@ -84,7 +78,6 @@ else
 	LDFLAG_LIB := $(NAME)$(LIB_EXT)
 	LDFLAG_EXT_LIB := $(EXT_NAME)$(LIB_EXT)
 	LDFLAG_MINITSCRIPT_LIB := $(MINITSCRIPT_NAME)$(LIB_EXT)
-	OFLAGS := -O3
 endif
 
 CPPFLAGS := $(INCLUDES)

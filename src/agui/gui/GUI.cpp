@@ -334,6 +334,9 @@ void GUI::focusPreviousNode()
 void GUI::render()
 {
 	//
+	timing.update();
+
+	//
 	if (renderScreens.empty() == true)
 		return;
 

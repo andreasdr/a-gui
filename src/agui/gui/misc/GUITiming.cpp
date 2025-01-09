@@ -26,7 +26,7 @@ GUITiming::GUITiming()
 
 constexpr int64_t GUITiming::UNDEFINED;
 
-void GUITiming::updateTiming()
+void GUITiming::update()
 {
 	frame++;
 	lastFrameAtTime = currentFrameAtTime;

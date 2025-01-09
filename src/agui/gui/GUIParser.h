@@ -43,6 +43,7 @@ class agui::gui::GUIParser final
 
 private:
 	STATIC_DLL_IMPEXT static unordered_map<string, GUIElement*> elements;
+	STATIC_DLL_IMPEXT static Properties aguiThemeProperties;
 	STATIC_DLL_IMPEXT static Properties engineThemeProperties;
 	STATIC_DLL_IMPEXT static Properties projectThemeProperties;
 

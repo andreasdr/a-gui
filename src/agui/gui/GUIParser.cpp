@@ -166,6 +166,7 @@ using tinyxml::TiXmlElement;
 #define AVOID_NULLPTR_STRING(arg) (arg == nullptr?"":arg)
 
 unordered_map<string, GUIElement*> GUIParser::elements = unordered_map<string, GUIElement*>();
+Properties GUIParser::aguiThemeProperties;
 Properties GUIParser::engineThemeProperties;
 Properties GUIParser::projectThemeProperties;
 
@@ -198,7 +199,7 @@ const string GUIParser::getApplicationSubPathName(const string& fileName)
 			if (applicationSubPathName == "engine") return applicationSubPathName; else
 			if (applicationSubPathName == "project") return applicationSubPathName; else
 			if (applicationSubPathName == "installer") return applicationSubPathName; else
-				return "engine";
+				return "a-gui";
 		}
 	}
 	if (applicationSubPathNameIdx == -1) {
@@ -209,7 +210,7 @@ const string GUIParser::getApplicationSubPathName(const string& fileName)
 			if (applicationSubPathName == "engine") return applicationSubPathName; else
 			if (applicationSubPathName == "project") return applicationSubPathName; else
 			if (applicationSubPathName == "installer") return applicationSubPathName; else
-				return "engine";
+				return "a-gui";
 		}
 	}
 	return "engine";
@@ -243,7 +244,9 @@ GUIScreenNode* GUIParser::parse(const string& xml, const unordered_map<string, s
 {
 	auto applicationRootPath = getApplicationRootPathName(pathName);
 	auto applicationSubPathName = getApplicationSubPathName(pathName);
-	auto themeProperties = applicationSubPathName == "project"?projectThemeProperties:engineThemeProperties;
+	auto themeProperties =
+		applicationSubPathName == "a-gui"?aguiThemeProperties:
+			(applicationSubPathName == "project"?projectThemeProperties:engineThemeProperties);
 
 	// replace with variables
 	auto newXML = xml;
@@ -358,7 +361,10 @@ void GUIParser::parse(GUIParentNode* parentNode, const string& pathName, const s
 void GUIParser::parse(GUIParentNode* parentNode, const string& xml)
 {
 	//
-	auto themeProperties = parentNode->getScreenNode()->getApplicationSubPathName() == "project"?projectThemeProperties:engineThemeProperties;
+	auto themeProperties =
+		parentNode->getScreenNode()->getApplicationSubPathName() == "a-gui"?
+			aguiThemeProperties:
+			(parentNode->getScreenNode()->getApplicationSubPathName() == "project"?projectThemeProperties:engineThemeProperties);
 	//
 	auto newXML = xml;
 	// replace with theme properties
@@ -445,7 +451,10 @@ void GUIParser::parseEffects(GUINode* guiNode, TiXmlElement* xmlParentNode) {
 
 void GUIParser::parseGUINode(GUIParentNode* guiParentNode, const string& parentElementId, TiXmlElement* xmlParentNode, GUIElement* guiElement)
 {
-	auto themeProperties = guiParentNode->getScreenNode()->getApplicationSubPathName() == "project"?projectThemeProperties:engineThemeProperties;
+	auto themeProperties =
+		guiParentNode->getScreenNode()->getApplicationSubPathName() == "a-gui"?
+			aguiThemeProperties:
+			(guiParentNode->getScreenNode()->getApplicationSubPathName() == "project"?projectThemeProperties:engineThemeProperties);
 	GUINodeController* guiElementController = nullptr;
 	auto guiElementControllerInstalled = false;
 	parseEffects(guiParentNode, xmlParentNode);
@@ -1649,7 +1658,9 @@ void GUIParser::parseTemplate(GUIParentNode* parentNode, const string& parentEle
 	}
 
 	//
-	auto themeProperties = parentNode->getScreenNode()->getApplicationSubPathName() == "project"?projectThemeProperties:engineThemeProperties;
+	auto themeProperties =
+		parentNode->getScreenNode()->getApplicationSubPathName() == "a-gui"?aguiThemeProperties:
+			(parentNode->getScreenNode()->getApplicationSubPathName() == "project"?projectThemeProperties:engineThemeProperties);
 
 	// replace with theme properties
 	for (const auto& [themePropertyName, themePropertyValue]: themeProperties.getProperties()) {
@@ -1690,7 +1701,10 @@ void GUIParser::parseInnerXML(GUIParentNode* parentNode, const string& parentEle
 	auto newParentElementId = parentElementId;
 
 	//
-	auto themeProperties = parentNode->getScreenNode()->getApplicationSubPathName() == "project"?projectThemeProperties:engineThemeProperties;
+	auto themeProperties =
+		parentNode->getScreenNode()->getApplicationSubPathName() == "a-gui"?
+			aguiThemeProperties:
+			(parentNode->getScreenNode()->getApplicationSubPathName() == "project"?projectThemeProperties:engineThemeProperties);
 
 	// replace with theme properties
 	for (const auto& [themePropertyName, themePropertyValue]: themeProperties.getProperties()) {
@@ -1875,6 +1889,12 @@ void GUIParser::addElement(GUIElement* guiElement)
 
 void GUIParser::initialize()
 {
+	try {
+		aguiThemeProperties.load("./resources/a-gui/gui/themes", "theme_default.properties");
+	} catch (Exception& exception) {
+		Console::print(string("GUIParser::initialize(): An error occurred: "));
+		Console::printLine(string(exception.what()));
+	}
 	try {
 		engineThemeProperties.load("./resources/engine/gui/themes", "theme_default.properties");
 	} catch (Exception& exception) {

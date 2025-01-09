@@ -55,6 +55,11 @@ public:
 		guiRenderer = make_unique<GUIRenderer>(Application::getRenderer());
 		gui = make_unique<GUI>(guiRenderer.get(), getWindowWidth(), getWindowHeight());
 		//
+		gui->initialize();
+		guiRenderer->initialize();
+		//
+		GUIParser::initialize();
+		//
 		auto screenNode = GUIParser::parse(
 			FileSystem::getStandardFileSystem()->getPathName(screenFileName),
 			FileSystem::getStandardFileSystem()->getFileName(screenFileName)
@@ -63,6 +68,7 @@ public:
 			screenNode->getId(),
 			screenNode
 		);
+		gui->addRenderScreen(screenNode->getId());
 	}
 
 	/**
@@ -80,16 +86,22 @@ public:
 	 * @param height height
 	 */
 	void reshape(int width, int height) {
+		gui->reshape(width, height);
 	}
 
 	/**
 	 * Display
 	 */
 	void display() {
+		// update timing
+		//
 		gui->handleEvents();
 		//
 		Application::getRenderer()->initializeFrame();
+		//
+		Application::getRenderer()->clear(Application::getRenderer()->CLEAR_DEPTH_BUFFER_BIT | Application::getRenderer()->CLEAR_COLOR_BUFFER_BIT);
 		gui->render();
+		//
 		Application::getRenderer()->finishFrame();
 	}
 

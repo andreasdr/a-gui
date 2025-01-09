@@ -596,6 +596,9 @@ int Application::run(int argc, char** argv, const string& title, InputEventHandl
 	}
 
 	//
+	renderer->initialize();
+
+	//
 	if ((windowHints & WINDOW_HINT_MAXIMIZED) == 0) glfwSetWindowPos(glfwWindow, windowXPosition, windowYPosition);
 
 	//
@@ -628,7 +631,7 @@ int Application::run(int argc, char** argv, const string& title, InputEventHandl
 
 	//
 	try {
-		auto gameControllerDatabase = FileSystem::getInstance()->getContentAsString("resources/engine/misc", "gamecontrollerdb.txt");
+		auto gameControllerDatabase = FileSystem::getInstance()->getContentAsString("resources/a-gui/misc", "gamecontrollerdb.txt");
 		glfwUpdateGamepadMappings(gameControllerDatabase.c_str());
 	} catch (Exception& exception) {
 		Console::printLine("An error occurred: " + string(exception.what()));

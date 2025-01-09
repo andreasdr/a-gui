@@ -5,7 +5,7 @@
 				<menu-item text="Quit" id="menu_file_quit" />
 			</menu-header-item>
 			<menu-header-item text="Edit">
-				<menu-item image="resources/engine/images/folder.png" text="Cut" shortcut="ctrl + F4" id="menu_edit_cut" />
+				<menu-item image="resources/a-gui/images/folder.png" text="Cut" shortcut="ctrl + F4" id="menu_edit_cut" />
 				<menu-item text="Copy" id="menu_edit_copy" />
 				<menu-item text="Paste" id="menu_edit_paste" />
 				<menu-item text="Delete" id="menu_edit_delete" />
@@ -24,7 +24,7 @@
 		<space height="10"/>
 		<tabs width="100%" height="*">
 			<tabs-header>
-				<tab id="tab1" image="resources/engine/images/folder.png" text="Radio+Checkbox" closeable="true"/>
+				<tab id="tab1" image="resources/a-gui/images/folder.png" text="Radio+Checkbox" closeable="true"/>
 				<tab id="tab2" text="Selectbox" closeable="true" />
 				<tab id="tab3" text="Buttons" closeable="true"/>
 				<tab id="tab4" text="Dropdown" />
@@ -66,40 +66,40 @@
 						
 							<selectbox name="select">
 								<scrollarea id="sasb" width="100%" height="200">
-									<selectbox-parent-option image="resources/engine/images/folder.png" text="Option A,B,C,D" value="1">
-										<selectbox-option image="resources/engine/images/folder.png" text="Option A" value="1.1" />
-										<selectbox-option image="resources/engine/images/folder.png" text="Option B" value="1.2" disabled="true" />
-										<selectbox-option image="resources/engine/images/folder.png" text="Option C" value="1.3" />
-										<selectbox-option image="resources/engine/images/folder.png" text="Option D" value="1.4" />
+									<selectbox-parent-option image="resources/a-gui/images/folder.png" text="Option A,B,C,D" value="1">
+										<selectbox-option image="resources/a-gui/images/folder.png" text="Option A" value="1.1" />
+										<selectbox-option image="resources/a-gui/images/folder.png" text="Option B" value="1.2" disabled="true" />
+										<selectbox-option image="resources/a-gui/images/folder.png" text="Option C" value="1.3" />
+										<selectbox-option image="resources/a-gui/images/folder.png" text="Option D" value="1.4" />
 									</selectbox-parent-option>
-									<selectbox-parent-option image="resources/engine/images/folder.png" text="Option F,G,H,I" value="2">
-										<selectbox-option image="resources/engine/images/folder.png" text="Option F" value="2.1" />
-										<selectbox-option image="resources/engine/images/folder.png" text="Option G" value="2.2" />
-										<selectbox-option image="resources/engine/images/folder.png" text="Option H" value="2.3" />
-										<selectbox-option image="resources/engine/images/folder.png" text="Option I" value="2.4" />
+									<selectbox-parent-option image="resources/a-gui/images/folder.png" text="Option F,G,H,I" value="2">
+										<selectbox-option image="resources/a-gui/images/folder.png" text="Option F" value="2.1" />
+										<selectbox-option image="resources/a-gui/images/folder.png" text="Option G" value="2.2" />
+										<selectbox-option image="resources/a-gui/images/folder.png" text="Option H" value="2.3" />
+										<selectbox-option image="resources/a-gui/images/folder.png" text="Option I" value="2.4" />
 									</selectbox-parent-option>
-									<selectbox-parent-option image="resources/engine/images/folder.png" text="Option J,K,L,M,N,O,P,Q" value="3">
-										<selectbox-option image="resources/engine/images/folder.png" text="Option J" value="3.1" />
-										<selectbox-option image="resources/engine/images/folder.png" text="Option K" value="3.2" />
-										<selectbox-option image="resources/engine/images/folder.png" text="Option L" value="3.3" />
-										<selectbox-option image="resources/engine/images/folder.png" text="Option M" value="3.4" />
-										<selectbox-parent-option image="resources/engine/images/folder.png" text="Option N,O,P,Q" value="3.5">
-											<selectbox-option image="resources/engine/images/folder.png" text="Option N" value="3.5.1" />
-											<selectbox-option image="resources/engine/images/folder.png" text="Option O" value="3.5.2" />
-											<selectbox-option image="resources/engine/images/folder.png" text="Option P" value="3.5.3" />
-											<selectbox-option image="resources/engine/images/folder.png" text="Option Q" value="3.5.4" />
-											<selectbox-parent-option image="resources/engine/images/folder.png" text="Option XXX" value="3.6">
-												<selectbox-option image="resources/engine/images/folder.png" text="Option XX" value="3.6.1" />
-												<selectbox-option image="resources/engine/images/folder.png" text="Option XY" value="3.6.2" />
-												<selectbox-option image="resources/engine/images/folder.png" text="Option XZ" value="3.6.3" />
-												<selectbox-option image="resources/engine/images/folder.png" text="Option YX" value="3.6.4" />
+									<selectbox-parent-option image="resources/a-gui/images/folder.png" text="Option J,K,L,M,N,O,P,Q" value="3">
+										<selectbox-option image="resources/a-gui/images/folder.png" text="Option J" value="3.1" />
+										<selectbox-option image="resources/a-gui/images/folder.png" text="Option K" value="3.2" />
+										<selectbox-option image="resources/a-gui/images/folder.png" text="Option L" value="3.3" />
+										<selectbox-option image="resources/a-gui/images/folder.png" text="Option M" value="3.4" />
+										<selectbox-parent-option image="resources/a-gui/images/folder.png" text="Option N,O,P,Q" value="3.5">
+											<selectbox-option image="resources/a-gui/images/folder.png" text="Option N" value="3.5.1" />
+											<selectbox-option image="resources/a-gui/images/folder.png" text="Option O" value="3.5.2" />
+											<selectbox-option image="resources/a-gui/images/folder.png" text="Option P" value="3.5.3" />
+											<selectbox-option image="resources/a-gui/images/folder.png" text="Option Q" value="3.5.4" />
+											<selectbox-parent-option image="resources/a-gui/images/folder.png" text="Option XXX" value="3.6">
+												<selectbox-option image="resources/a-gui/images/folder.png" text="Option XX" value="3.6.1" />
+												<selectbox-option image="resources/a-gui/images/folder.png" text="Option XY" value="3.6.2" />
+												<selectbox-option image="resources/a-gui/images/folder.png" text="Option XZ" value="3.6.3" />
+												<selectbox-option image="resources/a-gui/images/folder.png" text="Option YX" value="3.6.4" />
 											</selectbox-parent-option>
 										</selectbox-parent-option>
 									</selectbox-parent-option>
-									<selectbox-option image="resources/engine/images/folder.png" text="Option R" value="4" />
-									<selectbox-option image="resources/engine/images/folder.png" text="Option S" value="5" />
-									<selectbox-option image="resources/engine/images/folder.png" text="Option T" value="6" />
-									<selectbox-option image="resources/engine/images/folder.png" text="Option U" value="7" />
+									<selectbox-option image="resources/a-gui/images/folder.png" text="Option R" value="4" />
+									<selectbox-option image="resources/a-gui/images/folder.png" text="Option S" value="5" />
+									<selectbox-option image="resources/a-gui/images/folder.png" text="Option T" value="6" />
+									<selectbox-option image="resources/a-gui/images/folder.png" text="Option U" value="7" />
 								</scrollarea>
 							</selectbox>
 
@@ -107,7 +107,7 @@
 
 							<selectbox name="select-multiple" options="multiple">
 								<scrollarea id="sasb-multiple" width="100%" height="200">
-									<selectbox-parent-option image="resources/engine/images/folder.png" text="Option A,B,C,D" value="1">
+									<selectbox-parent-option image="resources/a-gui/images/folder.png" text="Option A,B,C,D" value="1">
 										<selectbox-option text="Option A" value="1.1" />
 										<selectbox-option text="Option B" value="1.2" />
 										<selectbox-option text="Option C" value="1.3" />
@@ -151,29 +151,29 @@
 						<space height="*" />
 						<button id="test_text_button" width="150" height="40" name="button" text="Active Button" />
 						<space height="*" />
-						<button id="test_text_button2" width="150" height="40" name="button2" image="resources/engine/images/folder.png" text="Icon Button" />
+						<button id="test_text_button2" width="150" height="40" name="button2" image="resources/a-gui/images/folder.png" text="Icon Button" />
 						<space height="*" />
 						<button id="test_text_button3" width="150" height="40" name="button3" text="Disabled Button" disabled="true"/>
 						<space height="*" />
-						<button id="test_text_button4" name="button4" image="resources/engine/images/folder.png" />
+						<button id="test_text_button4" name="button4" image="resources/a-gui/images/folder.png" />
 						<space height="*" />						
 						<element horizontal-align="center" vertical-align="center">
-							<image hide-on="mouseover,click" src="resources/tests/screens/images/button_normal.png" horizontal-align="center" vertical-align="center" />
-							<image show-on="mouseover" src="resources/tests/screens/images/button_mouseover.png" horizontal-align="center" vertical-align="center" />
-							<image show-on="click" src="resources/tests/screens/images/button_click.png" horizontal-align="center" vertical-align="center" />
+							<image hide-on="mouseover,click" src="resources/a-gui/tests/screens/images/button_normal.png" horizontal-align="center" vertical-align="center" />
+							<image show-on="mouseover" src="resources/a-gui/tests/screens/images/button_mouseover.png" horizontal-align="center" vertical-align="center" />
+							<image show-on="click" src="resources/a-gui/tests/screens/images/button_click.png" horizontal-align="center" vertical-align="center" />
 							<text font="{$font.default}" size="{$fontsize.default}" text="ImageBtn!" color="{$color.font_highlight}" horizontal-align="center" vertical-align="center" />
 						</element>
 						<space height="*" />
 						<image-button
 							id="image-button"
 							name="image-button"
-							src-normal="resources/tests/screens/images/button_normal.png"
-							src-over="resources/tests/screens/images/button_mouseover.png"
-							src-clicked="resources/tests/screens/images/button_click.png"
-							src-disabled="resources/tests/screens/images/button_normal.png"
+							src-normal="resources/a-gui/tests/screens/images/button_normal.png"
+							src-over="resources/a-gui/tests/screens/images/button_mouseover.png"
+							src-clicked="resources/a-gui/tests/screens/images/button_click.png"
+							src-disabled="resources/a-gui/tests/screens/images/button_normal.png"
 						/>
 						<space height="*" />
-						<image src="resources/tests/screens/images/button_normal.png" horizontal-align="center" vertical-align="center" rotation="45" />
+						<image src="resources/a-gui/tests/screens/images/button_normal.png" horizontal-align="center" vertical-align="center" rotation="45" />
 						<space height="*" />
 					</layout>
 				</tab-content>
@@ -233,7 +233,7 @@
 				</tab-content>
 				<tab-content tab-id="tab5" vertical-align="top">
 					<layout padding="10" horizontal-align="center" vertical-align="center" alignment="none" width="100%" height="auto">
-						<input width="100%" height="auto" hint="Search" image="resources/engine/images/search.png" text="0.0" unit="m" options="type=float,min=-10.0,max=10.0,step=0.1,decimals=1" />
+						<input width="100%" height="auto" hint="Search" image="resources/a-gui/images/search.png" text="0.0" unit="m" options="type=float,min=-10.0,max=10.0,step=0.1,decimals=1" />
 					</layout>
 				</tab-content>
 				<tab-content tab-id="tab6" horizontal-align="center" vertical-align="center">
@@ -252,7 +252,7 @@
 						<space width="25" />
 						<knob name="knob-test" id="knob-test" value="0.5" on-change="progressbar-test.value=knob-test.value;sliderh-test.value=progressbar-test.value;sliderv-test.value=progressbar-test.value;knob-test.value=progressbar-test.value;masktest.maskmaxvalue=progressbar-test.value" />
 						<space width="25" />
-						<image id="masktest" src="resources/tests/screens/images/mask-example-fill.png" width="50" height="50" mask="resources/tests/screens/images/mask-example-mask.png" mask-max-value="0.4" />
+						<image id="masktest" src="resources/a-gui/tests/screens/images/mask-example-fill.png" width="50" height="50" mask="resources/a-gui/tests/screens/images/mask-example-mask.png" mask-max-value="0.4" />
 					</layout>
 				</tab-content>
 				<tab-content tab-id="tab8" vertical-align="top">
@@ -261,7 +261,7 @@
 						<image 
 							width="40%" 
 							height="15" 
-							src="resources/tests/screens/images/hr.png" 
+							src="resources/a-gui/tests/screens/images/hr.png" 
 							horizontal-align="center" 
 							vertical-align="center"
 							scale9-left="500"
@@ -278,7 +278,7 @@
 						<image 
 							width="50%" 
 							height="25%" 
-							src="resources/tests/screens/images/scale9GridTest.png" 
+							src="resources/a-gui/tests/screens/images/scale9GridTest.png" 
 							horizontal-align="center" 
 							vertical-align="center"
 							scale9="125" 
@@ -288,9 +288,9 @@
 				</tab-content>
 				<tab-content tab-id="tab9" vertical-align="top">
 					<layout width="100%" height="100%" alignment="vertical" horizontal-align="center" vertical-align="center">
-						<template src="resources/tests/screens/template.xml" my-text="Hello this is the first template parameter" />
+						<template src="resources/a-gui/tests/screens/template.xml" my-text="Hello this is the first template parameter" />
 						<space height="10" />
-						<template src="resources/tests/screens/template.xml" my-text="Hello this is the second template parameter">
+						<template src="resources/a-gui/tests/screens/template.xml" my-text="Hello this is the second template parameter">
 							<text font="{$font.default}" size="{$fontsize.default}" text="In this case I have something additional to tell!" color="#000000" />
 						</template>
 					</layout>
@@ -366,7 +366,7 @@
 				</tab-content>
 				<tab-content tab-id="tab12" vertical-align="center" horizontal-align="center">
 					<context-menu>
-						<context-menu-item image="resources/engine/images/folder.png" text="Cut" shortcut="ctrl + F4" />
+						<context-menu-item image="resources/a-gui/images/folder.png" text="Cut" shortcut="ctrl + F4" />
 						<context-menu-item text="Copy" />
 						<context-menu-item text="Paste" />
 						<context-menu-item text="Delete" />
@@ -374,16 +374,16 @@
 				</tab-content>
 				<tab-content tab-id="tab13" vertical-align="center">
 					<grid id="test_grid" width="180" height="400" options="multiple,horizontal-items=2">
-						<grid-item text="Item 1" image="resources/engine/images/folder_big.png" size="60" />
-						<grid-item text="Item 2" image="resources/engine/images/folder_big.png" size="60" />
-						<grid-item text="Item 3" image="resources/engine/images/folder_big.png" size="60" />
-						<grid-item text="Item 4" image="resources/engine/images/folder_big.png" size="60" />
-						<grid-item text="Item 5" image="resources/engine/images/folder_big.png" size="60" />
-						<grid-item text="Item 6" image="resources/engine/images/folder_big.png" size="60" />
-						<grid-item text="Item 7" image="resources/engine/images/folder_big.png" size="60" />
-						<grid-item text="Item 8" image="resources/engine/images/folder_big.png" size="60" />
-						<grid-item text="Item 9" image="resources/engine/images/folder_big.png" size="60" />
-						<grid-item text="Item 10" image="resources/engine/images/folder_big.png" size="60" />
+						<grid-item text="Item 1" image="resources/a-gui/images/folder_big.png" size="60" />
+						<grid-item text="Item 2" image="resources/a-gui/images/folder_big.png" size="60" />
+						<grid-item text="Item 3" image="resources/a-gui/images/folder_big.png" size="60" />
+						<grid-item text="Item 4" image="resources/a-gui/images/folder_big.png" size="60" />
+						<grid-item text="Item 5" image="resources/a-gui/images/folder_big.png" size="60" />
+						<grid-item text="Item 6" image="resources/a-gui/images/folder_big.png" size="60" />
+						<grid-item text="Item 7" image="resources/a-gui/images/folder_big.png" size="60" />
+						<grid-item text="Item 8" image="resources/a-gui/images/folder_big.png" size="60" />
+						<grid-item text="Item 9" image="resources/a-gui/images/folder_big.png" size="60" />
+						<grid-item text="Item 10" image="resources/a-gui/images/folder_big.png" size="60" />
 					</grid>
 				</tab-content>			
 			</tabs-content>

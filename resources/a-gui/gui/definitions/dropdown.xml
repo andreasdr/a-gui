@@ -8,10 +8,10 @@
 				</element>
 				<element show-on="enabled" id="{$id}_arrow" width="auto" height="100%" vertical-align="center">
 					<!-- Image needs transparency and white arrow so that I can do effects on it -->
-					<image effect-color-mul="{$color.font_highlight}" hide-on="opened,mouseover" src="resources/engine/images/arrow_down.png" vertical-align="center" />
-					<image effect-color-mul="{$color.font_normal}" hide-on="opened" src="resources/engine/images/arrow_down.png" vertical-align="center" />
-					<image effect-color-mul="{$color.font_highlight}" hide-on="closed,mouseover" src="resources/engine/images/arrow_up.png" vertical-align="center" />
-					<image effect-color-mul="{$color.font_normal}" hide-on="closed" src="resources/engine/images/arrow_up.png" vertical-align="center" />
+					<image effect-color-mul="{$color.font_highlight}" hide-on="opened,mouseover" src="resources/a-gui/images/arrow_down.png" vertical-align="center" />
+					<image effect-color-mul="{$color.font_normal}" hide-on="opened" src="resources/a-gui/images/arrow_down.png" vertical-align="center" />
+					<image effect-color-mul="{$color.font_highlight}" hide-on="closed,mouseover" src="resources/a-gui/images/arrow_up.png" vertical-align="center" />
+					<image effect-color-mul="{$color.font_normal}" hide-on="closed" src="resources/a-gui/images/arrow_up.png" vertical-align="center" />
 				</element>
 			</layout>
 			<layout id="{$id}_inner" padding="{$padding}" border-left="1" border-right="1" border-bottom="1" border-color="{$color.focus}" width="100%" height="auto" alignment="vertical" show-on="opened" flow="floating" background-color="{$color.element_midground}">

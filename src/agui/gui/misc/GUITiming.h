@@ -13,7 +13,7 @@ using std::array;
  */
 class agui::gui::misc::GUITiming final
 {
-	friend class Engine;
+	friend class GUI;
 
 public:
 	static constexpr int64_t UNDEFINED { -1LL };
@@ -28,15 +28,10 @@ private:
 	array<float, 60 * 3> avarageFPSSequence;
 	int avarageFPSIndex { 0 };
 
-	/**
-	 * Updates timing
-	 */
-	void updateTiming();
-
+public:
 	// forbid class copy
 	FORBID_CLASS_COPY(GUITiming)
 
-public:
 	/**
 	 * Public constructor
 	 */
@@ -110,4 +105,8 @@ public:
 		return avarageFPS;
 	}
 
+	/**
+	 * Updates timing
+	 */
+	void update();
 };
