@@ -7,7 +7,7 @@
 
 ![LOGO](https://raw.githubusercontent.com/andreasdr/a-gui/main/resources/github/agui-logo.png)
   
-This is the home of A-GUI - A game graphical user interface developed in C++. 
+This is the home of A-GUI - C++ based graphical user interface for games
 
 This document and repository is WIP. Expect a BETA release around 2025-03-01.
 See section 3. for BETA release TODO list.
