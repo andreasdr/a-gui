@@ -11,12 +11,19 @@
 
 using std::vector;
 
-using agui::gui::events::GUIKeyboardEvent;
-using agui::gui::events::GUIMouseEvent;
-using agui::gui::nodes::GUIElementController;
-using agui::gui::nodes::GUIElementNode;
-using agui::gui::nodes::GUINode;
-using agui::utilities::MutableString;
+// namespaces
+namespace agui {
+namespace gui {
+namespace elements {
+	using ::agui::gui::events::GUIKeyboardEvent;
+	using ::agui::gui::events::GUIMouseEvent;
+	using ::agui::gui::nodes::GUIElementController;
+	using ::agui::gui::nodes::GUIElementNode;
+	using ::agui::gui::nodes::GUINode;
+	using ::agui::utilities::MutableString;
+}
+}
+}
 
 /**
  * GUI tabs header controller

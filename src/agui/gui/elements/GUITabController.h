@@ -13,12 +13,19 @@
 
 using std::string;
 
-using agui::gui::events::GUIKeyboardEvent;
-using agui::gui::events::GUIMouseEvent;
-using agui::gui::nodes::GUIColor;
-using agui::gui::nodes::GUIElementController;
-using agui::gui::nodes::GUINode;
-using agui::utilities::MutableString;
+// namespaces
+namespace agui {
+namespace gui {
+namespace elements {
+	using ::agui::gui::events::GUIKeyboardEvent;
+	using ::agui::gui::events::GUIMouseEvent;
+	using ::agui::gui::nodes::GUIColor;
+	using ::agui::gui::nodes::GUIElementController;
+	using ::agui::gui::nodes::GUINode;
+	using ::agui::utilities::MutableString;
+}
+}
+}
 
 /**
  * GUI tab controller

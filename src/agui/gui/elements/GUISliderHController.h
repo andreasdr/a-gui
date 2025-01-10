@@ -7,12 +7,19 @@
 #include <agui/gui/nodes/GUIElementController.h>
 #include <agui/utilities/MutableString.h>
 
-using agui::gui::events::GUIKeyboardEvent;
-using agui::gui::events::GUIMouseEvent;
-using agui::gui::nodes::GUIElementController;
-using agui::gui::nodes::GUINode;
-using agui::gui::nodes::GUIParentNode;
-using agui::utilities::MutableString;
+// namespaces
+namespace agui {
+namespace gui {
+namespace elements {
+	using ::agui::gui::events::GUIKeyboardEvent;
+	using ::agui::gui::events::GUIMouseEvent;
+	using ::agui::gui::nodes::GUIElementController;
+	using ::agui::gui::nodes::GUINode;
+	using ::agui::gui::nodes::GUIParentNode;
+	using ::agui::utilities::MutableString;
+}
+}
+}
 
 /**
  * GUI horizontal slider controller

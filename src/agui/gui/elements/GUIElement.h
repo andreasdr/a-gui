@@ -11,9 +11,16 @@
 using std::string;
 using std::unordered_map;
 
-using agui::gui::nodes::GUINode;
-using agui::gui::nodes::GUINodeController;
-using agui::gui::nodes::GUIScreenNode;
+// namespaces
+namespace agui {
+namespace gui {
+namespace elements {
+	using ::agui::gui::nodes::GUINode;
+	using ::agui::gui::nodes::GUINodeController;
+	using ::agui::gui::nodes::GUIScreenNode;
+}
+}
+}
 
 /**
  * GUI element base class

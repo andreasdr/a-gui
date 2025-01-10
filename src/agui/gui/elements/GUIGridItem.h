@@ -13,11 +13,18 @@
 using std::string;
 using std::unordered_map;
 
-using agui::gui::elements::GUIElement;
-using agui::gui::nodes::GUINode;
-using agui::gui::nodes::GUINodeController;
-using agui::gui::nodes::GUIScreenNode;
-using agui::os::filesystem::FileSystemException;
+// namespaces
+namespace agui {
+namespace gui {
+namespace elements {
+	using ::agui::gui::elements::GUIElement;
+	using ::agui::gui::nodes::GUINode;
+	using ::agui::gui::nodes::GUINodeController;
+	using ::agui::gui::nodes::GUIScreenNode;
+	using ::agui::os::filesystem::FileSystemException;
+}
+}
+}
 
 /**
  * GUI grid item element

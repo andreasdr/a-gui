@@ -11,14 +11,21 @@
 
 using std::string;
 
-using agui::gui::elements::GUIGridController;
-using agui::gui::elements::GUIGridItem;
-using agui::gui::events::GUIKeyboardEvent;
-using agui::gui::events::GUIMouseEvent;
-using agui::gui::nodes::GUIElementController;
-using agui::gui::nodes::GUINode;
-using agui::gui::nodes::GUIParentNode;
-using agui::utilities::MutableString;
+// namespaces
+namespace agui {
+namespace gui {
+namespace elements {
+	using ::agui::gui::elements::GUIGridController;
+	using ::agui::gui::elements::GUIGridItem;
+	using ::agui::gui::events::GUIKeyboardEvent;
+	using ::agui::gui::events::GUIMouseEvent;
+	using ::agui::gui::nodes::GUIElementController;
+	using ::agui::gui::nodes::GUINode;
+	using ::agui::gui::nodes::GUIParentNode;
+	using ::agui::utilities::MutableString;
+}
+}
+}
 
 /**
  * GUI grid item controller

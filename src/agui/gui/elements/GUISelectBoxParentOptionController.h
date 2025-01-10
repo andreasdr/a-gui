@@ -13,10 +13,17 @@ using std::string;
 
 using std::unique_ptr;
 
-using agui::gui::events::GUIActionListener;
-using agui::gui::nodes::GUIElementNode;
-using agui::gui::nodes::GUIParentNode;
-using agui::utilities::MutableString;
+// namespaces
+namespace agui {
+namespace gui {
+namespace elements {
+	using ::agui::gui::events::GUIActionListener;
+	using ::agui::gui::nodes::GUIElementNode;
+	using ::agui::gui::nodes::GUIParentNode;
+	using ::agui::utilities::MutableString;
+}
+}
+}
 
 /**
  * GUI select box parent option controller

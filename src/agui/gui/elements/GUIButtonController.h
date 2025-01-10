@@ -5,8 +5,15 @@
 #include <agui/gui/nodes/fwd-agui.h>
 #include <agui/gui/nodes/GUIElementController.h>
 
-using agui::gui::nodes::GUIElementController;
-using agui::gui::nodes::GUINode;
+// namespaces
+namespace agui {
+namespace gui {
+namespace elements {
+	using ::agui::gui::nodes::GUIElementController;
+	using ::agui::gui::nodes::GUINode;
+}
+}
+}
 
 /**
  * GUI button controller

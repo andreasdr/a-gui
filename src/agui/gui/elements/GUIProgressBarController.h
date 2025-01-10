@@ -7,12 +7,19 @@
 #include <agui/gui/nodes/GUIElementController.h>
 #include <agui/utilities/MutableString.h>
 
-using agui::gui::events::GUIKeyboardEvent;
-using agui::gui::events::GUIMouseEvent;
-using agui::gui::nodes::GUIElementController;
-using agui::gui::nodes::GUIImageNode;
-using agui::gui::nodes::GUITextNode;
-using agui::utilities::MutableString;
+// namespaces
+namespace agui {
+namespace gui {
+namespace elements {
+	using ::agui::gui::events::GUIKeyboardEvent;
+	using ::agui::gui::events::GUIMouseEvent;
+	using ::agui::gui::nodes::GUIElementController;
+	using ::agui::gui::nodes::GUIImageNode;
+	using ::agui::gui::nodes::GUITextNode;
+	using ::agui::utilities::MutableString;
+}
+}
+}
 
 /**
  * GUI progress bar controller

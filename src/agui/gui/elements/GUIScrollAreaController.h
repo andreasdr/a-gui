@@ -11,12 +11,19 @@
 
 using std::unique_ptr;
 
-using agui::gui::events::GUIActionListener;
-using agui::gui::events::GUIKeyboardEvent;
-using agui::gui::events::GUIMouseEvent;
-using agui::gui::nodes::GUINode;
-using agui::gui::nodes::GUINodeController;
-using agui::utilities::MutableString;
+// namespaces
+namespace agui {
+namespace gui {
+namespace elements {
+	using ::agui::gui::events::GUIActionListener;
+	using ::agui::gui::events::GUIKeyboardEvent;
+	using ::agui::gui::events::GUIMouseEvent;
+	using ::agui::gui::nodes::GUINode;
+	using ::agui::gui::nodes::GUINodeController;
+	using ::agui::utilities::MutableString;
+}
+}
+}
 
 /**
  * GUI scroll area controller
