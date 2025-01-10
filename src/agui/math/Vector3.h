@@ -9,8 +9,12 @@
 
 using std::array;
 
-using agui::math::Math;
-using agui::utilities::Float;
+// namespaces
+namespace agui {
+namespace math {
+	using ::agui::utilities::Float;
+}
+}
 
 /**
  * Vector3 class representing vector3 mathematical structure and operations with x, y, z components

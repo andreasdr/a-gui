@@ -10,11 +10,6 @@
 
 using std::array;
 
-using agui::math::Math;
-using agui::math::Matrix4x4;
-using agui::math::Vector3;
-using agui::math::Vector4;
-
 /**
  * Matrix4x4 class representing matrix4x4 mathematical structure and operations for 3d space
  * @author Andreas Drewke, Song Ho Ahn <song.ahn@gmail.com>

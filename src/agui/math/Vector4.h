@@ -10,10 +10,6 @@
 
 using std::array;
 
-using agui::math::Math;
-using agui::math::Vector3;
-using agui::utilities::Float;
-
 /**
  * Vector4 class representing vector4 mathematical structure and operations with x, y, z, w components
  * @author Andreas Drewke

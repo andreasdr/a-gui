@@ -5,12 +5,8 @@
 #include <agui/agui.h>
 #include <agui/math/fwd-agui.h>
 #include <agui/math/Math.h>
-#include <agui/utilities/Float.h>
 
 using std::array;
-
-using agui::math::Math;
-using agui::utilities::Float;
 
 /**
  * Vector2 class representing vector2 mathematical structure and operations with x, y components

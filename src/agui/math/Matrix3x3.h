@@ -9,9 +9,6 @@
 
 using std::array;
 
-using agui::math::Math;
-using agui::math::Vector2;
-
 /**
  * Matrix3x3 class representing matrix3x3 mathematical structure and operations for 2d space
  * @author Andreas Drewke
