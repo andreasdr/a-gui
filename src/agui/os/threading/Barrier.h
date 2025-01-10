@@ -11,9 +11,6 @@
 
 using std::string;
 
-using agui::os::threading::Condition;
-using agui::os::threading::Mutex;
-
 /**
  * Barrier implementation.
  * @author Andreas Drewke

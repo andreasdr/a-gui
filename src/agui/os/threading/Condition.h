@@ -14,8 +14,6 @@ using std::condition_variable_any;
 using std::mutex;
 using std::string;
 
-using agui::os::threading::Mutex;
-
 /**
 * Threading condition variable implementation
 * @author Andreas Drewke

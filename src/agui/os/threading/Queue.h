@@ -11,9 +11,6 @@
 
 using std::queue;
 
-using agui::os::threading::Condition;
-using agui::os::threading::Mutex;
-
 namespace agui {
 namespace os {
 namespace threading {
