@@ -4,7 +4,14 @@
 #include <agui/gui/events/fwd-agui.h>
 #include <agui/gui/nodes/fwd-agui.h>
 
-using agui::gui::nodes::GUINode;
+// namespaces
+namespace agui {
+namespace gui {
+namespace events {
+	using ::agui::gui::nodes::GUINode;
+}
+}
+}
 
 /**
  * GUI tooltip request listener

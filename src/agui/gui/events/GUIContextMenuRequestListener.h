@@ -4,7 +4,14 @@
 #include <agui/gui/events/fwd-agui.h>
 #include <agui/gui/nodes/fwd-agui.h>
 
-using agui::gui::nodes::GUIElementNode;
+// namespaces
+namespace agui {
+namespace gui {
+namespace events {
+	using ::agui::gui::nodes::GUIElementNode;
+}
+}
+}
 
 /**
  * GUI context menu request listener
