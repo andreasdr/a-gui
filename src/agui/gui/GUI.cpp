@@ -71,15 +71,20 @@ using agui::utilities::Exception;
 using agui::utilities::Properties;
 using agui::utilities::Time;
 
+static unique_ptr<GUIRenderer> renderer;
+static unique_ptr<GUITextureManager> textureManager;
+static unique_ptr<GUIVBOManager> vboManager;
+static unique_ptr<GUIShader> shader;
+
 bool GUI::disableTabFocusControl = false;
+unique_ptr<GUIRenderer> GUI::renderer;
 unique_ptr<GUITextureManager> GUI::textureManager;
 unique_ptr<GUIVBOManager> GUI::vboManager;
-unique_ptr<GUIShader> GUI::guiShader;
+unique_ptr<GUIShader> GUI::shader;
 
-GUI::GUI(GUIRenderer* renderer, int width, int height)
+GUI::GUI(int width, int height)
 {
 	this->lastMouseButton = 0;
-	this->renderer = renderer;
 	this->width = width;
 	this->height = height;
 }
@@ -89,10 +94,15 @@ GUI::~GUI() {
 
 void GUI::initialize()
 {
+	//
 	textureManager = make_unique<GUITextureManager>(Application::getRenderer());
 	vboManager = make_unique<GUIVBOManager>(Application::getRenderer());
-	guiShader = make_unique<GUIShader>(Application::getRenderer());
-	guiShader->initialize();
+	//
+	shader = make_unique<GUIShader>(Application::getRenderer());
+	shader->initialize();
+	//
+	renderer = make_unique<GUIRenderer>(Application::getRenderer());
+	renderer->initialize();
 }
 
 void GUI::reshape(int width, int height)
@@ -108,8 +118,12 @@ void GUI::dispose()
 {
 	reset();
 	//
+	renderer->dispose();
+	//
+	shader = nullptr;
 	textureManager = nullptr;
 	vboManager = nullptr;
+	renderer = nullptr;
 }
 
 void GUI::addScreen(const string& id, GUIScreenNode* screen)
@@ -359,6 +373,11 @@ void GUI::render()
 
 	//
 	Application::getRenderer()->initGuiMode();
+	Application::getRenderer()->setViewPort(width, height);
+	Application::getRenderer()->updateViewPort();
+
+	//
+	shader->useProgram();
 	//
 	renderer->setGUI(this);
 	renderer->initRendering();
@@ -368,10 +387,12 @@ void GUI::render()
 		if (screen->isEnabled() == false) continue;
 
 		//
-		screen->render(renderer);
-		screen->renderFloatingNodes(renderer);
+		screen->render(renderer.get());
+		screen->renderFloatingNodes(renderer.get());
 	}
 	renderer->doneRendering();
+	//
+	shader->unUseProgram();
 	//
 	Application::getRenderer()->doneGuiMode();
 }

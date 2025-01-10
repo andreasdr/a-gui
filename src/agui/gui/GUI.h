@@ -81,11 +81,11 @@ class agui::gui::GUI final: public virtual InputEventHandler
 private:
 	STATIC_DLL_IMPEXT static bool disableTabFocusControl;
 
+	static unique_ptr<GUIRenderer> renderer;
 	static unique_ptr<GUITextureManager> textureManager;
 	static unique_ptr<GUIVBOManager> vboManager;
-	static unique_ptr<GUIShader> guiShader;
+	static unique_ptr<GUIShader> shader;
 
-	GUIRenderer* renderer { nullptr };
 	GUITiming timing;
 	unordered_map<string, GUIScreenNode*> screens;
 	vector<GUIElementNode*> focusableNodes;
@@ -173,10 +173,10 @@ public:
 	}
 
 	/**
-	 * @return VBO manager
+	 * @return renderer
 	 */
-	static inline GUIVBOManager* getVBOManager() {
-		return vboManager.get();
+	static inline GUIRenderer* getRenderer() {
+		return renderer.get();
 	}
 
 	/**
@@ -187,10 +187,17 @@ public:
 	}
 
 	/**
+	 * @return VBO manager
+	 */
+	static inline GUIVBOManager* getVBOManager() {
+		return vboManager.get();
+	}
+
+	/**
 	 * @return GUI shader
 	 */
-	static inline GUIShader* getGUIShader() {
-		return guiShader.get();
+	static inline GUIShader* getShader() {
+		return shader.get();
 	}
 
 	// forbid class copy
@@ -198,23 +205,15 @@ public:
 
 	/**
 	 * Public constructor
-	 * @param renderer renderer
 	 * @param width width
 	 * @param height height
 	 */
-	GUI(GUIRenderer* renderer, int width, int height);
+	GUI(int width, int height);
 
 	/**
 	 * Destructor
 	 */
 	~GUI();
-
-	/**
-	 * @return renderer
-	 */
-	inline GUIRenderer* getRenderer() {
-		return renderer;
-	}
 
 	/**
 	 * @return timing

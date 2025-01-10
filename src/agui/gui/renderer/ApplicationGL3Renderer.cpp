@@ -71,15 +71,15 @@ bool ApplicationGL3Renderer::initializeWindowSystemRendererContext(GLFWwindow* g
 
 void ApplicationGL3Renderer::onBindTexture(int contextIdx, int32_t textureId)
 {
-	GUI::getGUIShader()->bindTexture(textureId);
+	GUI::getShader()->bindTexture(textureId);
 }
 
 void ApplicationGL3Renderer::onUpdateTextureMatrix(int contextIdx)
 {
-	GUI::getGUIShader()->updateTextureMatrix();
+	GUI::getShader()->updateTextureMatrix();
 }
 
 void ApplicationGL3Renderer::onUpdateEffect(int contextIdx)
 {
-	GUI::getGUIShader()->updateEffect();
+	GUI::getShader()->updateEffect();
 }
