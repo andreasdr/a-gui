@@ -14,8 +14,15 @@ using std::string;
 using std::unordered_map;
 using std::vector;
 
-using agui::gui::renderer::Renderer;
-using agui::os::threading::ReadWriteLock;
+// namespaces
+namespace agui {
+namespace gui {
+namespace vbos {
+	using ::agui::gui::renderer::Renderer;
+	using ::agui::os::threading::ReadWriteLock;
+}
+}
+}
 
 /**
  * VBO manager
