@@ -3,7 +3,7 @@
 #include <array>
 
 #include <agui/agui.h>
-#include <agui/gui/renderer/Renderer.h>
+#include <agui/gui/renderer/GUIRendererBackend.h>
 
 #include <agui/gui/nodes/GUIColor.h>
 #include <agui/math/Math.h>
@@ -14,13 +14,13 @@ using agui::gui::renderer::GUIShader;
 
 using std::array;
 
-using agui::gui::renderer::Renderer;
+using agui::gui::renderer::GUIRendererBackend;
 using agui::gui::nodes::GUIColor;
 using agui::math::Math;
 using agui::math::Matrix3x3;
 using agui::utilities::Console;
 
-GUIShader::GUIShader(Renderer* renderer)
+GUIShader::GUIShader(GUIRendererBackend* renderer)
 {
 	this->renderer = renderer;
 	initialized = false;

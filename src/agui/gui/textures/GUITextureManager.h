@@ -5,7 +5,7 @@
 
 #include <agui/agui.h>
 #include <agui/gui/textures/GUITexture.h>
-#include <agui/gui/renderer/Renderer.h>
+#include <agui/gui/renderer/GUIRendererBackend.h>
 #include <agui/os/threading/Mutex.h>
 
 using std::string;
@@ -15,7 +15,7 @@ using std::unordered_map;
 namespace agui {
 namespace gui {
 namespace textures {
-	using ::agui::gui::renderer::Renderer;
+	using ::agui::gui::renderer::GUIRendererBackend;
 	using ::agui::os::threading::Mutex;
 }
 }
@@ -110,7 +110,7 @@ public:
 	};
 
 private:
-	Renderer* renderer { nullptr };
+	GUIRendererBackend* renderer { nullptr };
 	unordered_map<string, GUIManagedTexture*> textures;
 	Mutex mutex;
 
@@ -122,7 +122,7 @@ public:
 	 * Public constructor
 	 * @param renderer renderer
 	 */
-	GUITextureManager(Renderer* renderer);
+	GUITextureManager(GUIRendererBackend* renderer);
 
 	/**
 	 * Destructor

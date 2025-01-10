@@ -19,7 +19,7 @@
 #include <vector>
 
 #include <agui/agui.h>
-#include <agui/gui/renderer/Renderer.h>
+#include <agui/gui/renderer/GUIRendererBackend.h>
 #include <agui/gui/textures/GUITexture.h>
 #include <agui/math/Math.h>
 #include <agui/math/Matrix4x4.h>
@@ -42,7 +42,7 @@ using std::vector;
 
 using agui::gui::renderer::GL3Renderer;
 
-using agui::gui::renderer::Renderer;
+using agui::gui::renderer::GUIRendererBackend;
 using agui::gui::textures::GUITexture;
 using agui::math::Math;
 using agui::math::Matrix4x4;
@@ -672,7 +672,7 @@ void GL3Renderer::setVSync(bool vSync) {
 	// no op
 }
 
-const Renderer::Renderer_Statistics GL3Renderer::getStatistics() {
+const GUIRendererBackend::Renderer_Statistics GL3Renderer::getStatistics() {
 	auto stats = statistics;
 	statistics.time = Time::getCurrentMillis();
 	statistics.memoryUsageGPU = -1LL;

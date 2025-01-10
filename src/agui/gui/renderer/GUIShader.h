@@ -26,7 +26,7 @@ class agui::gui::renderer::GUIShader final
 {
 
 private:
-	Renderer* renderer { nullptr };
+	GUIRendererBackend* renderer { nullptr };
 	int32_t vertexShaderId { -1 };
 	int32_t fragmentShaderId { -1 };
 	int32_t programId { -1 };
@@ -54,7 +54,7 @@ public:
 	 * Public constructor
 	 * @param renderer renderer
 	 */
-	GUIShader(Renderer* renderer);
+	GUIShader(GUIRendererBackend* renderer);
 
 	/**
 	 * @return if initialized and ready to use

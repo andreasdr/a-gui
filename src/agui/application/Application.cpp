@@ -42,7 +42,7 @@
 #include <agui/gui/textures/GUITexture.h>
 #include <agui/gui/fileio/TextureReader.h>
 #include <agui/gui/renderer/ApplicationGL3Renderer.h>
-#include <agui/gui/renderer/Renderer.h>
+#include <agui/gui/renderer/GUIRendererBackend.h>
 #include <agui/os/filesystem/FileSystem.h>
 #include <agui/os/filesystem/FileSystemInterface.h>
 #include <agui/os/threading/Thread.h>
@@ -57,6 +57,8 @@
 #include <agui/utilities/Time.h>
 
 using std::array;
+using std::make_unique;
+using std::unique_ptr;
 using std::shared_ptr;
 using std::string;
 using std::to_string;
@@ -67,7 +69,7 @@ using agui::audio::Audio;
 using agui::gui::textures::GUITexture;
 using agui::gui::fileio::TextureReader;
 using agui::gui::renderer::ApplicationGL3Renderer;
-using agui::gui::renderer::Renderer;
+using agui::gui::renderer::GUIRendererBackend;
 using agui::os::filesystem::FileSystem;
 using agui::os::filesystem::FileSystemInterface;
 using agui::os::threading::Thread;
@@ -81,8 +83,8 @@ using agui::utilities::StringTokenizer;
 using agui::utilities::StringTools;
 using agui::utilities::Time;
 
-Renderer* Application::renderer = nullptr;
-Application* Application::application = nullptr;
+unique_ptr<GUIRendererBackend> Application::renderer = nullptr;
+unique_ptr<Application> Application::application = nullptr;
 InputEventHandler* Application::inputEventHandler = nullptr;
 int64_t Application::timeLast = -1L;
 bool Application::limitFPS = true;
@@ -341,7 +343,7 @@ void Application::exit(int exitCode) {
 #endif
 
 Application::Application() {
-	Application::application = this;
+	Application::application = unique_ptr<Application>(this);
 	installExceptionHandler();
 }
 
@@ -567,7 +569,7 @@ int Application::run(int argc, char** argv, const string& title, InputEventHandl
 	}
 
 	// renderer
-	renderer = new ApplicationGL3Renderer();
+	renderer = make_unique<ApplicationGL3Renderer>();
 
 	// window hints
 	if ((windowHints & WINDOW_HINT_NOTRESIZEABLE) == WINDOW_HINT_NOTRESIZEABLE) glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
@@ -659,11 +661,9 @@ int Application::run(int argc, char** argv, const string& title, InputEventHandl
 		Console::printLine("Application::run(): Shutting down application");
 		Application::application->dispose();
 		Audio::shutdown();
-		delete Application::renderer;
 		Application::renderer = nullptr;
 		Console::shutdown();
 		//
-		delete Application::application;
 		Application::application = nullptr;
 	}
 	//

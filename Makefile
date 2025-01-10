@@ -226,7 +226,7 @@ SRCS = \
 	src/agui/gui/renderer/GUIRenderer.cpp \
 	src/agui/gui/renderer/GUIShader.cpp \
 	src/agui/gui/renderer/GUIShaderParameters.cpp \
-	src/agui/gui/renderer/Renderer.cpp \
+	src/agui/gui/renderer/GUIRendererBackend.cpp \
 	src/agui/gui/scripting/GUIMinitScript.cpp \
 	src/agui/gui/textures/GUITexture.cpp \
 	src/agui/gui/textures/GUITextureManager.cpp \

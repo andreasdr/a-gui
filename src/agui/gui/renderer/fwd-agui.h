@@ -9,8 +9,8 @@ namespace renderer {
 	class GUICharacter;
 	class GUIFont;
 	class GUIRenderer;
+	class GUIRendererBackend;
 	class GUIShader;
-	class Renderer;
 	class GUIShaderParameter;
 	class GUIShaderParameters;
 }  // namespace renderer

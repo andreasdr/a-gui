@@ -5,12 +5,12 @@
 #include <agui/agui.h>
 #include <agui/application/Application.h>
 #include <agui/gui/textures/GUITexture.h>
-#include <agui/gui/renderer/Renderer.h>
+#include <agui/gui/renderer/GUIRendererBackend.h>
 #include <agui/utilities/ByteBuffer.h>
 
 using agui::application::Application;
 using agui::gui::textures::GUITexture;
-using agui::gui::renderer::Renderer;
+using agui::gui::renderer::GUIRendererBackend;
 using agui::gui::misc::GUIDynamicColorTexture;
 using agui::utilities::ByteBuffer;
 

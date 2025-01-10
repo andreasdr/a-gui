@@ -1,4 +1,4 @@
-#include <agui/gui/renderer/Renderer.h>
+#include <agui/gui/renderer/GUIRendererBackend.h>
 
 #include <string>
 
@@ -11,14 +11,14 @@
 using std::string;
 using std::to_string;
 
-using agui::gui::renderer::Renderer;
+using agui::gui::renderer::GUIRendererBackend;
 
 using agui::gui::textures::GUITexture;
 using agui::math::Math;
 using agui::math::Matrix4x4;
 using agui::utilities::ByteBuffer;
 
-Renderer::Renderer()
+GUIRendererBackend::GUIRendererBackend()
 {
 	CONTEXTINDEX_DEFAULT = 0;
 	ID_NONE = -1;
@@ -36,5 +36,5 @@ Renderer::Renderer()
 	viewportMatrix.identity();
 }
 
-Renderer::~Renderer() {
+GUIRendererBackend::~GUIRendererBackend() {
 }

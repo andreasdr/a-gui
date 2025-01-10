@@ -4,7 +4,7 @@
 #include <unordered_map>
 
 #include <agui/agui.h>
-#include <agui/gui/renderer/Renderer.h>
+#include <agui/gui/renderer/GUIRendererBackend.h>
 #include <agui/gui/textures/GUITexture.h>
 #include <agui/os/threading/Mutex.h>
 #include <agui/utilities/Console.h>
@@ -12,13 +12,13 @@
 using std::string;
 using std::unordered_map;
 
-using agui::gui::renderer::Renderer;
+using agui::gui::renderer::GUIRendererBackend;
 using agui::gui::textures::GUITexture;
 using agui::gui::textures::GUITextureManager;
 using agui::os::threading::Mutex;
 using agui::utilities::Console;
 
-GUITextureManager::GUITextureManager(Renderer* renderer): mutex("texturemanager-mutex") {
+GUITextureManager::GUITextureManager(GUIRendererBackend* renderer): mutex("texturemanager-mutex") {
 	this->renderer = renderer;
 }
 

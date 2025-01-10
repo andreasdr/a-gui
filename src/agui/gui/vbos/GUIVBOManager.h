@@ -18,7 +18,7 @@ using std::vector;
 namespace agui {
 namespace gui {
 namespace vbos {
-	using ::agui::gui::renderer::Renderer;
+	using ::agui::gui::renderer::GUIRendererBackend;
 	using ::agui::os::threading::ReadWriteLock;
 }
 }
@@ -111,7 +111,7 @@ public:
 	};
 
 private:
-	Renderer* renderer { nullptr };
+	GUIRendererBackend* renderer { nullptr };
 	unordered_map<string, GUIManagedVBO*> vbos;
 	ReadWriteLock rwLock;
 
@@ -121,8 +121,9 @@ public:
 
 	/**
 	 * Public constructor
+	 * @param renderer renderer
 	 */
-	GUIVBOManager(Renderer* renderer);
+	GUIVBOManager(GUIRendererBackend* renderer);
 
 	/**
 	 * Destructor

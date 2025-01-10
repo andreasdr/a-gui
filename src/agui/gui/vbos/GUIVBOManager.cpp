@@ -4,19 +4,19 @@
 #include <unordered_map>
 
 #include <agui/agui.h>
-#include <agui/gui/renderer/Renderer.h>
+#include <agui/gui/renderer/GUIRendererBackend.h>
 #include <agui/os/threading/ReadWriteLock.h>
 #include <agui/utilities/Console.h>
 
 using std::string;
 using std::unordered_map;
 
-using agui::gui::renderer::Renderer;
+using agui::gui::renderer::GUIRendererBackend;
 using agui::gui::vbos::GUIVBOManager;
 using agui::os::threading::ReadWriteLock;
 using agui::utilities::Console;
 
-GUIVBOManager::GUIVBOManager(Renderer* renderer): rwLock("vbomanager-rwlock") {
+GUIVBOManager::GUIVBOManager(GUIRendererBackend* renderer): rwLock("vbomanager-rwlock") {
 	this->renderer = renderer;
 }
 

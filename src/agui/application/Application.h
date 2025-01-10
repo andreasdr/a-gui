@@ -15,6 +15,7 @@
 
 #include <array>
 #include <cstdlib>
+#include <memory>
 #include <string>
 #include <unordered_set>
 #include <vector>
@@ -26,14 +27,16 @@
 #include <agui/gui/renderer/fwd-agui.h>
 
 using std::array;
+using std::make_unique;
 using std::string;
+using std::unique_ptr;
 using std::unordered_set;
 using std::vector;
 
 // namespaces
 namespace agui {
 namespace application {
-	using ::agui::gui::renderer::Renderer;
+	using ::agui::gui::renderer::GUIRendererBackend;
 }
 }
 
@@ -64,8 +67,8 @@ public:
 	/**
 	 * @return renderer
 	 */
-	inline static Renderer* getRenderer() {
-		return renderer;
+	inline static GUIRendererBackend* getRenderer() {
+		return renderer.get();
 	}
 
 	/**
@@ -79,7 +82,7 @@ public:
 	 * @return application
 	 */
 	inline static Application* getApplication() {
-		return application;
+		return application.get();
 	}
 
 	/**
@@ -337,8 +340,8 @@ public:
 	virtual void onDrop(const vector<string>& paths);
 
 private:
-	STATIC_DLL_IMPEXT static Renderer* renderer;
-	STATIC_DLL_IMPEXT static Application* application;
+	STATIC_DLL_IMPEXT static unique_ptr<GUIRendererBackend> renderer;
+	STATIC_DLL_IMPEXT static unique_ptr<Application> application;
 	STATIC_DLL_IMPEXT static InputEventHandler* inputEventHandler;
 	int windowHints { WINDOW_HINT_NONE };
 	string executableFileName;

@@ -46,7 +46,7 @@ namespace renderer {
  * @author Andreas Drewke
  * @ersion $Id$
  */
-class agui::gui::renderer::Renderer
+class agui::gui::renderer::GUIRendererBackend
 {
 public:
 
@@ -106,17 +106,17 @@ protected:
 
 public:
 	// forbid class copy
-	FORBID_CLASS_COPY(Renderer)
+	FORBID_CLASS_COPY(GUIRendererBackend)
 
 	/**
 	 * Public constructor
 	 */
-	Renderer();
+	GUIRendererBackend();
 
 	/**
 	 * Destructor
 	 */
-	virtual ~Renderer();
+	virtual ~GUIRendererBackend();
 
 	/**
 	 * @return renderer type

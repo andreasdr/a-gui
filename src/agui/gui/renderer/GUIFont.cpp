@@ -10,7 +10,7 @@
 #include <agui/agui.h>
 #include <agui/application/Application.h>
 #include <agui/gui/fileio/TextureReader.h>
-#include <agui/gui/renderer/Renderer.h>
+#include <agui/gui/renderer/GUIRendererBackend.h>
 #include <agui/gui/renderer/GUICharacter.h>
 #include <agui/gui/renderer/GUIRenderer.h>
 #include <agui/gui/textures/GUITexture.h>
@@ -33,7 +33,7 @@ using std::vector;
 
 using agui::application::Application;
 using agui::gui::fileio::TextureReader;
-using agui::gui::renderer::Renderer;
+using agui::gui::renderer::GUIRendererBackend;
 using agui::gui::renderer::GUICharacter;
 using agui::gui::renderer::GUIFont;
 using agui::gui::renderer::GUIRenderer;

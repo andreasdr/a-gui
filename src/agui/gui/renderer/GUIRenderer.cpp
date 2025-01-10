@@ -4,7 +4,7 @@
 #include <memory>
 
 #include <agui/agui.h>
-#include <agui/gui/renderer/Renderer.h>
+#include <agui/gui/renderer/GUIRendererBackend.h>
 #include <agui/gui/nodes/GUIColor.h>
 #include <agui/gui/nodes/GUIScreenNode.h>
 #include <agui/gui/renderer/GUIShader.h>
@@ -22,7 +22,7 @@
 using std::array;
 using std::unique_ptr;
 
-using agui::gui::renderer::Renderer;
+using agui::gui::renderer::GUIRendererBackend;
 using agui::gui::nodes::GUIColor;
 using agui::gui::nodes::GUIScreenNode;
 using agui::gui::renderer::GUIRenderer;
@@ -38,7 +38,7 @@ using agui::utilities::IntBuffer;
 using agui::utilities::ShortBuffer;
 using agui::utilities::Time;
 
-GUIRenderer::GUIRenderer(Renderer* renderer)
+GUIRenderer::GUIRenderer(GUIRendererBackend* renderer)
 {
 	this->renderer = renderer;
 	sbIndicesByteBuffer = unique_ptr<ByteBuffer>(ByteBuffer::allocate(QUAD_COUNT * 6 * (renderer->isUsingShortIndices() == true?sizeof(uint16_t):sizeof(uint32_t))));

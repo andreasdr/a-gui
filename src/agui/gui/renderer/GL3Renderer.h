@@ -11,7 +11,7 @@
 
 #include <agui/agui.h>
 #include <agui/gui/fileio/fwd-agui.h>
-#include <agui/gui/renderer/Renderer.h>
+#include <agui/gui/renderer/GUIRendererBackend.h>
 #include <agui/gui/textures/fwd-agui.h>
 #include <agui/utilities/fwd-agui.h>
 
@@ -37,7 +37,7 @@ namespace renderer {
  * OpenGL 3 renderer
  * @author Andreas Drewke
  */
-class agui::gui::renderer::GL3Renderer: public Renderer
+class agui::gui::renderer::GL3Renderer: public GUIRendererBackend
 {
 private:
 	uint32_t engineVAO;

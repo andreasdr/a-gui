@@ -78,7 +78,7 @@ private:
 	};
 
 	GUI* gui { nullptr };
-	Renderer* renderer { nullptr };
+	GUIRendererBackend* renderer { nullptr };
 	vector<int32_t>* vboIds { nullptr };
 	int quadCount { 0 };
 	unique_ptr<ByteBuffer> sbIndicesByteBuffer;
@@ -114,8 +114,9 @@ public:
 
 	/**
 	 * Public constructor
+	 * @param renderer renderer backend
 	 */
-	GUIRenderer(Renderer* renderer);
+	GUIRenderer(GUIRendererBackend* renderer);
 
 	/**
 	 * Destructor
