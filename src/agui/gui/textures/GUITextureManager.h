@@ -11,9 +11,15 @@
 using std::string;
 using std::unordered_map;
 
-using agui::gui::textures::GUITexture;
-using agui::gui::renderer::Renderer;
-using agui::os::threading::Mutex;
+// namespaces
+namespace agui {
+namespace gui {
+namespace textures {
+	using ::agui::gui::renderer::Renderer;
+	using ::agui::os::threading::Mutex;
+}
+}
+}
 
 /**
  * GUITexture manager

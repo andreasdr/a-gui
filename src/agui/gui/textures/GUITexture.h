@@ -12,9 +12,16 @@
 using std::string;
 using std::vector;
 
-using agui::math::Math;
-using agui::utilities::ByteBuffer;
-using agui::utilities::Reference;
+// namespaces
+namespace agui {
+namespace gui {
+namespace textures {
+	using ::agui::math::Math;
+	using ::agui::utilities::ByteBuffer;
+	using ::agui::utilities::Reference;
+}
+}
+}
 
 /**
  * Texture entity
