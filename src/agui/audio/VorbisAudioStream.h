@@ -12,7 +12,6 @@ using std::string;
 namespace agui {
 namespace audio {
 	using ::agui::audio::decoder::VorbisDecoder;
-	using ::agui::audio::AudioStream;
 	using ::agui::utilities::ByteBuffer;
 }
 }

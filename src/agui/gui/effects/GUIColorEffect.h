@@ -13,8 +13,6 @@
 namespace agui {
 namespace gui {
 namespace effects {
-	using ::agui::gui::effects::GUIEffect;
-	using ::agui::gui::effects::GUIEffectState;
 	using ::agui::gui::nodes::GUIColor;
 	using ::agui::gui::nodes::GUINode;
 	using ::agui::gui::renderer::GUIRenderer;

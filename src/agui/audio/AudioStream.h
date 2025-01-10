@@ -16,7 +16,6 @@ using std::unique_ptr;
 // namespaces
 namespace agui {
 namespace audio {
-	using ::agui::audio::AudioEntity;
 	using ::agui::utilities::ByteBuffer;
 }
 }

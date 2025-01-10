@@ -13,7 +13,6 @@ using std::vector;
 // namespaces
 namespace agui {
 namespace audio {
-	using ::agui::audio::AudioStream;
 	using ::agui::utilities::ByteBuffer;
 }
 }

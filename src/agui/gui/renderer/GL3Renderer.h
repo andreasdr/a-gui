@@ -24,7 +24,6 @@ using std::vector;
 namespace agui {
 namespace gui {
 namespace renderer {
-	using ::agui::gui::renderer::Renderer;
 	using ::agui::gui::textures::GUITexture;
 	using ::agui::utilities::ByteBuffer;
 	using ::agui::utilities::FloatBuffer;

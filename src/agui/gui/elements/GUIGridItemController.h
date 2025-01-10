@@ -15,8 +15,6 @@ using std::string;
 namespace agui {
 namespace gui {
 namespace elements {
-	using ::agui::gui::elements::GUIGridController;
-	using ::agui::gui::elements::GUIGridItem;
 	using ::agui::gui::events::GUIKeyboardEvent;
 	using ::agui::gui::events::GUIMouseEvent;
 	using ::agui::gui::nodes::GUIElementController;

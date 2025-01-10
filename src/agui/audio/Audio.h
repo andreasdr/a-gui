@@ -20,8 +20,6 @@ using std::unordered_map;
 // namespaces
 namespace agui {
 namespace audio {
-	using ::agui::audio::AudioBufferManager;
-	using ::agui::audio::AudioEntity;
 	using ::agui::math::Vector3;
 }
 }

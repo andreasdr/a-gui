@@ -15,7 +15,6 @@ using std::string;
 namespace agui {
 namespace audio {
 	using ::agui::audio::decoder::AudioDecoderException;
-	using ::agui::os::filesystem::FileSystemException;
 	using ::agui::utilities::ByteBuffer;
 }
 }

@@ -22,7 +22,6 @@ namespace agui {
 namespace video {
 namespace decoder {
 	using ::agui::utilities::ByteBuffer;
-	using ::agui::video::decoder::VideoDecoder;
 }
 }
 }

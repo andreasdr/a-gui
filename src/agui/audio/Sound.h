@@ -8,13 +8,6 @@
 
 using std::string;
 
-// namespaces
-namespace agui {
-namespace audio {
-	using ::agui::audio::AudioEntity;
-}
-}
-
 /**
  * Sound audio entity implementation
  * @author Andreas Drewke

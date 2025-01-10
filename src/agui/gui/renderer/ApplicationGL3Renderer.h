@@ -16,15 +16,6 @@
 
 using std::string;
 
-// namespaces
-namespace agui {
-namespace gui {
-namespace renderer {
-	using ::agui::gui::renderer::GL3Renderer;
-}
-}
-}
-
 /**
  * Application GL3 renderer
  * @author Andreas Drewke

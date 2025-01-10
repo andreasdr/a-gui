@@ -16,7 +16,6 @@ using std::vector;
 namespace agui {
 namespace utilities {
 	using ::agui::math::Math;
-	using ::agui::utilities::Console;
 }
 }
 

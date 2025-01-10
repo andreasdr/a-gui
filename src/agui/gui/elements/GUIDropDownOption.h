@@ -17,7 +17,6 @@ using std::unordered_map;
 namespace agui {
 namespace gui {
 namespace elements {
-	using ::agui::gui::elements::GUIElement;
 	using ::agui::gui::nodes::GUINode;
 	using ::agui::gui::nodes::GUINodeController;
 	using ::agui::gui::nodes::GUIScreenNode;

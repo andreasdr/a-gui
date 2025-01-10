@@ -33,7 +33,6 @@ using std::vector;
 // namespaces
 namespace agui {
 namespace application {
-	using ::agui::application::InputEventHandler;
 	using ::agui::gui::renderer::Renderer;
 }
 }

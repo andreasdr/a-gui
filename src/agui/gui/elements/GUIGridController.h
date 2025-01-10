@@ -17,8 +17,6 @@ using std::vector;
 namespace agui {
 namespace gui {
 namespace elements {
-	using ::agui::gui::elements::GUIGrid;
-	using ::agui::gui::elements::GUIGridItemController;
 	using ::agui::gui::events::GUIKeyboardEvent;
 	using ::agui::gui::events::GUIMouseEvent;
 	using ::agui::gui::nodes::GUIElementController;
