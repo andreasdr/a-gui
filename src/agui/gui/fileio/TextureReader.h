@@ -16,10 +16,17 @@ using std::string;
 using std::unordered_map;
 using std::vector;
 
-using agui::gui::textures::GUITexture;
-using agui::os::filesystem::FileSystemException;
-using agui::os::threading::Mutex;
-using agui::utilities::ByteBuffer;
+// namespaces
+namespace agui {
+namespace gui {
+namespace fileio {
+	using ::agui::gui::textures::GUITexture;
+	using ::agui::os::filesystem::FileSystemException;
+	using ::agui::os::threading::Mutex;
+	using ::agui::utilities::ByteBuffer;
+}
+}
+}
 
 /**
  * Texture reader class
@@ -27,7 +34,7 @@ using agui::utilities::ByteBuffer;
  */
 class agui::gui::fileio::TextureReader final
 {
-	friend class agui::gui::textures::GUITexture;
+	friend class ::agui::gui::textures::GUITexture;
 	friend class PNGTextureReader;
 
 public:

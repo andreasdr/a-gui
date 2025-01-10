@@ -12,7 +12,14 @@
 using std::string;
 using std::vector;
 
-using agui::utilities::ByteBuffer;
+// namespaces
+namespace agui {
+namespace gui {
+namespace fileio {
+	using ::agui::utilities::ByteBuffer;
+}
+}
+}
 
 /**
  * BC7 texture writer class

@@ -16,8 +16,15 @@ using std::map;
 using std::string;
 using std::vector;
 
-using agui::gui::textures::GUITexture;
-using agui::utilities::ByteBuffer;
+// namespaces
+namespace agui {
+namespace gui {
+namespace fileio {
+	using ::agui::gui::textures::GUITexture;
+	using ::agui::utilities::ByteBuffer;
+}
+}
+}
 
 /**
  * PNG texture reader class
