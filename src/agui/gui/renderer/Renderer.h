@@ -46,67 +46,11 @@ public:
 
 	enum RendererType { RENDERERTYPE_NONE, RENDERERTYPE_OPENGLES, RENDERERTYPE_OPENGL, RENDERERTYPE_VULKAN };
 
-	/**
-	 * Bean holding light properties
-	 */
-	struct Renderer_Light
-	{
-		int32_t enabled { 0 };
-		array<float, 4> ambient {{ 0.0f, 0.0f, 0.0f, 1.0f }};
-		array<float, 4> diffuse {{ 1.0f, 1.0f, 1.0f, 1.0f }};
-		array<float, 4> specular {{ 1.0f, 1.0f, 1.0f, 1.0f }};
-		array<float, 4> position {{ 0.0f, 0.0f, 0.0f, 0.0f }};
-		array<float, 3> spotDirection {{ 0.0f, 0.0f, -1.0f }};
-		float spotExponent { 0.0f };
-		float spotCosCutoff { 0.0f };
-		float constantAttenuation { 1.0f };
-		float linearAttenuation { 0.0f };
-		float quadraticAttenuation { 0.0f };
-		float radius { 0.0f };
-	};
-
-	/**
-	 * Bean holding PBR material properties
-	 */
-	struct Renderer_PBRMaterial
-	{
-		array<float, 4> baseColorFactor {{ 1.0f, 1.0f, 1.0f, 1.0f }};
-		float metallicFactor { 1.0f };
-		float roughnessFactor { 1.0f };
-		float normalScale { 1.0f };
-		array<float, 3> emissiveFactor {{ 1.0f, 1.0f, 1.0f }};
-		float exposure { 1.0f };
-		int baseColorTextureMaskedTransparency { 0 };
-		float baseColorTextureMaskedTransparencyThreshold { 0.0f };
-	};
-
-	/**
-	 *  Bean holding specular material properties
-	 */
-	struct Renderer_SpecularMaterial
-	{
-		array<float, 4> ambient {{ 0.2f, 0.2f, 0.2f, 1.0f }};
-		array<float, 4> diffuse {{ 0.8f, 0.8f, 0.8f, 1.0f }};
-		array<float, 4> specular {{ 0.0f, 0.0f, 0.0f, 1.0f }};
-		array<float, 4> emission {{ 0.0f, 0.0f, 0.0f, 1.0f }};
-		float shininess { 0.0f };
-		float reflection { 0.0f };
-		int diffuseTextureMaskedTransparency { 0 };
-		float diffuseTextureMaskedTransparencyThreshold { 0.0f };
-		int textureAtlasSize { 1 };
-		array<float, 2>  textureAtlasPixelDimension { 0.0f, 0.0f };
-	};
-
 	struct Renderer_Context {
 		array<float, 4> effectColorMul {{ 1.0f, 1.0f, 1.0f, 1.0f }};
 		array<float, 4> effectColorAdd {{ 0.0f, 0.0f, 0.0f, 0.0f }};
-		Renderer_SpecularMaterial specularMaterial {};
-		Renderer_PBRMaterial pbrMaterial {};
-		array<Renderer_Light, 8> lights {}; // TODO: we need this dynamically
 		Matrix3x3 textureMatrix {};
 		float maskMaxValue { 1.0f };
-		int32_t lighting { 0 };
-		array<float, 3> environmentMappingCubeMapPosition;
 		string shader;
 		GUIShaderParameters shaderParameters;
 	};
@@ -121,11 +65,7 @@ public:
 		int64_t memoryUsageShared { -1LL };
 		uint32_t clearCalls { 0 };
 		uint32_t renderCalls { 0 };
-		uint32_t computeCalls { 0 };
-		uint32_t instances { 0 };
 		uint32_t triangles { 0 };
-		uint32_t points { 0 };
-		uint32_t linePoints { 0 };
 		uint32_t bufferUploads { 0 };
 		uint32_t textureUploads { 0 };
 		uint32_t renderPasses { 0 };
@@ -142,49 +82,18 @@ public:
 	int32_t ID_NONE;
 	int32_t CLEAR_DEPTH_BUFFER_BIT;
 	int32_t CLEAR_COLOR_BUFFER_BIT;
-	int32_t CULLFACE_FRONT;
-	int32_t CULLFACE_BACK;
 	int32_t TEXTUREUNITS_MAX;
 	int32_t PROGRAM_GUI;
-	int32_t PROGRAM_OBJECTS;
-	int32_t PROGRAM_POINTS;
-	int32_t PROGRAM_LINES;
-	int32_t PROGRAM_COMPUTE;
 	int32_t SHADER_FRAGMENT_SHADER;
 	int32_t SHADER_VERTEX_SHADER;
 	int32_t SHADER_COMPUTE_SHADER;
-	int32_t DEPTHFUNCTION_ALWAYS;
-	int32_t DEPTHFUNCTION_EQUAL;
-	int32_t DEPTHFUNCTION_LESSEQUAL;
-	int32_t DEPTHFUNCTION_GREATEREQUAL;
 	int32_t FRAMEBUFFER_DEFAULT;
-	int32_t FRONTFACE_CW;
-	int32_t FRONTFACE_CCW;
-	int32_t CUBEMAPTEXTUREINDEX_NEGATIVE_X;
-	int32_t CUBEMAPTEXTUREINDEX_POSITIVE_X;
-	int32_t CUBEMAPTEXTUREINDEX_POSITIVE_Y;
-	int32_t CUBEMAPTEXTUREINDEX_NEGATIVE_Y;
-	int32_t CUBEMAPTEXTUREINDEX_POSITIVE_Z;
-	int32_t CUBEMAPTEXTUREINDEX_NEGATIVE_Z;
-
-	int32_t LIGHTING_NONE;
-	int32_t LIGHTING_SPECULAR;
-	int32_t LIGHTING_PBR;
-
-	int32_t UNIFORM_CL_SKINNING_VERTEX_COUNT;
-	int32_t UNIFORM_CL_SKINNING_MATRIX_COUNT;
-	int32_t UNIFORM_CL_SKINNING_INSTANCE_COUNT;
 
 protected:
 	int32_t viewPortWidth;
 	int32_t viewPortHeight;
 	Renderer_Statistics statistics;
-	Vector3 cameraPosition;
-	Matrix4x4 projectionMatrix;
-	Matrix4x4 cameraMatrix;
-	Matrix4x4 modelViewMatrix;
 	Matrix4x4 viewportMatrix;
-	int32_t effectPass;
 	string shaderPrefix;
 
 	vector<Renderer_Context> rendererContexts;
@@ -253,11 +162,6 @@ public:
 	virtual const string getShaderVersion() = 0;
 
 	/**
-	 * @return if renderer is supporting multi threaded rendering
-	 */
-	virtual bool isSupportingMultithreadedRendering() = 0;
-
-	/**
 	 * @return returns if texture compression is available
 	 */
 	virtual bool isTextureCompressionAvailable() = 0;
@@ -273,45 +177,9 @@ public:
 	virtual bool isSupportingIntegerProgramAttributes() = 0;
 
 	/**
-	 * @return if specular mapping is supported
-	 */
-	virtual bool isSpecularMappingAvailable() = 0;
-
-	/**
-	 * @return if normal mapping is supported
-	 */
-	virtual bool isNormalMappingAvailable() = 0;
-
-	/**
-	 * Checks if instanced rendering is available
-	 * @return instance rendering availability
-	 */
-	virtual bool isInstancedRenderingAvailable() = 0;
-
-	/**
-	 * @return if PBR lighting is supported
-	 */
-	virtual bool isPBRAvailable() = 0;
-
-	/**
-	 * @return if compute shaders are available
-	 */
-	virtual bool isComputeShaderAvailable() = 0;
-
-	/**
-	 * @return if OpenGL+CL is available
-	 */
-	virtual bool isGLCLAvailable() = 0;
-
-	/**
 	 * @return Returns if renderer is using short indices, otherwise it uses int indices
 	 */
 	virtual bool isUsingShortIndices() = 0;
-
-	/**
-	 * @return If deferred shading is available
-	 */
-	virtual bool isDeferredShadingAvailable() = 0;
 
 	/**
 	 * @return number of texture units
@@ -396,6 +264,30 @@ public:
 	virtual void setProgramUniformFloat(int contextIdx, int32_t uniformId, float value) = 0;
 
 	/**
+	 * Set up a float vec4 uniform value
+	 * @param contextIdx context index
+	 * @param uniformId uniform id
+	 * @param data data
+	 */
+	virtual void setProgramUniformFloatVec4(int contextIdx, int32_t uniformId, const array<float, 4>& data) = 0;
+
+	/**
+	 * Set up a float vec3 uniform value
+	 * @param contextIdx context index
+	 * @param uniformId uniform id
+	 * @param data data
+	 */
+	virtual void setProgramUniformFloatVec3(int contextIdx, int32_t uniformId, const array<float, 3>& data) = 0;
+
+	/**
+	 * Set up a float vec2 uniform value
+	 * @param contextIdx context index
+	 * @param uniformId uniform id
+	 * @param data data
+	 */
+	virtual void setProgramUniformFloatVec2(int contextIdx, int32_t uniformId, const array<float, 2>& data) = 0;
+
+	/**
 	 * Set up a float matrix 3x3 uniform value
 	 * @param contextIdx context index
 	 * @param uniformId uniform id
@@ -421,52 +313,12 @@ public:
 	virtual void setProgramUniformFloatMatrices4x4(int contextIdx, int32_t uniformId, int32_t count, FloatBuffer* data) = 0;
 
 	/**
-	 * Set up a float vec4 uniform value
-	 * @param contextIdx context index
-	 * @param uniformId uniform id
-	 * @param data data
-	 */
-	virtual void setProgramUniformFloatVec4(int contextIdx, int32_t uniformId, const array<float, 4>& data) = 0;
-
-	/**
-	 * Set up a float vec3 uniform value
-	 * @param contextIdx context index
-	 * @param uniformId uniform id
-	 * @param data data
-	 */
-	virtual void setProgramUniformFloatVec3(int contextIdx, int32_t uniformId, const array<float, 3>& data) = 0;
-
-	/**
-	 * Set up a float vec2 uniform value
-	 * @param contextIdx context index
-	 * @param uniformId uniform id
-	 * @param data data
-	 */
-	virtual void setProgramUniformFloatVec2(int contextIdx, int32_t uniformId, const array<float, 2>& data) = 0;
-
-	/**
 	 * Bind attribute to a input location
 	 * @param programId program id
 	 * @param location location
 	 * @param name attribute name
 	 */
 	virtual void setProgramAttributeLocation(int32_t programId, int32_t location, const string& name) = 0;
-
-	/**
-	 * Get effect pass
-	 * @return effect pass
-	 */
-	inline int32_t getEffectPass() {
-		return effectPass;
-	}
-
-	/**
-	 * Set effect pass
-	 * @param effectPass effect pass
-	 */
-	inline void setEffectPass(int32_t effectPass) {
-		this->effectPass = effectPass;
-	}
 
 	/**
 	 * Get shader prefix
@@ -485,33 +337,6 @@ public:
 	}
 
 	/**
-	 * Get current lighting model
-	 * @param contextIdx context index
-	 * @return lighting, see LIGHTING_*
-	 */
-	inline int32_t getLighting(int contextIdx) {
-		auto& rendererContext = rendererContexts[contextIdx];
-		return rendererContext.lighting;
-	}
-
-	/**
-	 * Set current lighting model
-	 * @param contextIdx context index
-	 * @param lighting lighting, see LIGHTING_*
-	 */
-	inline void setLighting(int contextIdx, int32_t lighting) {
-		auto& rendererContext = rendererContexts[contextIdx];
-		rendererContext.lighting = lighting;
-	}
-
-	/**
-	 * @return camera position
-	 */
-	inline Vector3& getCameraPosition() {
-		return cameraPosition;
-	}
-
-	/**
 	 * Set up viewport parameter
 	 * @param width width
 	 * @param height height
@@ -522,27 +347,6 @@ public:
 	 * Update viewport
 	 */
 	virtual void updateViewPort() = 0;
-
-	/**
-	 * @return projection matrix
-	 */
-	inline Matrix4x4& getProjectionMatrix() {
-		return projectionMatrix;
-	}
-
-	/**
-	 * @return camera matrix
-	 */
-	inline Matrix4x4& getCameraMatrix() {
-		return cameraMatrix;
-	}
-
-	/**
-	 * @return model view matrix or in some cases the model matrix
-	 */
-	inline Matrix4x4& getModelViewMatrix() {
-		return modelViewMatrix;
-	}
 
 	/**
 	 * @return view port matrix
@@ -577,81 +381,6 @@ public:
 	virtual void setClearColor(float red, float green, float blue, float alpha) = 0;
 
 	/**
-	 * Enable culling
-	 * @param contextIdx context index
-	 */
-	virtual void enableCulling(int contextIdx) = 0;
-
-	/**
-	 * Disable culling
-	 * @param contextIdx context index
-	 */
-	virtual void disableCulling(int contextIdx) = 0;
-
-	/**
-	 * Set up clock wise or counter clock wise faces as front face
-	 * @param contextIdx context index
-	 * @param frontFace frontFace
-	 */
-	virtual void setFrontFace(int contextIdx, int32_t frontFace) = 0;
-
-	/**
-	 * Sets up which face will be culled
-	 * @param cullFace cull face
-	 */
-	virtual void setCullFace(int32_t cullFace) = 0;
-
-	/**
-	 * Enables blending
-	 */
-	virtual void enableBlending() = 0;
-
-	/**
-	 * Enable blending with c = a + b
-	 */
-	virtual void enableAdditionBlending() = 0;
-
-	/**
-	 * Disables blending
-	 */
-	virtual void disableBlending() = 0;
-
-	/**
-	 * Enable depth buffer writing
-	 */
-	virtual void enableDepthBufferWriting() = 0;
-
-	/**
-	 * Disable depth buffer writing
-	 */
-	virtual void disableDepthBufferWriting() = 0;
-
-	/**
-	 * Disable depth buffer test
-	 */
-	virtual void disableDepthBufferTest() = 0;
-
-	/**
-	 * Enable depth buffer test
-	 */
-	virtual void enableDepthBufferTest() = 0;
-
-	/**
-	 * Set up depth function
-	 * @param depthFunction depth function
-	 */
-	virtual void setDepthFunction(int32_t depthFunction) = 0;
-
-	/**
-	 * Set up GL rendering colormask
-	 * @param red red
-	 * @param green green
-	 * @param blue blue
-	 * @param alpha alpha
-	 */
-	virtual void setColorMask(bool red, bool green, bool blue, bool alpha) = 0;
-
-	/**
 	 * Clear render buffer with given mask
 	 * @param mask mask
 	 */
@@ -664,16 +393,6 @@ public:
 	virtual int32_t createTexture() = 0;
 
 	/**
-	 * Creates a depth buffer texture
-	 * @param width width
-	 * @param height height
-	 * @oaram cubeMapTextureId cube map texture id
-	 * @param cubeMapTextureIndex cube map texture index
-	 * @return depth texture id
-	 */
-	virtual int32_t createDepthBufferTexture(int32_t width, int32_t height, int32_t cubeMapTextureId, int32_t cubeMapTextureIndex) = 0;
-
-	/**
 	 * Creates a color buffer texture
 	 * @param width width
 	 * @param height height
@@ -684,56 +403,11 @@ public:
 	virtual int32_t createColorBufferTexture(int32_t width, int32_t height, int32_t cubeMapTextureId, int32_t cubeMapTextureIndex) = 0;
 
 	/**
-	 * Creates a geometry buffer geometry texture
-	 * @param width width
-	 * @param height height
-	 * @return geometry buffer geometry texture id
-	 */
-	virtual int32_t createGBufferGeometryTexture(int32_t width, int32_t height) = 0;
-
-	/**
-	 * Creates a geometry buffer color RGBA texture
-	 * @param width width
-	 * @param height height
-	 * @return geometry buffer color RGBA texture id
-	 */
-	virtual int32_t createGBufferColorTexture(int32_t width, int32_t height) = 0;
-
-	/**
 	 * Uploads texture data to current bound texture
 	 * @param contextIdx context index
 	 * @param texture texture
 	 */
 	virtual void uploadTexture(int contextIdx, GUITexture* texture) = 0;
-
-	/**
-	 * Uploads cube map texture data to current bound texture
-	 * @param contextIdx context index
-	 * @param textureLeft texture left
-	 * @param textureRight texture right
-	 * @param textureTop texture top
-	 * @param textureBottom texture bottom
-	 * @param textureFront texture front
-	 * @param textureBack texture back
-	 */
-	virtual void uploadCubeMapTexture(int contextIdx, GUITexture* textureLeft, GUITexture* textureRight, GUITexture* textureTop, GUITexture* textureBottom, GUITexture* textureFront, GUITexture* textureBack) = 0;
-
-	/**
-	 * Create cube map texture from frame buffers
-	 * @param contextIdx context index
-	 * @param width width
-	 * @param height height
-	 * @return texture id
-	 */
-	virtual int32_t createCubeMapTexture(int contextIdx, int32_t width, int32_t height) = 0;
-
-	/**
-	 * Resizes a depth texture
-	 * @param textureId texture id
-	 * @param width width
-	 * @param height height
-	 */
-	virtual void resizeDepthBufferTexture(int32_t textureId, int32_t width, int32_t height) = 0;
 
 	/**
 	 * Resize color buffer texture
@@ -744,36 +418,11 @@ public:
 	virtual void resizeColorBufferTexture(int32_t textureId, int32_t width, int32_t height) = 0;
 
 	/**
-	 * Resizes a geometry buffer geometry texture
-	 * @param textureId texture id
-	 * @param width width
-	 * @param height height
-	 * @return geometry buffer geometry texture id
-	 */
-	virtual void resizeGBufferGeometryTexture(int32_t textureId, int32_t width, int32_t height) = 0;
-
-	/**
-	 * Resizes a geometry buffer color RGBA texture
-	 * @param textureId texture id
-	 * @param width width
-	 * @param height height
-	 * @return geometry buffer color RGBA texture id
-	 */
-	virtual void resizeGBufferColorTexture(int32_t textureId, int32_t width, int32_t height) = 0;
-
-	/**
 	 * Binds a texture with given id or unbinds when using ID_NONE
 	 * @param contextIdx context index
 	 * @param textureId textureId
 	 */
 	virtual void bindTexture(int contextIdx, int32_t textureId) = 0;
-
-	/**
-	 * Binds a cube map texture with given id or unbinds when using ID_NONE
-	 * @param contextIdx context index
-	 * @param textureId textureId
-	 */
-	virtual void bindCubeMapTexture(int contextIdx, int32_t textureId) = 0;
 
 	/**
 	 * On bind texture event
@@ -787,53 +436,6 @@ public:
 	 * @param textureId texture id
 	 */
 	virtual void disposeTexture(int32_t textureId) = 0;
-
-	/**
-	 * Creates a frame buffer object with depth texture attached
-	 * @param depthBufferTextureId depth buffer texture id
-	 * @param colorBufferTextureId color buffer texture id
-	 * @param cubeMapTextureId cube map texture id
-	 * @param cubeMapTextureIndex cube map texture index
-	 * @return frame buffer object id
-	 */
-	virtual int32_t createFramebufferObject(int32_t depthBufferTextureId, int32_t colorBufferTextureId, int32_t cubeMapTextureId = 0, int32_t cubeMapTextureIndex = 0) = 0;
-
-	/**
-	 * Creates a geometry frame buffer object
-	 * @param depthBufferTextureId depth buffer texture id
-	 * @param geometryBufferTextureId1 geometry texture id 1
-	 * @param geometryBufferTextureId2 geometry texture id 2
-	 * @param geometryBufferTextureId3 geometry texture id 3
-	 * @param colorBufferTextureId1 color buffer texture id 1
-	 * @param colorBufferTextureId2 color buffer texture id 2
-	 * @param colorBufferTextureId3 color buffer texture id 3
-	 * @param colorBufferTextureId4 color buffer texture id 4
-	 * @param colorBufferTextureId5 color buffer texture id 5
-	 * @return frame buffer object id
-	 */
-	virtual int32_t createGeometryBufferObject(
-		int32_t depthBufferTextureId,
-		int32_t geometryBufferTextureId1,
-		int32_t geometryBufferTextureId2,
-		int32_t geometryBufferTextureId3,
-		int32_t colorBufferTextureId1,
-		int32_t colorBufferTextureId2,
-		int32_t colorBufferTextureId3,
-		int32_t colorBufferTextureId4,
-		int32_t colorBufferTextureId5
-	) = 0;
-
-	/**
-	 * Enables a framebuffer to be rendered
-	 * @param frameBufferId frameBufferId
-	 */
-	virtual void bindFrameBuffer(int32_t frameBufferId) = 0;
-
-	/**
-	 * Disposes a frame buffer object
-	 * @param frameBufferId frame buffer id
-	 */
-	virtual void disposeFrameBufferObject(int32_t frameBufferId) = 0;
 
 	/**
 	 * Generate buffer objects for vertex data and such
@@ -911,25 +513,11 @@ public:
 	virtual void bindTextureCoordinatesBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
 
 	/**
-	 * Bind vertices buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 */
-	virtual void bindVerticesBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
-
-	/**
 	 * Bind vertices 2 buffer object
 	 * @param contextIdx context index
 	 * @param bufferObjectId buffer object id
 	 */
 	virtual void bindVertices2BufferObject(int contextIdx, int32_t bufferObjectId) = 0;
-
-	/**
-	 * Bind normals buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 */
-	virtual void bindNormalsBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
 
 	/**
 	 * Bind colors buffer object
@@ -939,125 +527,12 @@ public:
 	virtual void bindColorsBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
 
 	/**
-	 * Bind tangents buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 */
-	virtual void bindTangentsBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
-
-	/**
-	 * Bind bitangents buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 */
-	virtual void bindBitangentsBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
-
-	/**
-	 * Bind model matrices buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 */
-	virtual void bindModelMatricesBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
-
-	/**
-	 * Bind effect color muls buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 * @param divisor divisor
-	 */
-	virtual void bindEffectColorMulsBufferObject(int contextIdx, int32_t bufferObjectId, int32_t divisor) = 0;
-
-	/**
-	 * Bind effect color adds buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 * @param divisor divisor
-	 */
-	virtual void bindEffectColorAddsBufferObject(int contextIdx, int32_t bufferObjectId, int32_t divisor) = 0;
-
-	/**
-	 * Bind origins buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 */
-	virtual void bindOriginsBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
-
-	/**
-	 * Bind texture and sprite indices buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 */
-	virtual void bindTextureSpriteIndicesBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
-
-	/**
-	 * Bind point sizes buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 */
-	virtual void bindPointSizesBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
-
-	/**
-	 * Bind sprite sheet dimension buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 */
-	virtual void bindSpriteSheetDimensionBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
-
-	/**
-	 * Draw instanced indexed triangles from buffer objects
-	 * @param contextIdx context index
-	 * @param triangles triangles
-	 * @param trianglesOffset triangles offset
-	 * @param instances instances
-	 */
-	virtual void drawInstancedIndexedTrianglesFromBufferObjects(int contextIdx, int32_t triangles, int32_t trianglesOffset, int32_t instances) = 0;
-
-	/**
 	 * Draw indexed triangles from buffer objects
 	 * @param contextIdx context index
 	 * @param triangles triangles
 	 * @param trianglesOffset triangles offset
 	 */
 	virtual void drawIndexedTrianglesFromBufferObjects(int contextIdx, int32_t triangles, int32_t trianglesOffset) = 0;
-
-	/**
-	 * Draw instanced triangles from buffer objects
-	 * @param contextIdx context index
-	 * @param triangles triangles
-	 * @param trianglesOffset triangles offset
-	 * @param instances instances
-	 */
-	virtual void drawInstancedTrianglesFromBufferObjects(int contextIdx, int32_t triangles, int32_t trianglesOffset, int32_t instances) = 0;
-
-	/**
-	 * Draw triangles from buffer objects
-	 * @param contextIdx context index
-	 * @param triangles triangles
-	 * @param trianglesOffset triangles offset
-	 */
-	virtual void drawTrianglesFromBufferObjects(int contextIdx, int32_t triangles, int32_t trianglesOffset) = 0;
-
-	/**
-	 * Draw points from buffer objects
-	 * @param contextIdx context index
-	 * @param points points
-	 * @param pointsOffset points offset
-	 */
-	virtual void drawPointsFromBufferObjects(int contextIdx, int32_t points, int32_t pointsOffset) = 0;
-
-	/**
-	 * Set line width
-	 * @param lineWidth line width
-	 */
-	virtual void setLineWidth(float lineWidth) = 0;
-
-	/**
-	 * Draw lines from buffer objects
-	 * @param contextIdx context index
-	 * @param points points
-	 * @param pointsOffset points offset
-	 */
-	virtual void drawLinesFromBufferObjects(int contextIdx, int32_t points, int32_t pointsOffset) = 0;
 
 	/**
 	 * Unbind buffer objects
@@ -1086,17 +561,6 @@ public:
 	virtual void setTextureUnit(int contextIdx, int32_t textureUnit) = 0;
 
 	/**
-	 * Get light
-	 * @param contextIdx context index
-	 * @param lightId light id
-	 * @return light
-	 */
-	inline Renderer_Light& getLight(int contextIdx, int32_t lightIdx) {
-		auto& rendererContext = rendererContexts[contextIdx];
-		return rendererContext.lights[lightIdx];
-	}
-
-	/**
 	 * Get effect color mul
 	 * @param context
 	 * @return effect color mul
@@ -1121,26 +585,6 @@ public:
 	 * @param contextIdx context index
 	 */
 	virtual void onUpdateEffect(int contextIdx) = 0;
-
-	/**
-	 * Get specular material
-	 * @param contextIdx context index
-	 * @return material
-	 */
-	inline Renderer_SpecularMaterial& getSpecularMaterial(int contextIdx) {
-		auto& rendererContext = rendererContexts[contextIdx];
-		return rendererContext.specularMaterial;
-	}
-
-	/**
-	 * Get PBR material
-	 * @param contextIdx context index
-	 * @return material
-	 */
-	inline Renderer_PBRMaterial& getPBRMaterial(int contextIdx) {
-		auto& rendererContext = rendererContexts[contextIdx];
-		return rendererContext.pbrMaterial;
-	}
 
 	/**
 	 * Get shader
@@ -1183,14 +627,6 @@ public:
 	}
 
 	/**
-	 * Reads a pixel depth
-	 * @param x x
-	 * @param y y
-	 * @return depth 0.0f..1.0f
-	 */
-	virtual float readPixelDepth(int32_t x, int32_t y) = 0;
-
-	/**
 	 * Read pixels
 	 * @param x x
 	 * @param y y
@@ -1199,94 +635,6 @@ public:
 	 * @return byte buffer
 	 */
 	virtual ByteBuffer* readPixels(int32_t x, int32_t y, int32_t width, int32_t height) = 0;
-
-	/**
-	 * Dispatch compute
-	 * @param contextIdx context index
-	 * @param numGroupsX num groups x
-	 * @param numGroupsY num groups y
-	 * @param numGroupsZ num groups z
-	 */
-	virtual void dispatchCompute(int contextIdx, int32_t numGroupsX, int32_t numGroupsY, int32_t numGroupsZ) = 0;
-
-	/**
-	 * Memory barrier
-	 */
-	virtual void memoryBarrier() = 0;
-
-	/**
-	 * Upload skinning buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 * @param size size
-	 * @param data data
-	 */
-	virtual void uploadSkinningBufferObject(int contextIdx, int32_t bufferObjectId, int32_t size, FloatBuffer* data) = 0;
-
-	/**
-	 * Upload skinning buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 * @param size size
-	 * @param data data
-	 */
-	virtual void uploadSkinningBufferObject(int contextIdx, int32_t bufferObjectId, int32_t size, IntBuffer* data) = 0;
-
-	/**
-	 * Bind skinning vertices buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 */
-	virtual void bindSkinningVerticesBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
-
-	/**
-	 * Bind skinning normal buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 */
-	virtual void bindSkinningNormalsBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
-
-	/**
-	 * Bind skinning vertex joints buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 */
-	virtual void bindSkinningVertexJointsBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
-
-	/**
-	 * Bind skinning vertex joint indices buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 */
-	virtual void bindSkinningVertexJointIdxsBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
-
-	/**
-	 * Bind skinning vertex joint weights buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 */
-	virtual void bindSkinningVertexJointWeightsBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
-
-	/**
-	 * Bind skinning vertices result buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 */
-	virtual void bindSkinningVerticesResultBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
-
-	/**
-	 * Bind skinning normals result buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 */
-	virtual void bindSkinningNormalsResultBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
-
-	/**
-	 * Bind skinning matrices result buffer object
-	 * @param contextIdx context index
-	 * @param bufferObjectId buffer object id
-	 */
-	virtual void bindSkinningMatricesBufferObject(int contextIdx, int32_t bufferObjectId) = 0;
 
 	/**
 	 * Get mask max value
@@ -1305,26 +653,6 @@ public:
 	inline void setMaskMaxValue(int contextIdx, float maskMaxValue) {
 		auto& rendererContext = rendererContexts[contextIdx];
 		rendererContext.maskMaxValue = maskMaxValue;
-	}
-
-	/**
-	 * Get environment mapping cube map position
-	 * @param contextIdx context index
-	 * @return environment mapping position
-	 */
-	inline array<float, 3>& getEnvironmentMappingCubeMapPosition(int contextIdx) {
-		auto& rendererContext = rendererContexts[contextIdx];
-		return rendererContext.environmentMappingCubeMapPosition;
-	}
-
-	/**
-	 * Set environment mapping cube map position
-	 * @param contextIdx context index
-	 * @param position position
-	 */
-	inline void setEnvironmentMappingCubeMapPosition(int contextIdx, const array<float, 3>& position) {
-		auto& rendererContext = rendererContexts[contextIdx];
-		rendererContext.environmentMappingCubeMapPosition = position;
 	}
 
 	/**

@@ -109,7 +109,6 @@ void GUIShader::useProgram()
 {
 	auto contextIdx = renderer->CONTEXTINDEX_DEFAULT;
 	renderer->useProgram(contextIdx, programId);
-	renderer->setLighting(contextIdx, renderer->LIGHTING_NONE);
 	renderer->setProgramUniformInteger(contextIdx, uniformDiffuseTextureUnit, 0);
 	renderer->setProgramUniformInteger(contextIdx, uniformMaskTextureUnit, 1);
 	renderer->setProgramUniformInteger(contextIdx, uniformMaskTextureAvailable, 0);

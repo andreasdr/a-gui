@@ -140,20 +140,6 @@ public:
 	int32_t addTexture(GUITexture* texture, int contextIdx = 0);
 
 	/**
-	 * Adds a cube map texture to manager
-	 * @param id id
-	 * @param textureLeft texture left
-	 * @param textureRight texture right
-	 * @param textureTop texture top
-	 * @param textureBottom texture bottom
-	 * @param textureFront texture front
-	 * @param textureBack texture back
-	 * @param contextIdx context index or nullptr if using default context
-	 * @returns texture id
-	 */
-	int32_t addCubeMapTexture(const string& id, GUITexture* textureLeft, GUITexture* textureRight, GUITexture* textureTop, GUITexture* textureBottom, GUITexture* textureFront, GUITexture* textureBack, int contextIdx = 0);
-
-	/**
 	 * Removes a texture from manager
 	 * @param texture texture
 	 */

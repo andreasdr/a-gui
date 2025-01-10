@@ -76,28 +76,6 @@ int32_t GUITextureManager::addTexture(GUITexture* texture, int contextIdx)
 	return rendererId;
 }
 
-int32_t GUITextureManager::addCubeMapTexture(const string& id, GUITexture* textureLeft, GUITexture* textureRight, GUITexture* textureTop, GUITexture* textureBottom, GUITexture* textureFront, GUITexture* textureBack, int contextIdx)
-{
-	bool created;
-	auto textureManaged = addTexture(id, created);
-	auto rendererId = textureManaged->getRendererId();
-
-	// upload if it was created
-	if (created == true) {
-		// bind texture
-		renderer->bindCubeMapTexture(contextIdx, rendererId);
-		// upload texture
-		renderer->uploadCubeMapTexture(contextIdx, textureLeft, textureRight, textureTop, textureBottom, textureFront, textureBack);
-		// unbind texture
-		renderer->bindCubeMapTexture(contextIdx, renderer->ID_NONE);
-		//
-		textureManaged->setUploaded(true);
-	}
-
-	// return renderer id
-	return rendererId;
-}
-
 void GUITextureManager::removeTexture(const string& textureId)
 {
 	mutex.lock();
