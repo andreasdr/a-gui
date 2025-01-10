@@ -13,12 +13,19 @@
 
 using std::unique_ptr;
 
-using agui::gui::effects::GUIEffectState;
-using agui::gui::nodes::GUIColor;
-using agui::gui::nodes::GUINode;
-using agui::gui::renderer::GUIRenderer;
-using agui::gui::GUI;
-using agui::utilities::Action;
+// namespaces
+namespace agui {
+namespace gui {
+namespace effects {
+	using ::agui::gui::effects::GUIEffectState;
+	using ::agui::gui::nodes::GUIColor;
+	using ::agui::gui::nodes::GUINode;
+	using ::agui::gui::renderer::GUIRenderer;
+	using ::agui::gui::GUI;
+	using ::agui::utilities::Action;
+}
+}
+}
 
 /**
  * GUI effect base class

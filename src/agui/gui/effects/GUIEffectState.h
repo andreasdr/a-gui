@@ -4,7 +4,14 @@
 #include <agui/gui/effects/fwd-agui.h>
 #include <agui/gui/nodes/GUIColor.h>
 
-using agui::gui::nodes::GUIColor;
+// namespaces
+namespace agui {
+namespace gui {
+namespace effects {
+	using ::agui::gui::nodes::GUIColor;
+}
+}
+}
 
 /**
  * GUI effect state
