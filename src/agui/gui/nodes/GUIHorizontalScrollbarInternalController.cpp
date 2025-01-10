@@ -9,6 +9,7 @@
 #include <agui/gui/nodes/GUIParentNode.h>
 #include <agui/gui/nodes/GUIScreenNode.h>
 #include <agui/gui/GUI.h>
+#include <agui/utilities/MutableString.h>
 
 using agui::gui::nodes::GUIHorizontalScrollbarInternalController;
 
@@ -21,6 +22,7 @@ using agui::gui::nodes::GUINode_ComputedConstraints;
 using agui::gui::nodes::GUIParentNode;
 using agui::gui::nodes::GUIScreenNode;
 using agui::gui::GUI;
+using agui::utilities::MutableString;
 
 GUIHorizontalScrollbarInternalController::GUIHorizontalScrollbarInternalController(GUINode* node)
 	: GUINodeController(node)

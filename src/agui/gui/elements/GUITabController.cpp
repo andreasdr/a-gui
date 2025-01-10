@@ -14,6 +14,7 @@
 #include <agui/gui/nodes/GUIParentNode.h>
 #include <agui/gui/nodes/GUIScreenNode.h>
 #include <agui/gui/GUI.h>
+#include <agui/utilities/MutableString.h>
 
 using agui::gui::elements::GUITabsController;
 using agui::gui::elements::GUITabsHeaderController;
@@ -29,6 +30,7 @@ using agui::gui::nodes::GUINodeController;
 using agui::gui::nodes::GUIParentNode;
 using agui::gui::nodes::GUIScreenNode;
 using agui::gui::GUI;
+using agui::utilities::MutableString;
 
 string GUITabController::CONDITION_DISABLED = "disabled";
 string GUITabController::CONDITION_ENABLED = "enabled";

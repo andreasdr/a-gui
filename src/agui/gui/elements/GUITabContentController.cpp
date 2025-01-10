@@ -6,6 +6,7 @@
 #include <agui/gui/nodes/GUINodeConditions.h>
 #include <agui/gui/nodes/GUIParentNode.h>
 #include <agui/gui/GUI.h>
+#include <agui/utilities/MutableString.h>
 
 using agui::gui::elements::GUITabContentController;
 using agui::gui::nodes::GUIElementNode;
@@ -13,6 +14,7 @@ using agui::gui::nodes::GUINode;
 using agui::gui::nodes::GUINodeConditions;
 using agui::gui::nodes::GUIParentNode;
 using agui::gui::GUI;
+using agui::utilities::MutableString;
 
 GUITabContentController::GUITabContentController(GUINode* node)
 	: GUINodeController(node)

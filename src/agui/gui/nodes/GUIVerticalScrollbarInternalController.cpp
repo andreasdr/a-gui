@@ -9,6 +9,7 @@
 #include <agui/gui/nodes/GUIParentNode.h>
 #include <agui/gui/nodes/GUIScreenNode.h>
 #include <agui/gui/GUI.h>
+#include <agui/utilities/MutableString.h>
 
 using agui::gui::nodes::GUIVerticalScrollbarInternalController;
 
@@ -21,6 +22,7 @@ using agui::gui::nodes::GUIParentNode;
 using agui::gui::nodes::GUIScreenNode;
 using agui::gui::nodes::GUIVerticalScrollbarInternalController_State;
 using agui::gui::GUI;
+using agui::utilities::MutableString;
 
 GUIVerticalScrollbarInternalController::GUIVerticalScrollbarInternalController(GUINode* node)
 	: GUINodeController(node)

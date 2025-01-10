@@ -8,9 +8,14 @@
 
 using std::string;
 
-using agui::gui::nodes::GUIParentNode;
-using agui::gui::nodes::GUIParentNode_Overflow;
-using agui::utilities::Enum;
+// namespaces
+namespace agui {
+namespace gui {
+namespace nodes {
+	using ::agui::utilities::Enum;
+}
+}
+}
 
 /**
  * GUI parent node overflow enum

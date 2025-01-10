@@ -12,8 +12,6 @@ using std::find;
 using std::string;
 using std::vector;
 
-using agui::gui::nodes::GUIElementNode;
-
 /**
  * GUI element node conditions
  * @author Andreas Drewke

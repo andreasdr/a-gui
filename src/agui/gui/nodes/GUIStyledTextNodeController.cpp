@@ -16,6 +16,7 @@
 #include <agui/math/Math.h>
 #include <agui/utilities/Character.h>
 #include <agui/utilities/Console.h>
+#include <agui/utilities/MutableString.h>
 #include <agui/utilities/StringTools.h>
 #include <agui/utilities/Time.h>
 
@@ -34,6 +35,7 @@ using agui::gui::nodes::GUIStyledTextNodeController;
 using agui::gui::GUI;
 using agui::utilities::Character;
 using agui::utilities::Console;
+using agui::utilities::MutableString;
 using agui::utilities::StringTools;
 using agui::utilities::Time;
 

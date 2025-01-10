@@ -7,13 +7,16 @@
 #include <agui/utilities/fwd-agui.h>
 #include <agui/utilities/MutableString.h>
 
-using agui::gui::events::GUIKeyboardEvent;
-using agui::gui::events::GUIMouseEvent;
-using agui::gui::nodes::GUIHorizontalScrollbarInternalController_State;
-using agui::gui::nodes::GUILayoutNode;
-using agui::gui::nodes::GUINode;
-using agui::gui::nodes::GUINodeController;
-using agui::utilities::MutableString;
+// namespaces
+namespace agui {
+namespace gui {
+namespace nodes {
+	using ::agui::gui::events::GUIKeyboardEvent;
+	using ::agui::gui::events::GUIMouseEvent;
+	using ::agui::utilities::MutableString;
+}
+}
+}
 
 /**
  * GUI scroll bar controller

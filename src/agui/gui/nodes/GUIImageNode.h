@@ -15,21 +15,16 @@
 
 using std::string;
 
-using agui::gui::textures::GUITexture;
-using agui::gui::misc::GUIDynamicColorTexture;
-using agui::gui::misc::GUIFrameBuffer;
-using agui::gui::nodes::GUIColor;
-using agui::gui::nodes::GUINode_Alignments;
-using agui::gui::nodes::GUINode_Border;
-using agui::gui::nodes::GUINode_Clipping;
-using agui::gui::nodes::GUINode_Flow;
-using agui::gui::nodes::GUINode_Padding;
-using agui::gui::nodes::GUINode_RequestedConstraints;
-using agui::gui::nodes::GUINode_Scale9Grid;
-using agui::gui::nodes::GUINodeConditions;
-using agui::gui::nodes::GUIParentNode;
-using agui::gui::nodes::GUIScreenNode;
-using agui::gui::nodes::GUITextureBaseNode;
+// namespaces
+namespace agui {
+namespace gui {
+namespace nodes {
+	using ::agui::gui::textures::GUITexture;
+	using ::agui::gui::misc::GUIDynamicColorTexture;
+	using ::agui::gui::misc::GUIFrameBuffer;
+}
+}
+}
 
 /**
  * GUI image node

@@ -30,41 +30,33 @@ using std::unordered_map;
 using std::unordered_set;
 using std::vector;
 
-using minitscript::minitscript::Library;
-using minitscript::minitscript::MinitScript;
-
-using agui::gui::textures::GUITexture;
-using agui::gui::events::GUIActionListener;
-using agui::gui::events::GUIActionListenerType;
-using agui::gui::events::GUIChangeListener;
-using agui::gui::events::GUIContextMenuRequestListener;
-using agui::gui::events::GUIDragRequestListener;
-using agui::gui::events::GUIFocusListener;
-using agui::gui::events::GUIInputEventHandler;
-using agui::gui::events::GUIKeyboardEvent;
-using agui::gui::events::GUIMouseEvent;
-using agui::gui::events::GUIMouseOverListener;
-using agui::gui::events::GUIMoveListener;
-using agui::gui::events::GUITooltipRequestListener;
-using agui::gui::nodes::GUIColor;
-using agui::gui::nodes::GUIElementNode;
-using agui::gui::nodes::GUINode;
-using agui::gui::nodes::GUINode_Alignments;
-using agui::gui::nodes::GUINode_Border;
-using agui::gui::nodes::GUINode_Flow;
-using agui::gui::nodes::GUINode_Padding;
-using agui::gui::nodes::GUINode_RequestedConstraints;
-using agui::gui::nodes::GUINode_Scale9Grid;
-using agui::gui::nodes::GUINodeConditions;
-using agui::gui::nodes::GUIColor;
-using agui::gui::nodes::GUIParentNode;
-using agui::gui::nodes::GUIParentNode_Overflow;
-using agui::gui::nodes::GUIScreenNode_SizeConstraints;
-using agui::gui::renderer::GUIFont;
-using agui::gui::renderer::GUIRenderer;
-using agui::gui::scripting::GUIMinitScript;
-using agui::gui::GUI;
-using agui::utilities::MutableString;
+// namespaces
+namespace agui {
+namespace gui {
+namespace nodes {
+	using ::minitscript::minitscript::Library;
+	using ::minitscript::minitscript::MinitScript;
+	using ::agui::gui::textures::GUITexture;
+	using ::agui::gui::events::GUIActionListener;
+	using ::agui::gui::events::GUIActionListenerType;
+	using ::agui::gui::events::GUIChangeListener;
+	using ::agui::gui::events::GUIContextMenuRequestListener;
+	using ::agui::gui::events::GUIDragRequestListener;
+	using ::agui::gui::events::GUIFocusListener;
+	using ::agui::gui::events::GUIInputEventHandler;
+	using ::agui::gui::events::GUIKeyboardEvent;
+	using ::agui::gui::events::GUIMouseEvent;
+	using ::agui::gui::events::GUIMouseOverListener;
+	using ::agui::gui::events::GUIMoveListener;
+	using ::agui::gui::events::GUITooltipRequestListener;
+	using ::agui::gui::renderer::GUIFont;
+	using ::agui::gui::renderer::GUIRenderer;
+	using ::agui::gui::scripting::GUIMinitScript;
+	using ::agui::gui::GUI;
+	using ::agui::utilities::MutableString;
+}
+}
+}
 
 /**
  * GUI screen node that represents a screen that can be rendered via GUI system

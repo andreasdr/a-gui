@@ -13,21 +13,15 @@
 using std::set;
 using std::string;
 
-using agui::gui::events::GUIKeyboardEvent;
-using agui::gui::events::GUIMouseEvent;
-using agui::gui::nodes::GUIColor;
-using agui::gui::nodes::GUILayoutNode;
-using agui::gui::nodes::GUILayoutNode_Alignment;
-using agui::gui::nodes::GUINode_Alignments;
-using agui::gui::nodes::GUINode_Border;
-using agui::gui::nodes::GUINode_Flow;
-using agui::gui::nodes::GUINode_Padding;
-using agui::gui::nodes::GUINode_RequestedConstraints;
-using agui::gui::nodes::GUINode_Scale9Grid;
-using agui::gui::nodes::GUINodeConditions;
-using agui::gui::nodes::GUIParentNode;
-using agui::gui::nodes::GUIParentNode_Overflow;
-using agui::gui::nodes::GUIScreenNode;
+// namespaces
+namespace agui {
+namespace gui {
+namespace nodes {
+	using ::agui::gui::events::GUIKeyboardEvent;
+	using ::agui::gui::events::GUIMouseEvent;
+}
+}
+}
 
 /**
  * GUI panel node

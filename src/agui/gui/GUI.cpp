@@ -20,6 +20,7 @@
 #include <agui/gui/nodes/GUIElementNode.h>
 #include <agui/gui/nodes/GUINode.h>
 #include <agui/gui/nodes/GUINode_Border.h>
+#include <agui/gui/nodes/GUINode_Flow.h>
 #include <agui/gui/nodes/GUINodeConditions.h>
 #include <agui/gui/nodes/GUINodeController.h>
 #include <agui/gui/nodes/GUIScreenNode.h>
@@ -51,6 +52,7 @@ using agui::gui::nodes::GUIColor;
 using agui::gui::nodes::GUIElementNode;
 using agui::gui::nodes::GUINode;
 using agui::gui::nodes::GUINode_Border;
+using agui::gui::nodes::GUINode_Flow;
 using agui::gui::nodes::GUINodeConditions;
 using agui::gui::nodes::GUINodeController;
 using agui::gui::nodes::GUIScreenNode;

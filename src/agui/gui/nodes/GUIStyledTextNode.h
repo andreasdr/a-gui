@@ -22,26 +22,21 @@
 using std::string;
 using std::vector;
 
-using agui::gui::nodes::GUIColor;
-using agui::gui::nodes::GUINode;
-using agui::gui::nodes::GUINode_Alignments;
-using agui::gui::nodes::GUINode_Border;
-using agui::gui::nodes::GUINode_Flow;
-using agui::gui::nodes::GUINode_Padding;
-using agui::gui::nodes::GUINode_RequestedConstraints;
-using agui::gui::nodes::GUINode_RequestedConstraints_RequestedConstraintsType;
-using agui::gui::nodes::GUINode_Scale9Grid;
-using agui::gui::nodes::GUINodeConditions;
-using agui::gui::nodes::GUIParentNode;
-using agui::gui::nodes::GUIScreenNode;
-using agui::gui::renderer::GUIFont;
-using agui::gui::renderer::GUIRenderer;
-using agui::gui::textures::GUITexture;
-using agui::utilities::Exception;
-using agui::utilities::Integer;
-using agui::utilities::MutableString;
-using agui::utilities::StringTools;
-using agui::utilities::UTF8CharacterIterator;
+// namespaces
+namespace agui {
+namespace gui {
+namespace nodes {
+	using ::agui::gui::renderer::GUIFont;
+	using ::agui::gui::renderer::GUIRenderer;
+	using ::agui::gui::textures::GUITexture;
+	using ::agui::utilities::Exception;
+	using ::agui::utilities::Integer;
+	using ::agui::utilities::MutableString;
+	using ::agui::utilities::StringTools;
+	using ::agui::utilities::UTF8CharacterIterator;
+}
+}
+}
 
 /**
  * GUI styled text node

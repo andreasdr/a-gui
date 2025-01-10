@@ -17,21 +17,17 @@ using std::string;
 using std::unordered_set;
 using std::vector;
 
-using agui::gui::events::GUIKeyboardEvent;
-using agui::gui::events::GUIMouseEvent;
-using agui::gui::nodes::GUIColor;
-using agui::gui::nodes::GUINode;
-using agui::gui::nodes::GUINode_Alignments;
-using agui::gui::nodes::GUINode_Border;
-using agui::gui::nodes::GUINode_Flow;
-using agui::gui::nodes::GUINode_Padding;
-using agui::gui::nodes::GUINode_RequestedConstraints;
-using agui::gui::nodes::GUINode_Scale9Grid;
-using agui::gui::nodes::GUINodeConditions;
-using agui::gui::nodes::GUIParentNode_Overflow;
-using agui::gui::nodes::GUIScreenNode;
-using agui::gui::renderer::GUIRenderer;
-using agui::gui::GUIParserException;
+// namespaces
+namespace agui {
+namespace gui {
+namespace nodes {
+	using ::agui::gui::events::GUIKeyboardEvent;
+	using ::agui::gui::events::GUIMouseEvent;
+	using ::agui::gui::renderer::GUIRenderer;
+	using ::agui::gui::GUIParserException;
+}
+}
+}
 
 /**
  * GUI parent node base class thats supporting child nodes

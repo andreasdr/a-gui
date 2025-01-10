@@ -15,6 +15,7 @@ namespace elements {
 	using ::agui::gui::events::GUIMouseEvent;
 	using ::agui::gui::nodes::GUIElementController;
 	using ::agui::gui::nodes::GUIImageNode;
+	using ::agui::gui::nodes::GUINode;
 	using ::agui::gui::nodes::GUITextNode;
 	using ::agui::utilities::MutableString;
 }

@@ -5,6 +5,7 @@
 
 #include <agui/agui.h>
 #include <agui/gui/elements/GUICheckboxController.h>
+#include <agui/gui/nodes/GUINodeController.h>
 #include <agui/gui/nodes/GUIScreenNode.h>
 #include <agui/os/filesystem/FileSystem.h>
 #include <agui/os/filesystem/FileSystemException.h>
@@ -15,6 +16,7 @@ using std::unordered_map;
 
 using agui::gui::elements::GUICheckbox;
 using agui::gui::elements::GUICheckboxController;
+using agui::gui::nodes::GUINodeController;
 using agui::gui::nodes::GUIScreenNode;
 using agui::os::filesystem::FileSystem;
 using agui::os::filesystem::FileSystemException;

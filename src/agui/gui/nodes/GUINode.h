@@ -35,27 +35,20 @@ using std::unordered_map;
 using std::unordered_set;
 using std::vector;
 
-using agui::gui::effects::GUIEffect;
-using agui::gui::effects::GUIEffectState;
-using agui::gui::events::GUIKeyboardEvent;
-using agui::gui::events::GUIMouseEvent;
-using agui::gui::nodes::GUIColor;
-using agui::gui::nodes::GUIElementNode;
-using agui::gui::nodes::GUINode_Alignments;
-using agui::gui::nodes::GUINode_AlignmentHorizontal;
-using agui::gui::nodes::GUINode_AlignmentVertical;
-using agui::gui::nodes::GUINode_Border;
-using agui::gui::nodes::GUINode_ComputedConstraints;
-using agui::gui::nodes::GUINode_Flow;
-using agui::gui::nodes::GUINode_Padding;
-using agui::gui::nodes::GUINode_RequestedConstraints;
-using agui::gui::nodes::GUINode_RequestedConstraints_RequestedConstraintsType;
-using agui::gui::nodes::GUINodeConditions;
-using agui::gui::nodes::GUINodeController;
-using agui::gui::nodes::GUIScreenNode;
-using agui::gui::renderer::GUIRenderer;
-using agui::gui::textures::GUITexture;
-using agui::math::Vector2;
+// namespaces
+namespace agui {
+namespace gui {
+namespace nodes {
+	using ::agui::gui::effects::GUIEffect;
+	using ::agui::gui::effects::GUIEffectState;
+	using ::agui::gui::events::GUIKeyboardEvent;
+	using ::agui::gui::events::GUIMouseEvent;
+	using ::agui::gui::renderer::GUIRenderer;
+	using ::agui::gui::textures::GUITexture;
+	using ::agui::math::Vector2;
+}
+}
+}
 
 /**
  * GUI node base class

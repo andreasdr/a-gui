@@ -14,6 +14,7 @@
 #include <agui/gui/GUI.h>
 #include <agui/math/Math.h>
 #include <agui/utilities/Console.h>
+#include <agui/utilities/MutableString.h>
 #include <agui/utilities/Time.h>
 
 using std::string;
@@ -31,6 +32,7 @@ using agui::gui::nodes::GUIScreenNode;
 using agui::gui::GUI;
 using agui::math::Math;
 using agui::utilities::Console;
+using agui::utilities::MutableString;
 using agui::utilities::Time;
 
 GUIElementController::GUIElementController(GUINode* node)

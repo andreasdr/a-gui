@@ -6,13 +6,16 @@
 #include <agui/gui/nodes/GUINodeController.h>
 #include <agui/utilities/MutableString.h>
 
-using agui::gui::events::GUIKeyboardEvent;
-using agui::gui::events::GUIMouseEvent;
-using agui::gui::nodes::GUILayoutNode;
-using agui::gui::nodes::GUINode;
-using agui::gui::nodes::GUINodeController;
-using agui::gui::nodes::GUIVerticalScrollbarInternalController_State;
-using agui::utilities::MutableString;
+// namespaces
+namespace agui {
+namespace gui {
+namespace nodes {
+	using ::agui::gui::events::GUIKeyboardEvent;
+	using ::agui::gui::events::GUIMouseEvent;
+	using ::agui::utilities::MutableString;
+}
+}
+}
 
 /**
  * GUI vertical scroll bar internal controller

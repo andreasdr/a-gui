@@ -3,6 +3,7 @@
 #include <agui/agui.h>
 #include <string>
 #include <agui/gui/elements/GUIProgressBarController.h>
+#include <agui/gui/nodes/GUINodeController.h>
 #include <agui/gui/nodes/GUIScreenNode.h>
 #include <agui/os/filesystem/FileSystem.h>
 #include <agui/os/filesystem/FileSystemException.h>
@@ -14,6 +15,7 @@ using std::unordered_map;
 
 using agui::gui::elements::GUIProgressBar;
 using agui::gui::elements::GUIProgressBarController;
+using agui::gui::nodes::GUINodeController;
 using agui::gui::nodes::GUIScreenNode;
 using agui::os::filesystem::FileSystem;
 using agui::os::filesystem::FileSystemException;

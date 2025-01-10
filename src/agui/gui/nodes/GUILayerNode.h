@@ -16,18 +16,6 @@
 using std::set;
 using std::string;
 
-using agui::gui::nodes::GUIColor;
-using agui::gui::nodes::GUINode_Alignments;
-using agui::gui::nodes::GUINode_Border;
-using agui::gui::nodes::GUINode_Flow;
-using agui::gui::nodes::GUINode_Padding;
-using agui::gui::nodes::GUINode_RequestedConstraints;
-using agui::gui::nodes::GUINode_Scale9Grid;
-using agui::gui::nodes::GUINodeConditions;
-using agui::gui::nodes::GUIParentNode;
-using agui::gui::nodes::GUIParentNode_Overflow;
-using agui::gui::nodes::GUIScreenNode;
-
 /**
  * GUI layer node
  * @author Andreas Drewke

@@ -10,13 +10,16 @@
 
 using std::array;
 
-using agui::gui::events::GUIKeyboardEvent;
-using agui::gui::events::GUIMouseEvent;
-using agui::gui::nodes::GUIElementNode;
-using agui::gui::nodes::GUIInputInternalController_CursorMode;
-using agui::gui::nodes::GUINode;
-using agui::gui::nodes::GUINodeController;
-using agui::utilities::MutableString;
+// namespaces
+namespace agui {
+namespace gui {
+namespace nodes {
+	using ::agui::gui::events::GUIKeyboardEvent;
+	using ::agui::gui::events::GUIMouseEvent;
+	using ::agui::utilities::MutableString;
+}
+}
+}
 
 /**
  * GUI input internal controller

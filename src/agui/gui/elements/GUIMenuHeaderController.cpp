@@ -13,6 +13,7 @@
 #include <agui/gui/nodes/GUIScreenNode.h>
 #include <agui/gui/GUI.h>
 #include <agui/utilities/Console.h>
+#include <agui/utilities/MutableString.h>
 
 using agui::gui::elements::GUIMenuHeaderController;
 using agui::gui::elements::GUIMenuHeaderItemController;
@@ -25,6 +26,7 @@ using agui::gui::nodes::GUIParentNode;
 using agui::gui::nodes::GUIScreenNode;
 using agui::gui::GUI;
 using agui::utilities::Console;
+using agui::utilities::MutableString;
 
 GUIMenuHeaderController::GUIMenuHeaderController(GUINode* node)
 	: GUINodeController(node)

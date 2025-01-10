@@ -13,17 +13,14 @@
 using std::string;
 using std::vector;
 
-using agui::gui::nodes::GUIColor;
-using agui::gui::nodes::GUINode;
-using agui::gui::nodes::GUINode_Alignments;
-using agui::gui::nodes::GUINode_Border;
-using agui::gui::nodes::GUINode_Flow;
-using agui::gui::nodes::GUINode_Padding;
-using agui::gui::nodes::GUINode_RequestedConstraints;
-using agui::gui::nodes::GUINodeConditions;
-using agui::gui::nodes::GUIParentNode;
-using agui::gui::nodes::GUIScreenNode;
-using agui::gui::renderer::GUIRenderer;
+// namespaces
+namespace agui {
+namespace gui {
+namespace nodes {
+	using ::agui::gui::renderer::GUIRenderer;
+}
+}
+}
 
 /**
  * GUI horizontal scroll bar internal node

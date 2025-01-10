@@ -5,6 +5,7 @@
 
 #include <agui/agui.h>
 #include <agui/gui/elements/GUIButtonController.h>
+#include <agui/gui/nodes/GUINodeController.h>
 #include <agui/gui/nodes/GUIScreenNode.h>
 #include <agui/os/filesystem/FileSystem.h>
 #include <agui/os/filesystem/FileSystemException.h>
@@ -15,6 +16,7 @@ using std::unordered_map;
 
 using agui::gui::elements::GUIButton;
 using agui::gui::elements::GUIButtonController;
+using agui::gui::nodes::GUINodeController;
 using agui::gui::nodes::GUIScreenNode;
 using agui::os::filesystem::FileSystem;
 using agui::os::filesystem::FileSystemException;

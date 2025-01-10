@@ -20,22 +20,17 @@
 using std::string;
 using std::unique_ptr;
 
-using agui::audio::PacketAudioStream;
-using agui::gui::misc::GUIDynamicColorTexture;
-using agui::gui::nodes::GUIColor;
-using agui::gui::nodes::GUINode_Alignments;
-using agui::gui::nodes::GUINode_Border;
-using agui::gui::nodes::GUINode_Clipping;
-using agui::gui::nodes::GUINode_Flow;
-using agui::gui::nodes::GUINode_Padding;
-using agui::gui::nodes::GUINode_RequestedConstraints;
-using agui::gui::nodes::GUINode_Scale9Grid;
-using agui::gui::nodes::GUINodeConditions;
-using agui::gui::nodes::GUIParentNode;
-using agui::gui::nodes::GUIScreenNode;
-using agui::gui::nodes::GUITextureBaseNode;
-using agui::utilities::ByteBuffer;
-using agui::video::decoder::MPEG1Decoder;
+// namespaces
+namespace agui {
+namespace gui {
+namespace nodes {
+	using ::agui::audio::PacketAudioStream;
+	using ::agui::gui::misc::GUIDynamicColorTexture;
+	using ::agui::utilities::ByteBuffer;
+	using ::agui::video::decoder::MPEG1Decoder;
+}
+}
+}
 
 /**
  * GUI video node

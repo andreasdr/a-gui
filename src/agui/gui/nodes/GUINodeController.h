@@ -5,10 +5,16 @@
 #include <agui/gui/nodes/fwd-agui.h>
 #include <agui/utilities/fwd-agui.h>
 
-using agui::gui::events::GUIKeyboardEvent;
-using agui::gui::events::GUIMouseEvent;
-using agui::gui::nodes::GUINode;
-using agui::utilities::MutableString;
+// namespaces
+namespace agui {
+namespace gui {
+namespace nodes {
+	using ::agui::gui::events::GUIKeyboardEvent;
+	using ::agui::gui::events::GUIMouseEvent;
+	using ::agui::utilities::MutableString;
+}
+}
+}
 
 /**
  * GUI node controller base class

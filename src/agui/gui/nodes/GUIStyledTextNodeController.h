@@ -14,12 +14,17 @@ using std::string;
 using std::to_string;
 using std::vector;
 
-using agui::gui::events::GUIKeyboardEvent;
-using agui::gui::events::GUIMouseEvent;
-using agui::gui::nodes::GUINode;
-using agui::gui::nodes::GUINodeController;
-using agui::gui::GUIParser;
-using agui::utilities::MutableString;
+// namespaces
+namespace agui {
+namespace gui {
+namespace nodes {
+	using ::agui::gui::events::GUIKeyboardEvent;
+	using ::agui::gui::events::GUIMouseEvent;
+	using ::agui::gui::GUIParser;
+	using ::agui::utilities::MutableString;
+}
+}
+}
 
 /**
  * GUI styled text node controller

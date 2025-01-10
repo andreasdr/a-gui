@@ -12,6 +12,7 @@
 #include <agui/gui/nodes/GUIParentNode.h>
 #include <agui/gui/nodes/GUIScreenNode.h>
 #include <agui/gui/GUI.h>
+#include <agui/utilities/MutableString.h>
 
 using agui::gui::elements::GUIGridController;
 using agui::gui::elements::GUIGridItemController;
@@ -23,6 +24,7 @@ using agui::gui::nodes::GUINodeController;
 using agui::gui::nodes::GUIParentNode;
 using agui::gui::nodes::GUIScreenNode;
 using agui::gui::GUI;
+using agui::utilities::MutableString;
 
 string GUIGridItemController::CONDITION_SELECTED = "selected";
 string GUIGridItemController::CONDITION_UNSELECTED = "unselected";

@@ -13,9 +13,15 @@ using std::array;
 using std::string;
 using std::vector;
 
-using agui::gui::misc::GUIColor4;
-using agui::gui::nodes::GUIColor;
-using agui::gui::GUIParserException;
+// namespaces
+namespace agui {
+namespace gui {
+namespace nodes {
+	using ::agui::gui::misc::GUIColor4;
+	using ::agui::gui::GUIParserException;
+}
+}
+}
 
 /**
  * GUI color

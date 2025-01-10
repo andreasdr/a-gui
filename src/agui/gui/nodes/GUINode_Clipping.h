@@ -3,8 +3,6 @@
 #include <agui/agui.h>
 #include <agui/gui/nodes/fwd-agui.h>
 
-using agui::gui::nodes::GUINode_Clipping;
-
 /**
  * GUI node clipping entity
  * @author Andreas Drewke

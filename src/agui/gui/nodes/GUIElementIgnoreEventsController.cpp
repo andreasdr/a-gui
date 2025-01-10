@@ -7,6 +7,7 @@
 #include <agui/gui/nodes/GUINodeConditions.h>
 #include <agui/gui/nodes/GUIScreenNode.h>
 #include <agui/gui/GUI.h>
+#include <agui/utilities/MutableString.h>
 
 using agui::gui::events::GUIMouseEvent;
 using agui::gui::nodes::GUIElementIgnoreEventsController;
@@ -15,6 +16,7 @@ using agui::gui::nodes::GUINode;
 using agui::gui::nodes::GUINodeConditions;
 using agui::gui::nodes::GUIScreenNode;
 using agui::gui::GUI;
+using agui::utilities::MutableString;
 
 GUIElementIgnoreEventsController::GUIElementIgnoreEventsController(GUINode* node)
 	: GUINodeController(node)

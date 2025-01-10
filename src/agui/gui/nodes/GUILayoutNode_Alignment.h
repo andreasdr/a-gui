@@ -8,9 +8,14 @@
 
 using std::string;
 
-using agui::gui::nodes::GUILayoutNode;
-using agui::gui::nodes::GUILayoutNode_Alignment;
-using agui::utilities::Enum;
+// namespaces
+namespace agui {
+namespace gui {
+namespace nodes {
+	using ::agui::utilities::Enum;
+}
+}
+}
 
 /**
  * GUI layout node alignment enum

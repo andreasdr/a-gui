@@ -18,24 +18,18 @@
 
 using std::string;
 
-using agui::gui::textures::GUITexture;
-using agui::gui::nodes::GUIColor;
-using agui::gui::nodes::GUINode;
-using agui::gui::nodes::GUINode_Alignments;
-using agui::gui::nodes::GUINode_Border;
-using agui::gui::nodes::GUINode_Clipping;
-using agui::gui::nodes::GUINode_Flow;
-using agui::gui::nodes::GUINode_Padding;
-using agui::gui::nodes::GUINode_RequestedConstraints;
-using agui::gui::nodes::GUINode_RequestedConstraints_RequestedConstraintsType;
-using agui::gui::nodes::GUINode_Scale9Grid;
-using agui::gui::nodes::GUINodeConditions;
-using agui::gui::nodes::GUIParentNode;
-using agui::gui::nodes::GUIScreenNode;
-using agui::gui::renderer::GUIRenderer;
-using agui::gui::textures::GUITexture;
-using agui::gui::textures::GUITextureManager;
-using agui::math::Matrix3x3;
+// namespaces
+namespace agui {
+namespace gui {
+namespace nodes {
+	using ::agui::gui::textures::GUITexture;
+	using ::agui::gui::renderer::GUIRenderer;
+	using ::agui::gui::textures::GUITexture;
+	using ::agui::gui::textures::GUITextureManager;
+	using ::agui::math::Matrix3x3;
+}
+}
+}
 
 /**
  * GUI texture base node
