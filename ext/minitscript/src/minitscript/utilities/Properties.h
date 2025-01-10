@@ -57,7 +57,7 @@ public:
 	 * Load property file
 	 * @param pathName path name
 	 * @param fileName file name
-	 * @throws agui::os::filesystem::FileSystemException
+	 * @throws tdme::os::filesystem::FileSystemException
 	 */
 	void load(const string& pathName, const string& fileName);
 
@@ -65,7 +65,7 @@ public:
 	 * Store property file
 	 * @param pathName path name
 	 * @param fileName file name
-	 * @throws agui::os::filesystem::FileSystemException
+	 * @throws tdme::os::filesystem::FileSystemException
 	 */
 	void store(const string& pathName, const string& fileName) const;
 

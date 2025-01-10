@@ -14,7 +14,6 @@
 #include <string_view>
 #include <unordered_map>
 #include <unordered_set>
-#include <utility>
 #include <vector>
 
 #include <minitscript/minitscript/MinitScript.h>
@@ -57,7 +56,6 @@ using std::initializer_list;
 using std::make_pair;
 using std::make_unique;
 using std::map;
-using std::move;
 using std::remove;
 using std::reverse;
 using std::smatch;
@@ -1989,7 +1987,7 @@ bool MinitScript::parseScriptInternal(const string& scriptCode, const string& _m
 					}
 				} else
 				// array/set forEach
-				if (StringTools::regexMatch(regexStatementCode, "^forEach[\\s]*\\([\\s]*(&?\\$[a-zA-Z0-9_]+)[\\s]*\\in[\\s]*((\\$[a-zA-Z0-9_]+)|(\\[.*\\])|(\\{.*\\}))[\\s]*\\)$", &matches) == true) {
+				if (StringTools::regexMatch(regexStatementCode, "^forEach[\\s]*\\([\\s]*(&?\\$[a-zA-Z0-9_]+)[\\s]*in[\\s]*((\\$[a-zA-Z0-9_]+)|(\\[.*\\])|(\\{.*\\}))[\\s]*\\)$", &matches) == true) {
 					Statement generatedStatement(
 						_scriptFileName,
 						currentLineIdx + lineIdxOffset,
@@ -2101,7 +2099,7 @@ bool MinitScript::parseScriptInternal(const string& scriptCode, const string& _m
 						"})";
 				} else
 				// map forEach
-				if (StringTools::regexMatch(regexStatementCode, "^forEach[\\s]*\\([\\s]*(\\$[a-zA-Z0-9_]+)[\\s]*,[\\s]*(&?\\$[a-zA-Z0-9_]+)[\\s]*\\in[\\s]*((\\$[a-zA-Z0-9_]+)|(\\[.*\\])|(\\{.*\\}))[\\s]*\\)$", &matches) == true) {
+				if (StringTools::regexMatch(regexStatementCode, "^forEach[\\s]*\\([\\s]*(\\$[a-zA-Z0-9_]+)[\\s]*,[\\s]*(&?\\$[a-zA-Z0-9_]+)[\\s]*in[\\s]*((\\$[a-zA-Z0-9_]+)|(\\[.*\\])|(\\{.*\\}))[\\s]*\\)$", &matches) == true) {
 					Statement generatedStatement(
 						_scriptFileName,
 						currentLineIdx + lineIdxOffset,
@@ -4994,7 +4992,12 @@ inline void MinitScript::setVariableInternal(const string& variableStatement, Va
 		if (parentVariable->getType() == MinitScript::TYPE_MAP) {
 			// check if our parent is not a const variable
 			if (parentVariable->isConstant() == false) {
-				parentVariable->setMapEntry(key, createReference == false?Variable::createNonReferenceVariable(&variable):Variable::createReferenceVariable(&variable));
+				parentVariable->setMapEntry(
+					key,
+					createReference == true?
+						(variable.isReference() == true?variable:Variable::createReferenceVariable(&variable)):
+						(variable.isReference() == false?variable:Variable::createNonReferenceVariable(&variable))
+				);
 			} else {
 				Console::printLine((subStatement != nullptr?getSubStatementInformation(*subStatement):scriptFileName) + ": Constant: " + variableStatement + ": assignment of constant is not allowed");
 			}
@@ -5029,7 +5032,11 @@ inline void MinitScript::setVariableInternal(const string& variableStatement, Va
 			// check if our parent is not a const variable
 			if (parentVariable->isConstant() == false) {
 				// all checks passed, push variable to array
-				parentVariable->pushArrayEntry(createReference == false?Variable::createNonReferenceVariable(&variable):Variable::createReferenceVariable(&variable));
+				parentVariable->pushArrayEntry(
+					createReference == true?
+						(variable.isReference() == true?variable:Variable::createReferenceVariable(&variable)):
+						(variable.isReference() == false?variable:Variable::createNonReferenceVariable(&variable))
+				);
 			} else {
 				Console::printLine((subStatement != nullptr?getSubStatementInformation(*subStatement):scriptFileName) + ": Constant: " + variableStatement + ": assignment of constant is not allowed");
 			}

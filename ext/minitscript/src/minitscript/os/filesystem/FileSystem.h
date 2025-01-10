@@ -67,16 +67,25 @@ public:
 	 * @param pathName path name
 	 * @param fileName file name
 	 * @return file size
-	 * @throws agui::os::filesystem::FileSystemException
+	 * @throws tdme::os::filesystem::FileSystemException
 	 */
 	static uint64_t getFileSize(const string& pathName, const string& fileName);
+
+	/**
+	 * Return time stamp of given file
+	 * @param pathName path name
+	 * @param fileName file name
+	 * @return time stamp
+	 * @throws tdme::os::filesystem::FileSystemException
+	 */
+	static uint64_t getFileTimeStamp(const string& pathName, const string& fileName);
 
 	/**
 	 * Get content as string
 	 * @param pathName path name
 	 * @param fileName file name
 	 * @return string
-	 * @throws agui::os::filesystem::FileSystemException
+	 * @throws tdme::os::filesystem::FileSystemException
 	 */
 	static const string getContentAsString(const string& pathName, const string& fileName);
 
@@ -85,7 +94,7 @@ public:
 	 * @param pathName path name
 	 * @param fileName file name
 	 * @param content content string
-	 * @throws agui::os::filesystem::FileSystemException
+	 * @throws tdme::os::filesystem::FileSystemException
 	 */
 	static void setContentFromString(const string& pathName, const string& fileName, const string& content);
 
@@ -94,7 +103,7 @@ public:
 	 * @param pathName path name
 	 * @param fileName file name
 	 * @param content content vector
-	 * @throws agui::os::filesystem::FileSystemException
+	 * @throws tdme::os::filesystem::FileSystemException
 	 */
 	static void getContent(const string& pathName, const string& fileName, vector<uint8_t>& content);
 
@@ -103,7 +112,7 @@ public:
 	 * @param pathName path name
 	 * @param fileName file name
 	 * @param content content vector
-	 * @throws agui::os::filesystem::FileSystemException
+	 * @throws tdme::os::filesystem::FileSystemException
 	 */
 	static void setContent(const string& pathName, const string& fileName, const vector<uint8_t>& content);
 
@@ -112,7 +121,7 @@ public:
 	 * @param pathName path name
 	 * @param fileName file name
 	 * @param content content vector
-	 * @throws agui::os::filesystem::FileSystemException
+	 * @throws tdme::os::filesystem::FileSystemException
 	 */
 	static void getContentAsStringArray(const string& pathName, const string& fileName, vector<string>& content);
 
@@ -122,7 +131,7 @@ public:
 	 * @param fileName file name
 	 * @param content string array
 	 * @return byte array
-	 * @throws agui::os::filesystem::FileSystemException
+	 * @throws tdme::os::filesystem::FileSystemException
 	 */
 	static void setContentFromStringArray(const string& pathName, const string& fileName, const vector<string>& content);
 
@@ -133,7 +142,7 @@ public:
 	 * @param filter filter or null, this filter can be created on stack as ownership will not be taken over
 	 * @param addDrives add drives to list(applies to Microsoft Windows only)
 	 * @return file names
-	 * @throws agui::os::filesystem::FileSystemException
+	 * @throws tdme::os::filesystem::FileSystemException
 	 */
 	static void list(const string& pathName, vector<string>& files, FileNameFilter* filter = nullptr, bool addDrives = false);
 
@@ -141,7 +150,7 @@ public:
 	 * Check if file is a path
 	 * @param uri uniform resource identifier
 	 * @return if file is a path
-	 * @throws agui::os::filesystem::FileSystemException
+	 * @throws tdme::os::filesystem::FileSystemException
 	 */
 	static bool isPath(const string& uri);
 
@@ -156,7 +165,7 @@ public:
 	 * Check if file exists
 	 * @param uri uniform resource identifier
 	 * @return bool if file exists
-	 * @throws agui::os::filesystem::FileSystemException
+	 * @throws tdme::os::filesystem::FileSystemException
 	 */
 	static bool exists(const string& uri);
 
@@ -171,14 +180,14 @@ public:
 	/**
 	 * Get current working path name
 	 * @return current working path
-	 * @throws agui::os::filesystem::FileSystemException
+	 * @throws tdme::os::filesystem::FileSystemException
 	 */
 	static const string getCurrentWorkingPathName();
 
 	/**
 	 * Change path
 	 * @param pathName path name
-	 * @throws agui::os::filesystem::FileSystemException
+	 * @throws tdme::os::filesystem::FileSystemException
 	 */
 	static void changePath(const string& pathName);
 
@@ -206,7 +215,7 @@ public:
 	/**
 	 * Create path
 	 * @param pathName path name
-	 * @throws agui::os::filesystem::FileSystemException
+	 * @throws tdme::os::filesystem::FileSystemException
 	 */
 	static void createPath(const string& pathName);
 
@@ -215,7 +224,7 @@ public:
 	 * @param pathName path name
 	 * @param recursive remove recursive
 	 * @return success
-	 * @throws agui::os::filesystem::FileSystemException
+	 * @throws tdme::os::filesystem::FileSystemException
 	 */
 	static void removePath(const string& pathName, bool recursive);
 
@@ -224,7 +233,7 @@ public:
 	 * @param pathName path name
 	 * @param fileName file name
 	 * @return success
-	 * @throws agui::os::filesystem::FileSystemException
+	 * @throws tdme::os::filesystem::FileSystemException
 	 */
 	static void removeFile(const string& pathName, const string& fileName);
 
@@ -232,7 +241,7 @@ public:
 	 * Rename file
 	 * @param fileNameFrom file name from
 	 * @param fileNameTo file name to
-	 * @throws agui::os::filesystem::FileSystemException
+	 * @throws tdme::os::filesystem::FileSystemException
 	 */
 	static void rename(const string& fileNameFrom, const string& fileNameTo);
 
