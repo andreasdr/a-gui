@@ -20,12 +20,19 @@ using std::unique_ptr;
 using std::unordered_set;
 using std::vector;
 
-using minitscript::minitscript::MinitScript;
+// namespaces
+namespace agui {
+namespace gui {
+namespace scripting {
+	using ::minitscript::minitscript::MinitScript;
 
-using agui::gui::GUI;
-using agui::gui::events::GUIKeyboardEvent;
-using agui::gui::events::GUIMouseEvent;
-using agui::gui::nodes::GUIScreenNode;
+	using ::agui::gui::GUI;
+	using ::agui::gui::events::GUIKeyboardEvent;
+	using ::agui::gui::events::GUIMouseEvent;
+	using ::agui::gui::nodes::GUIScreenNode;
+}
+}
+}
 
 /**
  * GUI mini script
