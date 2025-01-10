@@ -30,8 +30,13 @@ using std::string;
 using std::unordered_set;
 using std::vector;
 
-using agui::application::InputEventHandler;
-using agui::gui::renderer::Renderer;
+// namespaces
+namespace agui {
+namespace application {
+	using ::agui::application::InputEventHandler;
+	using ::agui::gui::renderer::Renderer;
+}
+}
 
 /**
  * Application base class, please make sure to allocate application on heap to have correct application shutdown working
