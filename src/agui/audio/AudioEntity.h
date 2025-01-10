@@ -9,7 +9,12 @@
 
 using std::string;
 
-using agui::math::Vector3;
+// namespaces
+namespace agui {
+namespace audio {
+	using ::agui::math::Vector3;
+}
+}
 
 /**
  * Audio entity base class

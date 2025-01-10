@@ -5,7 +5,6 @@
 
 #include <agui/agui.h>
 #include <agui/audio/Audio.h>
-#include <agui/audio/AudioBufferManager_AudioBufferManaged.h>
 #include <agui/utilities/Console.h>
 
 using std::string;
@@ -13,37 +12,36 @@ using std::unordered_map;
 
 using agui::audio::Audio;
 using agui::audio::AudioBufferManager;
-using agui::audio::AudioBufferManager_AudioBufferManaged;
 using agui::utilities::Console;
 
-AudioBufferManager_AudioBufferManaged* AudioBufferManager::addAudioBuffer(const string& id)
+AudioBufferManager::ManagedAudioBuffer* AudioBufferManager::addAudioBuffer(const string& id)
 {
 	// check if we already manage this audio buffer
-	auto audioBufferManagedIt = audioBuffers.find(id);
-	AudioBufferManager_AudioBufferManaged* audioBufferManaged = audioBufferManagedIt != audioBuffers.end()?audioBufferManagedIt->second:nullptr;
-	if (audioBufferManaged != nullptr) {
-		audioBufferManaged->incrementReferenceCounter();
+	auto managedAudioBufferIt = audioBuffers.find(id);
+	ManagedAudioBuffer* managedAudioBuffer = managedAudioBufferIt != audioBuffers.end()?managedAudioBufferIt->second:nullptr;
+	if (managedAudioBuffer != nullptr) {
+		managedAudioBuffer->incrementReferenceCounter();
 		// yep, return buffer
-		return audioBufferManaged;
+		return managedAudioBuffer;
 	}
 	// not yet, create managed audio buffer with no AL id attached yet
-	audioBufferManaged = new AudioBufferManager_AudioBufferManaged(this, id, Audio::ALBUFFERID_NONE);
-	audioBufferManaged->incrementReferenceCounter();
+	managedAudioBuffer = new ManagedAudioBuffer(this, id, Audio::ALBUFFERID_NONE);
+	managedAudioBuffer->incrementReferenceCounter();
 	// add it to our audioBuffers
-	audioBuffers[audioBufferManaged->getId()] = audioBufferManaged;
+	audioBuffers[managedAudioBuffer->getId()] = managedAudioBuffer;
 	// return audio buffer
-	return audioBufferManaged;
+	return managedAudioBuffer;
 }
 
 bool AudioBufferManager::removeAudioBuffer(const string& id)
 {
-	auto audioBufferManagedIt = audioBuffers.find(id);
-	AudioBufferManager_AudioBufferManaged* audioBufferManaged = audioBufferManagedIt != audioBuffers.end()?audioBufferManagedIt->second:nullptr;
-	if (audioBufferManaged != nullptr) {
-		if (audioBufferManaged->decrementReferenceCounter()) {
+	auto managedAudioBufferIt = audioBuffers.find(id);
+	auto managedAudioBuffer = managedAudioBufferIt != audioBuffers.end()?managedAudioBufferIt->second:nullptr;
+	if (managedAudioBuffer != nullptr) {
+		if (managedAudioBuffer->decrementReferenceCounter()) {
 			// remove from our list
-			audioBuffers.erase(audioBufferManagedIt);
-			delete audioBufferManaged;
+			audioBuffers.erase(managedAudioBufferIt);
+			delete managedAudioBuffer;
 			// report to called that this audio buffer can be removed
 			return true;
 		} else {

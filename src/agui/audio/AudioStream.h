@@ -13,8 +13,13 @@ using std::array;
 using std::string;
 using std::unique_ptr;
 
-using agui::audio::AudioEntity;
-using agui::utilities::ByteBuffer;
+// namespaces
+namespace agui {
+namespace audio {
+	using ::agui::audio::AudioEntity;
+	using ::agui::utilities::ByteBuffer;
+}
+}
 
 /**
  * Audio stream

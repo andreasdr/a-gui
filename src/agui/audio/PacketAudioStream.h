@@ -10,8 +10,13 @@
 using std::string;
 using std::vector;
 
-using agui::audio::AudioStream;
-using agui::utilities::ByteBuffer;
+// namespaces
+namespace agui {
+namespace audio {
+	using ::agui::audio::AudioStream;
+	using ::agui::utilities::ByteBuffer;
+}
+}
 
 /**
  * Packet audio stream

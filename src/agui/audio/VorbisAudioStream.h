@@ -8,9 +8,14 @@
 
 using std::string;
 
-using agui::audio::decoder::VorbisDecoder;
-using agui::audio::AudioStream;
-using agui::utilities::ByteBuffer;
+// namespaces
+namespace agui {
+namespace audio {
+	using ::agui::audio::decoder::VorbisDecoder;
+	using ::agui::audio::AudioStream;
+	using ::agui::utilities::ByteBuffer;
+}
+}
 
 /**
  * Vorbis audio stream

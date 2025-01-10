@@ -11,9 +11,14 @@
 
 using std::string;
 
-using agui::audio::decoder::AudioDecoderException;
-using agui::os::filesystem::FileSystemException;
-using agui::utilities::ByteBuffer;
+// namespaces
+namespace agui {
+namespace audio {
+	using ::agui::audio::decoder::AudioDecoderException;
+	using ::agui::os::filesystem::FileSystemException;
+	using ::agui::utilities::ByteBuffer;
+}
+}
 
 /**
  * Audio decoder base class

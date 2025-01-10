@@ -17,9 +17,14 @@
 using std::string;
 using std::unordered_map;
 
-using agui::audio::AudioBufferManager;
-using agui::audio::AudioEntity;
-using agui::math::Vector3;
+// namespaces
+namespace agui {
+namespace audio {
+	using ::agui::audio::AudioBufferManager;
+	using ::agui::audio::AudioEntity;
+	using ::agui::math::Vector3;
+}
+}
 
 /**
  * Interface to audio module

@@ -15,7 +15,6 @@
 #include <agui/audio/decoder/VorbisDecoder.h>
 #include <agui/audio/Audio.h>
 #include <agui/audio/AudioBufferManager.h>
-#include <agui/audio/AudioBufferManager_AudioBufferManaged.h>
 #include <agui/math/Vector3.h>
 #include <agui/os/filesystem/fwd-agui.h>
 #include <agui/os/filesystem/FileSystemException.h>
@@ -32,7 +31,6 @@ using agui::audio::decoder::AudioDecoderException;
 using agui::audio::decoder::VorbisDecoder;
 using agui::audio::Audio;
 using agui::audio::AudioBufferManager;
-using agui::audio::AudioBufferManager_AudioBufferManaged;
 using agui::math::Vector3;
 using agui::os::filesystem::FileSystemException;
 using agui::utilities::ByteBuffer;
@@ -94,8 +92,8 @@ void Sound::stop()
 bool Sound::initialize()
 {
 	// check if we already have this buffer
-	auto audioBufferManaged = Audio::instance->audioBufferManager.addAudioBuffer(bufferId);
-	if (audioBufferManaged->alId == Audio::ALBUFFERID_NONE) {
+	auto managedAudioBuffer = Audio::instance->audioBufferManager.addAudioBuffer(bufferId);
+	if (managedAudioBuffer->alId == Audio::ALBUFFERID_NONE) {
 		// nope, generate al buffer
 		int alError;
 		alGenBuffers(1, &alBufferId);
@@ -104,7 +102,7 @@ bool Sound::initialize()
 			return false;
 		}
 		// set up al id in audio buffer managed
-		audioBufferManaged->setAlId(alBufferId);
+		managedAudioBuffer->setAlId(alBufferId);
 		auto format = -1;
 		auto frequency = -1;
 
@@ -174,7 +172,7 @@ bool Sound::initialize()
 			return false;
 		}
 	} else {
-		alBufferId = audioBufferManaged->alId;
+		alBufferId = managedAudioBuffer->alId;
 	}
 
 	// create source

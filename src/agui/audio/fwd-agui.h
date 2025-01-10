@@ -5,7 +5,6 @@ namespace agui {
 namespace audio {
 	class Audio;
 	class AudioBufferManager;
-	class AudioBufferManager_AudioBufferManaged;
 	class AudioEntity;
 	class AudioStream;
 	class PacketAudioStream;

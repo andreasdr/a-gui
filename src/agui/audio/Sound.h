@@ -8,7 +8,12 @@
 
 using std::string;
 
-using agui::audio::AudioEntity;
+// namespaces
+namespace agui {
+namespace audio {
+	using ::agui::audio::AudioEntity;
+}
+}
 
 /**
  * Sound audio entity implementation
