@@ -20,19 +20,24 @@
 using std::unordered_map;
 using std::vector;
 
-using minitscript::minitscript::Library;
-using minitscript::minitscript::MinitScript;
+// namespaces
+namespace agui {
+namespace gui {
+	using ::minitscript::minitscript::Library;
+	using ::minitscript::minitscript::MinitScript;
 
-using agui::gui::effects::GUIEffect;
-using agui::gui::elements::GUIElement;
-using agui::gui::nodes::GUINode;
-using agui::gui::nodes::GUIParentNode;
-using agui::gui::nodes::GUIScreenNode;
-using agui::gui::GUIParserException;
-using agui::os::filesystem::FileSystemException;
-using agui::utilities::Properties;
+	using tinyxml::TiXmlElement;
 
-using tinyxml::TiXmlElement;
+	using ::agui::gui::effects::GUIEffect;
+	using ::agui::gui::elements::GUIElement;
+	using ::agui::gui::nodes::GUINode;
+	using ::agui::gui::nodes::GUIParentNode;
+	using ::agui::gui::nodes::GUIScreenNode;
+	using ::agui::gui::GUIParserException;
+	using ::agui::os::filesystem::FileSystemException;
+	using ::agui::utilities::Properties;
+}
+}
 
 /**
  * GUI parser

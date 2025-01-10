@@ -9,13 +9,11 @@
 
 using std::string;
 
-using agui::utilities::ExceptionBase;
-
 /**
  * GUI parser exception
  * @author Andreas Drewke
  */
-class agui::gui::GUIParserException final: public ExceptionBase
+class agui::gui::GUIParserException final: public agui::utilities::ExceptionBase
 {
 public:
 	/**

@@ -27,6 +27,8 @@
 #include <agui/gui/renderer/GUIRenderer.h>
 #include <agui/gui/renderer/GUIShader.h>
 #include <agui/gui/scripting/GUIMinitScript.h>
+#include <agui/gui/textures/GUITextureManager.h>
+#include <agui/gui/vbos/GUIVBOManager.h>
 #include <agui/gui/GUIParser.h>
 #include <agui/gui/GUIParserException.h>
 #include <agui/utilities/Console.h>
@@ -59,6 +61,8 @@ using agui::gui::nodes::GUIScreenNode;
 using agui::gui::renderer::GUIRenderer;
 using agui::gui::renderer::GUIShader;
 using agui::gui::scripting::GUIMinitScript;
+using agui::gui::textures::GUITextureManager;
+using agui::gui::vbos::GUIVBOManager;
 using agui::gui::GUI;
 using agui::gui::GUIParser;
 using agui::gui::GUIParserException;

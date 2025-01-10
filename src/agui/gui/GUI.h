@@ -20,8 +20,8 @@
 #include <agui/gui/nodes/GUINode.h>
 #include <agui/gui/nodes/GUIScreenNode.h>
 #include <agui/gui/renderer/fwd-agui.h>
-#include <agui/gui/textures/GUITextureManager.h>
-#include <agui/gui/vbos/GUIVBOManager.h>
+#include <agui/gui/textures/fwd-agui.h>
+#include <agui/gui/vbos/fwd-agui.h>
 #include <agui/utilities/fwd-agui.h>
 #include <agui/utilities/Console.h>
 #include <agui/utilities/Exception.h>
@@ -36,31 +36,35 @@ using std::unordered_map;
 using std::unordered_set;
 using std::vector;
 
-using agui::application::InputEventHandler;
-using agui::gui::events::GUIKeyboardEvent;
-using agui::gui::events::GUIMouseEvent;
-using agui::gui::misc::GUITiming;
-using agui::gui::nodes::GUIColor;
-using agui::gui::nodes::GUIElementNode;
-using agui::gui::nodes::GUINode;
-using agui::gui::nodes::GUIScreenNode;
-using agui::gui::renderer::GUIRenderer;
-using agui::gui::renderer::GUIShader;
-using agui::gui::textures::GUITextureManager;
-using agui::gui::vbos::GUIVBOManager;
-
-using agui::utilities::Console;
-using agui::utilities::Exception;
-using agui::utilities::RTTI;
-using agui::utilities::Time;
+// namespaces
+namespace agui {
+namespace gui {
+	using ::agui::application::InputEventHandler;
+	using ::agui::gui::events::GUIKeyboardEvent;
+	using ::agui::gui::events::GUIMouseEvent;
+	using ::agui::gui::misc::GUITiming;
+	using ::agui::gui::nodes::GUIColor;
+	using ::agui::gui::nodes::GUIElementNode;
+	using ::agui::gui::nodes::GUINode;
+	using ::agui::gui::nodes::GUIScreenNode;
+	using ::agui::gui::renderer::GUIRenderer;
+	using ::agui::gui::renderer::GUIShader;
+	using ::agui::gui::textures::GUITextureManager;
+	using ::agui::gui::vbos::GUIVBOManager;
+	using ::agui::utilities::Console;
+	using ::agui::utilities::Exception;
+	using ::agui::utilities::RTTI;
+	using ::agui::utilities::Time;
+}
+}
 
 template<typename T, typename U>
 static T required_dynamic_cast(U u)
 {
 	auto t = dynamic_cast<T>(u);
 	if (t == nullptr) {
-		Console::printLine("required_dynamic_cast: unable to perform required dynamic cast @\n\n" + RTTI::backtrace());
-		throw ExceptionBase("required_dynamic_cast did fail");
+		Console::printLine("required_dynamic_cast: unable to perform required dynamic cast @\n\n" + agui::utilities::RTTI::backtrace());
+		throw ::agui::utilities::ExceptionBase("required_dynamic_cast did fail");
 
 	}
 	return t;

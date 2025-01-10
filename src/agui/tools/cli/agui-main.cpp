@@ -8,6 +8,7 @@
 #include <agui/gui/GUIVersion.h>
 #include <agui/gui/renderer/GUIRenderer.h>
 #include <agui/gui/renderer/GUIShader.h>
+#include <agui/gui/renderer/Renderer.h>
 #include <agui/os/filesystem/FileSystem.h>
 #include <agui/os/filesystem/FileSystemInterface.h>
 #include <agui/utilities/Console.h>
@@ -22,6 +23,7 @@ using agui::gui::GUIParser;
 using agui::gui::GUIVersion;
 using agui::gui::renderer::GUIRenderer;
 using agui::gui::renderer::GUIShader;
+using agui::gui::renderer::Renderer;
 using agui::os::filesystem::FileSystem;
 using agui::os::filesystem::FileSystemInterface;
 using agui::utilities::Console;
