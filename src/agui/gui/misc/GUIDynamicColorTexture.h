@@ -6,9 +6,15 @@
 #include <agui/gui/misc/GUIColorTexture.h>
 #include <agui/utilities/ByteBuffer.h>
 
-using agui::gui::textures::GUITexture;
-using agui::gui::misc::GUIColorTexture;
-using agui::utilities::ByteBuffer;
+// namespaces
+namespace agui {
+namespace gui {
+namespace misc {
+	using ::agui::gui::textures::GUITexture;
+	using ::agui::utilities::ByteBuffer;
+}
+}
+}
 
 /**
  * Dynamic color texture

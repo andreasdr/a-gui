@@ -8,13 +8,11 @@
 
 using std::string;
 
-using agui::gui::misc::GUIColorTexture;
-
 /**
  * Frame buffer class
  * @author Andreas Drewke
  */
-class agui::gui::misc::GUIFrameBuffer final: public GUIColorTexture
+class agui::gui::misc::GUIFrameBuffer final: public ::agui::gui::misc::GUIColorTexture
 {
 public:
 

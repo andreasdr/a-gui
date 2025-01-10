@@ -8,7 +8,14 @@
 
 using std::array;
 
-using agui::math::Math;
+// namespaces
+namespace agui {
+namespace gui {
+namespace misc {
+	using ::agui::math::Math;
+}
+}
+}
 
 /**
  * Color 4 definition class

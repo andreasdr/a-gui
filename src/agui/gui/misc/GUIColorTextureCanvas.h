@@ -10,9 +10,16 @@
 
 using std::vector;
 
-using agui::gui::textures::GUITexture;
-using agui::math::Vector2;
-using agui::utilities::ByteBuffer;
+// namespaces
+namespace agui {
+namespace gui {
+namespace misc {
+	using ::agui::gui::textures::GUITexture;
+	using ::agui::math::Vector2;
+	using ::agui::utilities::ByteBuffer;
+}
+}
+}
 
 /**
  * Color texture canvas
