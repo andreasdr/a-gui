@@ -25,6 +25,7 @@
 #include <agui/gui/nodes/GUINodeController.h>
 #include <agui/gui/nodes/GUIScreenNode.h>
 #include <agui/gui/renderer/GUIRenderer.h>
+#include <agui/gui/renderer/GUIRendererBackend.h>
 #include <agui/gui/renderer/GUIShader.h>
 #include <agui/gui/scripting/GUIMinitScript.h>
 #include <agui/gui/textures/GUITextureManager.h>
@@ -59,6 +60,7 @@ using agui::gui::nodes::GUINodeConditions;
 using agui::gui::nodes::GUINodeController;
 using agui::gui::nodes::GUIScreenNode;
 using agui::gui::renderer::GUIRenderer;
+using agui::gui::renderer::GUIRendererBackend;
 using agui::gui::renderer::GUIShader;
 using agui::gui::scripting::GUIMinitScript;
 using agui::gui::textures::GUITextureManager;
@@ -77,13 +79,48 @@ static unique_ptr<GUIVBOManager> vboManager;
 static unique_ptr<GUIShader> shader;
 
 bool GUI::disableTabFocusControl = false;
+GUIRendererBackend* GUI::rendererBackend = nullptr;
 unique_ptr<GUIRenderer> GUI::renderer;
 unique_ptr<GUITextureManager> GUI::textureManager;
 unique_ptr<GUIVBOManager> GUI::vboManager;
 unique_ptr<GUIShader> GUI::shader;
 
-GUI::GUI(int width, int height)
+int GUI::getMouseCursor() {
+	return Application::getMouseCursor();
+}
+
+void GUI::setMouseCursor(int mouseCursor) {
+	Application::setMouseCursor(mouseCursor);
+}
+
+int GUI::getMousePositionX() {
+	return Application::getMousePositionX();
+}
+
+int GUI::getMousePositionY() {
+	return Application::getMousePositionY();
+}
+
+void GUI::setMousePosition(int x, int y) {
+	Application::setMousePosition(x, y);
+}
+
+void GUI::openBrowser(const string& url) {
+	Application::openBrowser(url);
+}
+
+string GUI::getClipboardContent() {
+	return Application::getApplication()->getClipboardContent();
+}
+
+void GUI::setClipboardContent(const string& content) {
+	Application::getApplication()->setClipboardContent(content);
+}
+
+
+GUI::GUI(GUIRendererBackend* rendererBackend, int width, int height)
 {
+	this->rendererBackend = rendererBackend;
 	this->lastMouseButton = 0;
 	this->width = width;
 	this->height = height;
@@ -95,13 +132,13 @@ GUI::~GUI() {
 void GUI::initialize()
 {
 	//
-	textureManager = make_unique<GUITextureManager>(Application::getRenderer());
-	vboManager = make_unique<GUIVBOManager>(Application::getRenderer());
+	textureManager = make_unique<GUITextureManager>(rendererBackend);
+	vboManager = make_unique<GUIVBOManager>(rendererBackend);
 	//
-	shader = make_unique<GUIShader>(Application::getRenderer());
+	shader = make_unique<GUIShader>(rendererBackend);
 	shader->initialize();
 	//
-	renderer = make_unique<GUIRenderer>(Application::getRenderer());
+	renderer = make_unique<GUIRenderer>(rendererBackend);
 	renderer->initialize();
 }
 
@@ -372,9 +409,9 @@ void GUI::render()
 	}
 
 	//
-	Application::getRenderer()->initGuiMode();
-	Application::getRenderer()->setViewPort(width, height);
-	Application::getRenderer()->updateViewPort();
+	Application::getRendererBackend()->initGuiMode();
+	Application::getRendererBackend()->setViewPort(width, height);
+	Application::getRendererBackend()->updateViewPort();
 
 	//
 	shader->useProgram();
@@ -394,7 +431,7 @@ void GUI::render()
 	//
 	shader->unUseProgram();
 	//
-	Application::getRenderer()->doneGuiMode();
+	Application::getRendererBackend()->doneGuiMode();
 }
 
 bool GUI::isHavingMouseInteraction(GUINode* node) {

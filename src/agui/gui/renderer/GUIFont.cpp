@@ -8,12 +8,12 @@
 #include <vector>
 
 #include <agui/agui.h>
-#include <agui/application/Application.h>
 #include <agui/gui/fileio/TextureReader.h>
 #include <agui/gui/renderer/GUIRendererBackend.h>
 #include <agui/gui/renderer/GUICharacter.h>
 #include <agui/gui/renderer/GUIRenderer.h>
 #include <agui/gui/textures/GUITexture.h>
+#include <agui/gui/GUI.h>
 #include <agui/math/Math.h>
 #include <agui/os/filesystem/FileSystem.h>
 #include <agui/os/filesystem/FileSystemInterface.h>
@@ -31,13 +31,13 @@ using std::string;
 using std::unordered_map;
 using std::vector;
 
-using agui::application::Application;
 using agui::gui::fileio::TextureReader;
 using agui::gui::renderer::GUIRendererBackend;
 using agui::gui::renderer::GUICharacter;
 using agui::gui::renderer::GUIFont;
 using agui::gui::renderer::GUIRenderer;
 using agui::gui::textures::GUITexture;
+using agui::gui::GUI;
 using agui::math::Math;
 using agui::os::filesystem::FileSystem;
 using agui::os::filesystem::FileSystemInterface;
@@ -173,7 +173,7 @@ GUICharacter* GUIFont::addToTextureAtlas(uint32_t charId) {
 
 void GUIFont::updateFontInternal() {
 	textureAtlas.update();
-	auto renderer = Application::getRenderer();
+	auto renderer = GUI::getRendererBackend();
 	auto contextIdx = renderer->CONTEXTINDEX_DEFAULT;
 	if (textureAtlas.getAtlasTexture() != nullptr) {
 		if (textureId == renderer->ID_NONE) textureId = renderer->createTexture();

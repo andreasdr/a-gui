@@ -48,6 +48,7 @@ namespace gui {
 	using ::agui::gui::nodes::GUINode;
 	using ::agui::gui::nodes::GUIScreenNode;
 	using ::agui::gui::renderer::GUIRenderer;
+	using ::agui::gui::renderer::GUIRendererBackend;
 	using ::agui::gui::renderer::GUIShader;
 	using ::agui::gui::textures::GUITextureManager;
 	using ::agui::gui::vbos::GUIVBOManager;
@@ -70,6 +71,11 @@ static T required_dynamic_cast(U u)
 	return t;
 }
 
+#define MOUSE_CURSOR_DISABLED 0
+#define MOUSE_CURSOR_ENABLED 1
+#define MOUSE_CURSOR_NORMAL 1
+#define MOUSE_CURSOR_HAND 2
+
 /**
  * GUI module class
  * @author Andreas Drewke
@@ -81,6 +87,7 @@ class agui::gui::GUI final: public virtual InputEventHandler
 private:
 	STATIC_DLL_IMPEXT static bool disableTabFocusControl;
 
+	static GUIRendererBackend* rendererBackend;
 	static unique_ptr<GUIRenderer> renderer;
 	static unique_ptr<GUITextureManager> textureManager;
 	static unique_ptr<GUIVBOManager> vboManager;
@@ -173,6 +180,13 @@ public:
 	}
 
 	/**
+	 * @return renderer backend
+	 */
+	static inline GUIRendererBackend* getRendererBackend() {
+		return rendererBackend;
+	}
+
+	/**
 	 * @return renderer
 	 */
 	static inline GUIRenderer* getRenderer() {
@@ -200,15 +214,61 @@ public:
 		return shader.get();
 	}
 
+	/**
+	 * @return mouse cursor
+	 */
+	static int getMouseCursor();
+
+	/**
+	 * Set mouse cursor
+	 * @param mouseCursor mouse cursor, see MOUSE_CURSOR_*
+	 */
+	static void setMouseCursor(int mouseCursor);
+
+	/**
+	 * @return get mouse X position
+	 */
+	static int getMousePositionX();
+
+	/**
+	 * @return get mouse Y position
+	 */
+	static int getMousePositionY();
+
+	/**
+	 * Set mouse position
+	 * @param x x
+	 * @param y y
+	 */
+	static void setMousePosition(int x, int y);
+
+	/**
+	 * Open browser with given url
+	 * @param url url
+	 */
+	static void openBrowser(const string& url);
+
+	/**
+	 * @return clipboard content as utf8 string
+	 */
+	static string getClipboardContent();
+
+	/**
+	 * Set clipboard content
+	 * @param content content
+	 */
+	static void setClipboardContent(const string& content);
+
 	// forbid class copy
 	FORBID_CLASS_COPY(GUI)
 
 	/**
 	 * Public constructor
+	 * @param rendererBackend renderer backend
 	 * @param width width
 	 * @param height height
 	 */
-	GUI(int width, int height);
+	GUI(GUIRendererBackend* rendererBackend, int width, int height);
 
 	/**
 	 * Destructor

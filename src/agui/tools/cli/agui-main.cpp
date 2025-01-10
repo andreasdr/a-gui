@@ -52,7 +52,7 @@ public:
 	 */
 	void initialize() {
 		//
-		gui = make_unique<GUI>(getWindowWidth(), getWindowHeight());
+		gui = make_unique<GUI>(Application::getRendererBackend(), getWindowWidth(), getWindowHeight());
 		gui->initialize();
 		//
 		GUIParser::initialize();
@@ -91,9 +91,9 @@ public:
 	 * Display
 	 */
 	void display() {
-		Application::getRenderer()->setViewPort(gui->getWidth(), gui->getHeight());
-		Application::getRenderer()->updateViewPort();
-		Application::getRenderer()->clear(Application::getRenderer()->CLEAR_DEPTH_BUFFER_BIT | Application::getRenderer()->CLEAR_COLOR_BUFFER_BIT);
+		Application::getRendererBackend()->setViewPort(gui->getWidth(), gui->getHeight());
+		Application::getRendererBackend()->updateViewPort();
+		Application::getRendererBackend()->clear(Application::getRendererBackend()->CLEAR_DEPTH_BUFFER_BIT | Application::getRendererBackend()->CLEAR_COLOR_BUFFER_BIT);
 		//
 		gui->handleEvents();
 		gui->render();

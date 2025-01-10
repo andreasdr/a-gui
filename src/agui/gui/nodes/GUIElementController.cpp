@@ -3,7 +3,6 @@
 #include <string>
 
 #include <agui/agui.h>
-#include <agui/application/Application.h>
 #include <agui/gui/events/GUIActionListener.h>
 #include <agui/gui/events/GUIKeyboardEvent.h>
 #include <agui/gui/events/GUIMouseEvent.h>
@@ -20,7 +19,6 @@
 using std::string;
 using std::to_string;
 
-using agui::application::Application;
 using agui::gui::events::GUIActionListenerType;
 using agui::gui::events::GUIKeyboardEvent;
 using agui::gui::events::GUIMouseEvent;
@@ -146,14 +144,14 @@ void GUIElementController::handleMouseEvent(GUINode* node, GUIMouseEvent* event)
 	} else
 	if (event->getType() == GUIMouseEvent::MOUSEEVENT_MOVED) {
 		if (elementNode->isEventBelongingToNode(event) == true) {
-			if (elementNode->getOptionValue("mouse-cursor") == "hand") Application::setMouseCursor(MOUSE_CURSOR_HAND);
+			if (elementNode->getOptionValue("mouse-cursor") == "hand") GUI::setMouseCursor(MOUSE_CURSOR_HAND);
 			node->getScreenNode()->forwardMouseOver(elementNode);
 			elementNode->getActiveConditions().add(GUIElementNode::CONDITION_ONMOUSEOVER);
 			node->getScreenNode()->getGUI()->addMouseOutCandidateNode(elementNode);
 			auto onMouseOverExpression = elementNode->getOnMouseOverExpression();
 			if (onMouseOverExpression.size() > 0) GUIElementNode::executeExpression(elementNode->getScreenNode(), onMouseOverExpression);
 		} else {
-			if (elementNode->getOptionValue("mouse-cursor") == "hand") Application::setMouseCursor(MOUSE_CURSOR_NORMAL);
+			if (elementNode->getOptionValue("mouse-cursor") == "hand") GUI::setMouseCursor(MOUSE_CURSOR_NORMAL);
 			elementNode->getActiveConditions().remove(GUIElementNode::CONDITION_ONMOUSEOVER);
 			auto onMouseOutExpression = elementNode->getOnMouseOutExpression();
 			if (onMouseOutExpression.size() > 0) GUIElementNode::executeExpression(elementNode->getScreenNode(), onMouseOutExpression);

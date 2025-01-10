@@ -83,7 +83,7 @@ using agui::utilities::StringTokenizer;
 using agui::utilities::StringTools;
 using agui::utilities::Time;
 
-unique_ptr<GUIRendererBackend> Application::renderer = nullptr;
+unique_ptr<GUIRendererBackend> Application::rendererBackend = nullptr;
 unique_ptr<Application> Application::application = nullptr;
 InputEventHandler* Application::inputEventHandler = nullptr;
 int64_t Application::timeLast = -1L;
@@ -569,7 +569,7 @@ int Application::run(int argc, char** argv, const string& title, InputEventHandl
 	}
 
 	// renderer
-	renderer = make_unique<ApplicationGL3Renderer>();
+	rendererBackend = make_unique<ApplicationGL3Renderer>();
 
 	// window hints
 	if ((windowHints & WINDOW_HINT_NOTRESIZEABLE) == WINDOW_HINT_NOTRESIZEABLE) glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
@@ -578,7 +578,7 @@ int Application::run(int argc, char** argv, const string& title, InputEventHandl
 	if ((windowHints & WINDOW_HINT_MAXIMIZED) == WINDOW_HINT_MAXIMIZED) glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 
 	//
-	for (auto i = 0; renderer->prepareWindowSystemRendererContext(i) == true; i++) {
+	for (auto i = 0; rendererBackend->prepareWindowSystemRendererContext(i) == true; i++) {
 		glfwWindow = glfwCreateWindow(windowWidth, windowHeight, title.c_str(), NULL, NULL);
 		if (glfwWindow != nullptr) break;
 	}
@@ -591,14 +591,14 @@ int Application::run(int argc, char** argv, const string& title, InputEventHandl
 	}
 
 	//
-	if (renderer->initializeWindowSystemRendererContext(glfwWindow) == false) {
+	if (rendererBackend->initializeWindowSystemRendererContext(glfwWindow) == false) {
 		Console::printLine("glfwCreateWindow(): Could not initialize window system renderer context");
 		glfwTerminate();
 		return EXITCODE_FAILURE;
 	}
 
 	//
-	renderer->initialize();
+	rendererBackend->initialize();
 
 	//
 	if ((windowHints & WINDOW_HINT_MAXIMIZED) == 0) glfwSetWindowPos(glfwWindow, windowXPosition, windowYPosition);
@@ -661,7 +661,7 @@ int Application::run(int argc, char** argv, const string& title, InputEventHandl
 		Console::printLine("Application::run(): Shutting down application");
 		Application::application->dispose();
 		Audio::shutdown();
-		Application::renderer = nullptr;
+		Application::rendererBackend = nullptr;
 		Console::shutdown();
 		//
 		Application::application = nullptr;

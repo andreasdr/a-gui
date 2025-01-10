@@ -65,10 +65,10 @@ public:
 
 	static constexpr int64_t JOYSTICK_BUTTON_TIME_REPEAT { 150LL };
 	/**
-	 * @return renderer
+	 * @return renderer backend
 	 */
-	inline static GUIRendererBackend* getRenderer() {
-		return renderer.get();
+	inline static GUIRendererBackend* getRendererBackend() {
+		return rendererBackend.get();
 	}
 
 	/**
@@ -340,7 +340,7 @@ public:
 	virtual void onDrop(const vector<string>& paths);
 
 private:
-	STATIC_DLL_IMPEXT static unique_ptr<GUIRendererBackend> renderer;
+	STATIC_DLL_IMPEXT static unique_ptr<GUIRendererBackend> rendererBackend;
 	STATIC_DLL_IMPEXT static unique_ptr<Application> application;
 	STATIC_DLL_IMPEXT static InputEventHandler* inputEventHandler;
 	int windowHints { WINDOW_HINT_NONE };

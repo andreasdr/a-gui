@@ -5,7 +5,6 @@
 #include <string>
 
 #include <agui/agui.h>
-#include <agui/application/Application.h>
 #include <agui/gui/events/GUIKeyboardEvent.h>
 #include <agui/gui/events/GUIMouseEvent.h>
 #include <agui/gui/nodes/GUIElementController.h>
@@ -24,6 +23,7 @@
 #include <agui/gui/nodes/GUIParentNode.h>
 #include <agui/gui/nodes/GUIParentNode_Overflow.h>
 #include <agui/gui/nodes/GUIScreenNode.h>
+#include <agui/gui/GUI.h>
 #include <agui/utilities/Console.h>
 #include <agui/utilities/Float.h>
 #include <agui/utilities/Integer.h>
@@ -38,7 +38,6 @@ using std::find;
 using std::set;
 using std::to_string;
 
-using agui::application::Application;
 using agui::gui::events::GUIKeyboardEvent;
 using agui::gui::events::GUIMouseEvent;
 using agui::gui::nodes::GUIElementController;
@@ -57,6 +56,7 @@ using agui::gui::nodes::GUINodeController;
 using agui::gui::nodes::GUIParentNode;
 using agui::gui::nodes::GUIParentNode_Overflow;
 using agui::gui::nodes::GUIScreenNode;
+using agui::gui::GUI;
 using agui::utilities::Console;
 using agui::utilities::Float;
 using agui::utilities::Integer;
@@ -145,7 +145,7 @@ bool GUIElementNode::isContentNode()
 
 void GUIElementNode::executeExpression(GUIScreenNode* screenNode, const string& expression) {
 	if (StringTools::startsWith(expression, "http://") == true || StringTools::startsWith(expression, "https://") == true) {
-		Application::openBrowser(expression);
+		GUI::openBrowser(expression);
 		return;
 	}
 	StringTokenizer t1;
