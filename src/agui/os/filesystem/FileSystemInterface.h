@@ -12,9 +12,6 @@
 using std::string;
 using std::vector;
 
-using agui::os::filesystem::FileNameFilter;
-using agui::os::filesystem::FileSystemException;
-
 /**
  * File system interface
  * @author Andreas Drewke

@@ -5,13 +5,11 @@
 #include <agui/utilities/fwd-agui.h>
 #include <agui/utilities/ExceptionBase.h>
 
-using agui::utilities::ExceptionBase;
-
 /**
  * File system exception
  * @author Andreas Drewke
  */
-class agui::os::filesystem::FileSystemException: public ExceptionBase
+class agui::os::filesystem::FileSystemException: public agui::utilities::ExceptionBase
 {
 public:
 

@@ -11,9 +11,6 @@
 using std::string;
 using std::vector;
 
-using agui::os::filesystem::FileNameFilter;
-using agui::os::filesystem::FileSystemInterface;
-
 /**
  * Standard file system implementation
  * @author Andreas Drewke

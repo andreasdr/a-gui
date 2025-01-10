@@ -7,8 +7,6 @@ using std::unique_ptr;
 #include <agui/agui.h>
 #include <agui/os/filesystem/fwd-agui.h>
 
-using agui::os::filesystem::FileSystemInterface;
-
 /**
  * File system singleton class
  * @author Andreas Drewke
