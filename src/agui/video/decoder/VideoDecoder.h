@@ -8,7 +8,14 @@
 
 using std::string;
 
-using agui::utilities::ByteBuffer;
+// namespaces
+namespace agui {
+namespace video {
+namespace decoder {
+	using ::agui::utilities::ByteBuffer;
+}
+}
+}
 
 /**
  * Video decoder base class

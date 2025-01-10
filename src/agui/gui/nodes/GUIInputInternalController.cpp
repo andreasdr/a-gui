@@ -44,6 +44,7 @@ using agui::gui::nodes::GUIParentNode;
 using agui::gui::nodes::GUIScreenNode;
 using agui::gui::renderer::GUIFont;
 using agui::gui::GUI;
+using agui::math::Math;
 using agui::utilities::Character;
 using agui::utilities::Float;
 using agui::utilities::Integer;

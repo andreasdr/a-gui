@@ -8,8 +8,6 @@
 
 using std::array;
 
-using agui::utilities::Buffer;
-
 /**
  * Float buffer class
  * @author Andreas Drewke

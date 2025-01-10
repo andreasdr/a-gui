@@ -17,8 +17,15 @@ using std::string;
 using std::unique_ptr;
 using std::vector;
 
-using agui::utilities::ByteBuffer;
-using agui::video::decoder::VideoDecoder;
+// namespaces
+namespace agui {
+namespace video {
+namespace decoder {
+	using ::agui::utilities::ByteBuffer;
+	using ::agui::video::decoder::VideoDecoder;
+}
+}
+}
 
 /**
  * PL_MPEG/MPEG1 video decoder

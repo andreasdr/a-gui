@@ -12,6 +12,7 @@
 #include <agui/gui/nodes/GUINode_RequestedConstraints_RequestedConstraintsType.h>
 #include <agui/gui/renderer/fwd-agui.h>
 #include <agui/gui/textures/fwd-agui.h>
+#include <agui/math/Math.h>
 #include <agui/utilities/fwd-agui.h>
 #include <agui/utilities/Exception.h>
 #include <agui/utilities/Integer.h>
@@ -29,6 +30,7 @@ namespace nodes {
 	using ::agui::gui::renderer::GUIFont;
 	using ::agui::gui::renderer::GUIRenderer;
 	using ::agui::gui::textures::GUITexture;
+	using ::agui::math::Math;
 	using ::agui::utilities::Exception;
 	using ::agui::utilities::Integer;
 	using ::agui::utilities::MutableString;

@@ -25,6 +25,7 @@
 #include <agui/utilities/Character.h>
 #include <agui/utilities/Console.h>
 #include <agui/utilities/MutableString.h>
+#include <agui/utilities/UTF8CharacterIterator.h>
 
 using std::make_unique;
 using std::span;
@@ -54,6 +55,7 @@ using agui::gui::scripting::GUIMinitScript;
 using agui::utilities::Character;
 using agui::utilities::Console;
 using agui::utilities::MutableString;
+using agui::utilities::UTF8CharacterIterator;
 
 const vector<string> GUIMinitScript::CONTEXTFUNCTION_GUI = {};
 

@@ -33,6 +33,7 @@
 #include <agui/gui/textures/GUITexture.h>
 #include <agui/gui/textures/GUITextureManager.h>
 #include <agui/gui/GUI.h>
+#include <agui/math/Math.h>
 #include <agui/math/Vector2.h>
 #include <agui/utilities/Action.h>
 #include <agui/utilities/Console.h>
@@ -76,6 +77,7 @@ using agui::gui::renderer::GUIRenderer;
 using agui::gui::textures::GUITexture;
 using agui::gui::textures::GUITextureManager;
 using agui::gui::GUI;
+using agui::math::Math;
 using agui::math::Vector2;
 using agui::utilities::Action;
 using agui::utilities::Console;

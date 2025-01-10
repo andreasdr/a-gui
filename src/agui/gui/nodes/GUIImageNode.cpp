@@ -47,6 +47,7 @@ using agui::gui::nodes::GUINode_Scale9Grid;
 using agui::gui::nodes::GUIScreenNode;
 using agui::gui::nodes::GUITextureBaseNode;
 using agui::gui::GUI;
+using agui::math::Math;
 using agui::os::filesystem::FileSystem;
 using agui::os::filesystem::FileSystemInterface;
 using agui::utilities::Console;

@@ -13,6 +13,7 @@
 #include <agui/gui/nodes/GUIScreenNode.h>
 #include <agui/gui/renderer/GUIRenderer.h>
 #include <agui/gui/GUI.h>
+#include <agui/math/Math.h>
 #include <agui/math/Matrix3x3.h>
 #include <agui/math/Vector2.h>
 #include <agui/utilities/Float.h>
@@ -32,6 +33,7 @@ using agui::gui::renderer::GUIRenderer;
 using agui::gui::textures::GUITexture;
 using agui::gui::textures::GUITextureManager;
 using agui::gui::GUI;
+using agui::math::Math;
 using agui::math::Matrix3x3;
 using agui::math::Vector2;
 using agui::utilities::Float;

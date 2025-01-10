@@ -16,9 +16,13 @@ using std::string_view;
 using std::unique_ptr;
 using std::vector;
 
-using agui::os::threading::Mutex;
-using agui::os::threading::Thread;
-
+// namespaces
+namespace agui {
+namespace utilities {
+	using ::agui::os::threading::Mutex;
+	using ::agui::os::threading::Thread;
+}
+}
 
 /**
  * Console class

@@ -12,8 +12,12 @@ using std::string;
 using std::to_string;
 using std::vector;
 
-using agui::math::Math;
-using agui::utilities::UTF8CharacterIterator;
+// namespaces
+namespace agui {
+namespace utilities {
+	using agui::math::Math;
+}
+}
 
 /**
  * Mutable utf8 aware string class

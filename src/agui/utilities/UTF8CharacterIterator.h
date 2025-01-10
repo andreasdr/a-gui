@@ -12,8 +12,13 @@ using std::string;
 using std::to_string;
 using std::vector;
 
-using agui::math::Math;
-using agui::utilities::Console;
+// namespaces
+namespace agui {
+namespace utilities {
+	using ::agui::math::Math;
+	using ::agui::utilities::Console;
+}
+}
 
 /**
  * UTF8 string character iterator

@@ -14,11 +14,6 @@ using std::exchange;
 using std::swap;
 using std::vector;
 
-using agui::utilities::Buffer;
-using agui::utilities::FloatBuffer;
-using agui::utilities::IntBuffer;
-using agui::utilities::ShortBuffer;
-
 /**
  * Byte buffer class
  * @author Andreas Drewke

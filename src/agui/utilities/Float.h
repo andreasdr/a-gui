@@ -17,7 +17,12 @@ using std::numeric_limits;
 using std::string;
 using std::string_view;
 
-using agui::math::Math;
+// namespaces
+namespace agui {
+namespace utilities {
+	using agui::math::Math;
+}
+}
 
 /**
  * Float class

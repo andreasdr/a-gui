@@ -13,7 +13,12 @@ using std::string;
 using std::unordered_map;
 using std::vector;
 
-using agui::gui::textures::GUITexture;
+// namespaces
+namespace agui {
+namespace utilities {
+	using ::agui::gui::textures::GUITexture;
+}
+}
 
 /**
  * GUITexture atlas

@@ -4,6 +4,7 @@
 #include <string>
 
 #include <agui/agui.h>
+#include <agui/math/Math.h>
 #include <agui/utilities/ByteBuffer.h>
 
 #include <ext/bc7enc_rdo/bc7decomp.h>
@@ -13,6 +14,7 @@ using std::string;
 
 using agui::gui::fileio::BC7TextureReader;
 
+using agui::math::Math;
 using agui::utilities::ByteBuffer;
 
 bool BC7TextureReader::read(int width, int height, int bytesPerPixel, const vector<uint8_t>& bc7Data, ByteBuffer& textureByteBuffer) {

@@ -12,8 +12,13 @@
 using std::string;
 using std::unordered_map;
 
-using agui::os::filesystem::FileSystemException;
-using agui::os::filesystem::FileSystemInterface;
+// namespaces
+namespace agui {
+namespace utilities {
+	using ::agui::os::filesystem::FileSystemException;
+	using ::agui::os::filesystem::FileSystemInterface;
+}
+}
 
 /**
  * Properties class, which helps out with storeing or loading key value pairs from/to property files

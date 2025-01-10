@@ -5,13 +5,11 @@
 #include <agui/utilities/ExceptionBase.h>
 #include <agui/video/decoder/fwd-agui.h>
 
-using agui::utilities::ExceptionBase;
-
 /**
  * Audio decoder exception
  * @author Andreas Drewke
  */
-class agui::video::decoder::VideoDecoderException: public ExceptionBase
+class agui::video::decoder::VideoDecoderException: public agui::utilities::ExceptionBase
 {
 public:
 

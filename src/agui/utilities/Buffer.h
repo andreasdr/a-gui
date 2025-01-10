@@ -11,7 +11,12 @@
 using std::memcpy;
 using std::vector;
 
-using agui::math::Math;
+// namespaces
+namespace agui {
+namespace utilities {
+	using ::agui::math::Math;
+}
+}
 
 /**
  * Base class of buffers

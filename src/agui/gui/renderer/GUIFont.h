@@ -17,6 +17,7 @@
 #include <agui/utilities/MutableString.h>
 #include <agui/utilities/StringTools.h>
 #include <agui/utilities/TextureAtlas.h>
+#include <agui/utilities/UTF8CharacterIterator.h>
 
 #include <agui/os/filesystem/FileSystemException.h>
 
@@ -34,6 +35,7 @@ namespace renderer {
 	using ::agui::utilities::MutableString;
 	using ::agui::utilities::StringTools;
 	using ::agui::utilities::TextureAtlas;
+	using ::agui::utilities::UTF8CharacterIterator;
 }
 }
 }

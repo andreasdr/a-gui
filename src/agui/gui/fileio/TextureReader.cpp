@@ -11,6 +11,7 @@
 #include <agui/gui/textures/GUITexture.h>
 #include <agui/math/Matrix3x3.h>
 #include <agui/math/Vector2.h>
+#include <agui/math/Math.h>
 #include <agui/os/filesystem/FileSystem.h>
 #include <agui/os/filesystem/FileSystemInterface.h>
 #include <agui/os/threading/Mutex.h>
@@ -29,6 +30,7 @@ using agui::gui::fileio::PNGTextureReader;
 using agui::gui::textures::GUITexture;
 using agui::math::Matrix3x3;
 using agui::math::Vector2;
+using agui::math::Math;
 using agui::os::filesystem::FileSystem;
 using agui::os::filesystem::FileSystemInterface;
 using agui::os::threading::Mutex;

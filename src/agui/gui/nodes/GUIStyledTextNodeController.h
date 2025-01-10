@@ -8,6 +8,7 @@
 #include <agui/gui/fwd-agui.h>
 #include <agui/gui/nodes/fwd-agui.h>
 #include <agui/gui/nodes/GUINodeController.h>
+#include <agui/math/Math.h>
 #include <agui/utilities/MutableString.h>
 
 using std::string;
@@ -21,6 +22,7 @@ namespace nodes {
 	using ::agui::gui::events::GUIKeyboardEvent;
 	using ::agui::gui::events::GUIMouseEvent;
 	using ::agui::gui::GUIParser;
+	using ::agui::math::Math;
 	using ::agui::utilities::MutableString;
 }
 }

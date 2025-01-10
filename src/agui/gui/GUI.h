@@ -63,7 +63,7 @@ static T required_dynamic_cast(U u)
 {
 	auto t = dynamic_cast<T>(u);
 	if (t == nullptr) {
-		Console::printLine("required_dynamic_cast: unable to perform required dynamic cast @\n\n" + agui::utilities::RTTI::backtrace());
+		::agui::utilities::Console::printLine("required_dynamic_cast: unable to perform required dynamic cast @\n\n" + ::agui::utilities::RTTI::backtrace());
 		throw ::agui::utilities::ExceptionBase("required_dynamic_cast did fail");
 
 	}

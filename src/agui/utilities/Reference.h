@@ -4,7 +4,12 @@
 #include <agui/os/threading/AtomicOperations.h>
 #include <agui/utilities/fwd-agui.h>
 
-using agui::os::threading::AtomicOperations;
+// namespaces
+namespace agui {
+namespace utilities {
+	using ::agui::os::threading::AtomicOperations;
+}
+}
 
 /**
  * Reference counter implementation to be used with inheritance

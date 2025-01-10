@@ -5,6 +5,7 @@
 #include <agui/agui.h>
 #include <agui/gui/misc/fwd-agui.h>
 #include <agui/gui/textures/GUITexture.h>
+#include <agui/math/Math.h>
 #include <agui/math/Vector2.h>
 #include <agui/utilities/ByteBuffer.h>
 
@@ -15,6 +16,7 @@ namespace agui {
 namespace gui {
 namespace misc {
 	using ::agui::gui::textures::GUITexture;
+	using ::agui::math::Math;
 	using ::agui::math::Vector2;
 	using ::agui::utilities::ByteBuffer;
 }

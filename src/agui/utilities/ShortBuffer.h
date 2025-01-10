@@ -4,8 +4,6 @@
 #include <agui/utilities/fwd-agui.h>
 #include <agui/utilities/Buffer.h>
 
-using agui::utilities::Buffer;
-
 /**
  * Short buffer class
  * @author Andreas Drewke
