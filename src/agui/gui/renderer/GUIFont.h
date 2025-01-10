@@ -23,15 +23,20 @@
 using std::string;
 using std::unordered_map;
 
-using agui::gui::textures::GUITexture;
-using agui::gui::nodes::GUIColor;
-using agui::gui::nodes::GUIScreenNode;
-using agui::gui::renderer::GUICharacter;
-using agui::gui::renderer::GUIRenderer;
-using agui::os::filesystem::FileSystemException;
-using agui::utilities::MutableString;
-using agui::utilities::StringTools;
-using agui::utilities::TextureAtlas;
+// namespaces
+namespace agui {
+namespace gui {
+namespace renderer {
+	using ::agui::gui::textures::GUITexture;
+	using ::agui::gui::nodes::GUIColor;
+	using ::agui::gui::nodes::GUIScreenNode;
+	using ::agui::os::filesystem::FileSystemException;
+	using ::agui::utilities::MutableString;
+	using ::agui::utilities::StringTools;
+	using ::agui::utilities::TextureAtlas;
+}
+}
+}
 
 /**
  * GUI font class

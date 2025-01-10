@@ -25,18 +25,24 @@ using std::to_string;
 using std::unique_ptr;
 using std::vector;
 
-using agui::gui::renderer::Renderer;
-using agui::gui::effects::GUIEffect;
-using agui::gui::nodes::GUIColor;
-using agui::gui::nodes::GUINode;
-using agui::gui::nodes::GUIScreenNode;
-using agui::gui::GUI;
-using agui::math::Math;
-using agui::math::Matrix3x3;
-using agui::utilities::ByteBuffer;
-using agui::utilities::Console;
-using agui::utilities::FloatBuffer;
-using agui::utilities::ShortBuffer;
+// namespaces
+namespace agui {
+namespace gui {
+namespace renderer {
+	using ::agui::gui::effects::GUIEffect;
+	using ::agui::gui::nodes::GUIColor;
+	using ::agui::gui::nodes::GUINode;
+	using ::agui::gui::nodes::GUIScreenNode;
+	using ::agui::gui::GUI;
+	using ::agui::math::Math;
+	using ::agui::math::Matrix3x3;
+	using ::agui::utilities::ByteBuffer;
+	using ::agui::utilities::Console;
+	using ::agui::utilities::FloatBuffer;
+	using ::agui::utilities::ShortBuffer;
+}
+}
+}
 
 /**
  * GUI renderer

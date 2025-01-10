@@ -15,11 +15,18 @@ using std::array;
 using std::string;
 using std::to_string;
 
-using agui::gui::misc::GUIColor4;
-using agui::math::Vector2;
-using agui::math::Vector3;
-using agui::math::Vector4;
-using agui::utilities::Console;
+// namespaces
+namespace agui {
+namespace gui {
+namespace renderer {
+	using ::agui::gui::misc::GUIColor4;
+	using ::agui::math::Vector2;
+	using ::agui::math::Vector3;
+	using ::agui::math::Vector4;
+	using ::agui::utilities::Console;
+}
+}
+}
 
 /**
  * Shader parameter model class

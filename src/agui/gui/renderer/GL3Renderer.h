@@ -20,12 +20,19 @@ using std::string;
 using std::unordered_map;
 using std::vector;
 
-using agui::gui::textures::GUITexture;
-using agui::gui::renderer::Renderer;
-using agui::utilities::ByteBuffer;
-using agui::utilities::FloatBuffer;
-using agui::utilities::IntBuffer;
-using agui::utilities::ShortBuffer;
+// namespaces
+namespace agui {
+namespace gui {
+namespace renderer {
+	using ::agui::gui::renderer::Renderer;
+	using ::agui::gui::textures::GUITexture;
+	using ::agui::utilities::ByteBuffer;
+	using ::agui::utilities::FloatBuffer;
+	using ::agui::utilities::IntBuffer;
+	using ::agui::utilities::ShortBuffer;
+}
+}
+}
 
 /**
  * OpenGL 3 renderer

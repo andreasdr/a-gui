@@ -26,14 +26,20 @@ using std::map;
 using std::string;
 using std::vector;
 
-using agui::gui::textures::GUITexture;
-using agui::gui::renderer::GUIShaderParameters;
-using agui::math::Matrix3x3;
-using agui::math::Matrix4x4;
-using agui::utilities::ByteBuffer;
-using agui::utilities::FloatBuffer;
-using agui::utilities::IntBuffer;
-using agui::utilities::ShortBuffer;
+// namespaces
+namespace agui {
+namespace gui {
+namespace renderer {
+	using ::agui::gui::textures::GUITexture;
+	using ::agui::math::Matrix3x3;
+	using ::agui::math::Matrix4x4;
+	using ::agui::utilities::ByteBuffer;
+	using ::agui::utilities::FloatBuffer;
+	using ::agui::utilities::IntBuffer;
+	using ::agui::utilities::ShortBuffer;
+}
+}
+}
 
 /**
  * Renderer interface

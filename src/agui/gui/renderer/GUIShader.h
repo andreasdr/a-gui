@@ -7,11 +7,16 @@
 #include <agui/gui/nodes/GUIColor.h>
 #include <agui/gui/renderer/fwd-agui.h>
 
-using agui::gui::renderer::Renderer;
-
 using std::array;
 
-using agui::gui::nodes::GUIColor;
+// namespaces
+namespace agui {
+namespace gui {
+namespace renderer {
+	using ::agui::gui::nodes::GUIColor;
+}
+}
+}
 
 /**
  * GUI shader

@@ -10,8 +10,6 @@ using std::string;
 using std::to_string;
 using std::unordered_map;
 
-using agui::gui::renderer::GUIShaderParameter;
-
 /**
  * TDME2 engine entity shader parameters
  * @author Andreas Drewke

@@ -16,7 +16,14 @@
 
 using std::string;
 
-using agui::gui::renderer::GL3Renderer;
+// namespaces
+namespace agui {
+namespace gui {
+namespace renderer {
+	using ::agui::gui::renderer::GL3Renderer;
+}
+}
+}
 
 /**
  * Application GL3 renderer
