@@ -37,9 +37,9 @@ class agui::gui::elements::GUIDropDownOptionController final
 	friend class GUIDropDownController;
 
 private:
-	STATIC_DLL_IMPEXT static string CONDITION_SELECTED;
-	STATIC_DLL_IMPEXT static string CONDITION_UNSELECTED;
-	STATIC_DLL_IMPEXT static string CONDITION_HIDDEN;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_SELECTED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_UNSELECTED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_HIDDEN;
 	GUIParentNode* dropDownNode { nullptr };
 	GUIParentNode* dropDownContainerNode { nullptr };
 	bool initialPostLayout;

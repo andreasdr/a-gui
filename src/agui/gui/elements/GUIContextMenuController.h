@@ -40,10 +40,10 @@ class agui::gui::elements::GUIContextMenuController final
 	friend class GUIContextMenuItemController;
 
 private:
-	STATIC_DLL_IMPEXT static string CONDITION_OPENED;
-	STATIC_DLL_IMPEXT static string CONDITION_CLOSED;
-	STATIC_DLL_IMPEXT static string CONDITION_SELECTED;
-	STATIC_DLL_IMPEXT static string CONDITION_UNSELECTED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_OPENED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_CLOSED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_SELECTED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_UNSELECTED;
 	vector<GUIContextMenuItemController*> menuItemControllers;
 	MutableString value;
 	int selectedMenuItemControllerIdx { -1 };

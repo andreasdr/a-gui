@@ -43,8 +43,8 @@ private:
 	int mouseLastY { -1 };
 
 protected:
-	STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
-	STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
 
 	// forbid class copy
 	FORBID_CLASS_COPY(GUIElementController)

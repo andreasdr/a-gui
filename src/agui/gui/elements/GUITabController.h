@@ -38,10 +38,10 @@ class agui::gui::elements::GUITabController final: public GUIElementController
 	friend class GUITabsHeaderController;
 
 private:
-	STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
-	STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
-	STATIC_DLL_IMPEXT static string CONDITION_SELECTED;
-	STATIC_DLL_IMPEXT static string CONDITION_UNSELECTED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_SELECTED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_UNSELECTED;
 	GUINode* tabsNode { nullptr };
 	GUINode* tabsHeaderNode { nullptr };
 	bool selected;

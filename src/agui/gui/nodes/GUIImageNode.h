@@ -40,7 +40,7 @@ private:
 	string source;
 	GUITexture* texture { nullptr };
 	GUIFrameBuffer* frameBuffer { nullptr };
-	STATIC_DLL_IMPEXT static int thumbnailTextureIdx;
+	AGUI_STATIC_DLL_IMPEXT static int thumbnailTextureIdx;
 
 	/**
 	 * Release texture

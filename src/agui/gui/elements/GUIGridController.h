@@ -39,9 +39,9 @@ class agui::gui::elements::GUIGridController final
 	friend class GUIGridItemController;
 
 private:
-	STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
-	STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
-	STATIC_DLL_IMPEXT static constexpr char VALUE_DELIMITER { '|' };
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
+	AGUI_STATIC_DLL_IMPEXT static constexpr char VALUE_DELIMITER { '|' };
 	vector<GUIGridItemController*> gridItemControllers;
 	bool disabled;
 	bool multipleSelection;

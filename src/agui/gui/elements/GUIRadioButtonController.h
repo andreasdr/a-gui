@@ -39,12 +39,12 @@ class agui::gui::elements::GUIRadioButtonController final
 	friend class GUIRadioButton;
 
 private:
-	STATIC_DLL_IMPEXT static string CONDITION_SELECTED;
-	STATIC_DLL_IMPEXT static string CONDITION_UNSELECTED;
-	STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
-	STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_SELECTED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_UNSELECTED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
 	//
-	STATIC_DLL_IMPEXT static unordered_map<string, vector<string>> radioButtonGroupNodesByName;
+	AGUI_STATIC_DLL_IMPEXT static unordered_map<string, vector<string>> radioButtonGroupNodesByName;
 	//
 	bool selected;
 	bool disabled;

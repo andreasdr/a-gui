@@ -33,7 +33,7 @@ class agui::gui::elements::GUISelectBoxOption final: public GUIElement
 {
 
 private:
-	STATIC_DLL_IMPEXT static string NAME;
+	AGUI_STATIC_DLL_IMPEXT static string NAME;
 
 public:
 	const string& getName() override;

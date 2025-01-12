@@ -97,7 +97,7 @@ public:
 	}
 
 private:
-	STATIC_DLL_IMPEXT static uint32_t counter;
+	AGUI_STATIC_DLL_IMPEXT static uint32_t counter;
 
 	int32_t width { -1 };
 	int32_t height { -1 };

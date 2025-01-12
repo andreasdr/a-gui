@@ -37,8 +37,8 @@ class agui::gui::elements::GUIContextMenuItemController final
 	friend class GUIContextMenuItem;
 
 private:
-	STATIC_DLL_IMPEXT static string CONDITION_SELECTED;
-	STATIC_DLL_IMPEXT static string CONDITION_UNSELECTED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_SELECTED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_UNSELECTED;
 	bool selected;
 	MutableString value;
 	GUIParentNode* contextMenuNode { nullptr };

@@ -24,12 +24,12 @@ namespace nodes {
 class agui::gui::nodes::GUINode_RequestedConstraints_RequestedConstraintsType final: public Enum
 {
 public:
-	STATIC_DLL_IMPEXT static GUINode_RequestedConstraints_RequestedConstraintsType* NONE;
-	STATIC_DLL_IMPEXT static GUINode_RequestedConstraints_RequestedConstraintsType* PIXEL;
-	STATIC_DLL_IMPEXT static GUINode_RequestedConstraints_RequestedConstraintsType* PERCENT;
-	STATIC_DLL_IMPEXT static GUINode_RequestedConstraints_RequestedConstraintsType* STAR;
-	STATIC_DLL_IMPEXT static GUINode_RequestedConstraints_RequestedConstraintsType* AUTO;
-	STATIC_DLL_IMPEXT static GUINode_RequestedConstraints_RequestedConstraintsType* TABLECELL;
+	AGUI_STATIC_DLL_IMPEXT static GUINode_RequestedConstraints_RequestedConstraintsType* NONE;
+	AGUI_STATIC_DLL_IMPEXT static GUINode_RequestedConstraints_RequestedConstraintsType* PIXEL;
+	AGUI_STATIC_DLL_IMPEXT static GUINode_RequestedConstraints_RequestedConstraintsType* PERCENT;
+	AGUI_STATIC_DLL_IMPEXT static GUINode_RequestedConstraints_RequestedConstraintsType* STAR;
+	AGUI_STATIC_DLL_IMPEXT static GUINode_RequestedConstraints_RequestedConstraintsType* AUTO;
+	AGUI_STATIC_DLL_IMPEXT static GUINode_RequestedConstraints_RequestedConstraintsType* TABLECELL;
 
 	/**
 	 * Public constructor

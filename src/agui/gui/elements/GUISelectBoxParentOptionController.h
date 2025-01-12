@@ -36,8 +36,8 @@ class agui::gui::elements::GUISelectBoxParentOptionController final: public GUIS
 	friend class GUISelectBoxParentOption;
 
 private:
-	STATIC_DLL_IMPEXT static string CONDITION_EXPANDED;
-	STATIC_DLL_IMPEXT static string CONDITION_COLLAPSED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_EXPANDED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_COLLAPSED;
 
 	GUIElementNode* arrowNode { nullptr };
 	bool expanded;

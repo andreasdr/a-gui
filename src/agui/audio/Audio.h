@@ -37,7 +37,7 @@ class agui::audio::Audio final
 private:
 	static constexpr uint32_t ALBUFFERID_NONE { 0 };
 	static constexpr uint32_t ALSOURCEID_NONE { 0 };
-	STATIC_DLL_IMPEXT static Audio* instance;
+	AGUI_STATIC_DLL_IMPEXT static Audio* instance;
 
 	ALCdevice* device { nullptr };
 	ALCcontext* context { nullptr };

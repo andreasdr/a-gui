@@ -342,9 +342,9 @@ public:
 	virtual void onDrop(const vector<string>& paths);
 
 private:
-	STATIC_DLL_IMPEXT static unique_ptr<GUIRendererBackend> rendererBackend;
-	STATIC_DLL_IMPEXT static unique_ptr<Application> application;
-	STATIC_DLL_IMPEXT static GUIEventHandler* eventHandler;
+	AGUI_STATIC_DLL_IMPEXT static unique_ptr<GUIRendererBackend> rendererBackend;
+	AGUI_STATIC_DLL_IMPEXT static unique_ptr<Application> application;
+	AGUI_STATIC_DLL_IMPEXT static GUIEventHandler* eventHandler;
 	int windowHints { WINDOW_HINT_NONE };
 	string executableFileName;
 	bool debuggingEnabled { false };
@@ -354,18 +354,18 @@ private:
 	int windowXPosition { -1 };
 	int windowYPosition { -1 };
 	bool fullScreen { false };
-	STATIC_DLL_IMPEXT static int64_t timeLast;
-	STATIC_DLL_IMPEXT static bool limitFPS;
+	AGUI_STATIC_DLL_IMPEXT static int64_t timeLast;
+	AGUI_STATIC_DLL_IMPEXT static bool limitFPS;
 	string title;
 	int exitCode { EXITCODE_SUCCESS };
 
-	STATIC_DLL_IMPEXT static GLFWwindow* glfwWindow;
-	STATIC_DLL_IMPEXT static array<unsigned int, 10> glfwMouseButtonDownFrames;
-	STATIC_DLL_IMPEXT static int glfwMouseButtonLast;
-	STATIC_DLL_IMPEXT static bool glfwCapsLockEnabled;
-	STATIC_DLL_IMPEXT static GLFWcursor* glfwHandCursor;
+	AGUI_STATIC_DLL_IMPEXT static GLFWwindow* glfwWindow;
+	AGUI_STATIC_DLL_IMPEXT static array<unsigned int, 10> glfwMouseButtonDownFrames;
+	AGUI_STATIC_DLL_IMPEXT static int glfwMouseButtonLast;
+	AGUI_STATIC_DLL_IMPEXT static bool glfwCapsLockEnabled;
+	AGUI_STATIC_DLL_IMPEXT static GLFWcursor* glfwHandCursor;
 
-	STATIC_DLL_IMPEXT static int mouseCursor;
+	AGUI_STATIC_DLL_IMPEXT static int mouseCursor;
 
 	unordered_set<int> connectedJoysticks;
 	unordered_set<int> connectedGamepads;

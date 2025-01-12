@@ -24,9 +24,9 @@ namespace nodes {
 class agui::gui::nodes::GUIParentNode_Overflow final: public Enum
 {
 public:
-	STATIC_DLL_IMPEXT static GUIParentNode_Overflow* HIDDEN;
-	STATIC_DLL_IMPEXT static GUIParentNode_Overflow* DOWNSIZE_CHILDREN;
-	STATIC_DLL_IMPEXT static GUIParentNode_Overflow* SCROLL;
+	AGUI_STATIC_DLL_IMPEXT static GUIParentNode_Overflow* HIDDEN;
+	AGUI_STATIC_DLL_IMPEXT static GUIParentNode_Overflow* DOWNSIZE_CHILDREN;
+	AGUI_STATIC_DLL_IMPEXT static GUIParentNode_Overflow* SCROLL;
 
 	/**
 	 * Public constructor

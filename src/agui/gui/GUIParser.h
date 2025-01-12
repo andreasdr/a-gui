@@ -47,10 +47,10 @@ class agui::gui::GUIParser final
 {
 
 private:
-	STATIC_DLL_IMPEXT static unordered_map<string, GUIElement*> elements;
-	STATIC_DLL_IMPEXT static Properties aguiThemeProperties;
-	STATIC_DLL_IMPEXT static Properties engineThemeProperties;
-	STATIC_DLL_IMPEXT static Properties projectThemeProperties;
+	AGUI_STATIC_DLL_IMPEXT static unordered_map<string, GUIElement*> elements;
+	AGUI_STATIC_DLL_IMPEXT static Properties aguiThemeProperties;
+	AGUI_STATIC_DLL_IMPEXT static Properties engineThemeProperties;
+	AGUI_STATIC_DLL_IMPEXT static Properties projectThemeProperties;
 
 	static constexpr int FONTSIZE_FALLBACK { 14 };
 

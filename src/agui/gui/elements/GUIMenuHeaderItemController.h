@@ -42,10 +42,10 @@ class agui::gui::elements::GUIMenuHeaderItemController final
 	friend class GUIMenuItemController;
 
 private:
-	STATIC_DLL_IMPEXT static string CONDITION_OPENED;
-	STATIC_DLL_IMPEXT static string CONDITION_CLOSED;
-	STATIC_DLL_IMPEXT static string CONDITION_SELECTED;
-	STATIC_DLL_IMPEXT static string CONDITION_UNSELECTED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_OPENED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_CLOSED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_SELECTED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_UNSELECTED;
 	GUIElementNode* menuHeaderNode { nullptr };
 	vector<GUIMenuItemController*> menuItemControllers;
 	bool open;

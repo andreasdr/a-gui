@@ -33,7 +33,7 @@ class agui::gui::elements::GUIMenuSeparator final: public GUIElement
 {
 
 private:
-	STATIC_DLL_IMPEXT static string NAME;
+	AGUI_STATIC_DLL_IMPEXT static string NAME;
 
 public:
 	// forbid class copy

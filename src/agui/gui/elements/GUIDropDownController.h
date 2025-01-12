@@ -40,10 +40,10 @@ class agui::gui::elements::GUIDropDownController final
 	friend class GUIDropDownOptionController;
 
 private:
-	STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
-	STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
-	STATIC_DLL_IMPEXT static string CONDITION_OPENED;
-	STATIC_DLL_IMPEXT static string CONDITION_CLOSED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_OPENED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_CLOSED;
 	vector<GUIDropDownOptionController*> dropDownOptionControllers;
 	bool open;
 	bool disabled;

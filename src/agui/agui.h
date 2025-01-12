@@ -8,9 +8,9 @@
 	CLASS& operator=(const CLASS&) = delete;
 
 #if defined(AGUI_DLL_EXPORT)
-	#define STATIC_DLL_IMPEXT __declspec(dllexport)
+	#define AGUI_STATIC_DLL_IMPEXT __declspec(dllexport)
 #elif defined(AGUI_DLL_IMPORT)
-	#define STATIC_DLL_IMPEXT __declspec(dllimport)
+	#define AGUI_STATIC_DLL_IMPEXT __declspec(dllimport)
 #else
-	#define STATIC_DLL_IMPEXT
+	#define AGUI_STATIC_DLL_IMPEXT
 #endif

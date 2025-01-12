@@ -35,10 +35,10 @@ class agui::gui::elements::GUICheckboxController final
 	friend class GUICheckbox;
 
 private:
-	STATIC_DLL_IMPEXT static string CONDITION_CHECKED;
-	STATIC_DLL_IMPEXT static string CONDITION_UNCHECKED;
-	STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
-	STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_CHECKED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_UNCHECKED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
 	bool checked;
 	bool disabled;
 	MutableString value;

@@ -24,8 +24,8 @@ namespace nodes {
 class agui::gui::nodes::GUINode_Flow final: public Enum
 {
 public:
-	STATIC_DLL_IMPEXT static GUINode_Flow* INTEGRATED;
-	STATIC_DLL_IMPEXT static GUINode_Flow* FLOATING;
+	AGUI_STATIC_DLL_IMPEXT static GUINode_Flow* INTEGRATED;
+	AGUI_STATIC_DLL_IMPEXT static GUINode_Flow* FLOATING;
 
 	/**
 	 * Public constructor

@@ -115,9 +115,9 @@ private:
 	static void scaleTextureLine(const ByteBuffer& pixelByteBuffer, ByteBuffer& pixelByteBufferScaled, int width, int textureWidth, int bytesPerPixel, int y);
 
 	//
-	STATIC_DLL_IMPEXT static vector<string> extensions;
+	AGUI_STATIC_DLL_IMPEXT static vector<string> extensions;
 
 	// maybe have a read write lock here for texture cache, but currently I have no multithreaded access to it
-	STATIC_DLL_IMPEXT static unordered_map<string, GUITexture*> textureCache;
-	STATIC_DLL_IMPEXT static Mutex textureCacheMutex;
+	AGUI_STATIC_DLL_IMPEXT static unordered_map<string, GUITexture*> textureCache;
+	AGUI_STATIC_DLL_IMPEXT static Mutex textureCacheMutex;
 };

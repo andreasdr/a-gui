@@ -35,10 +35,10 @@ class agui::gui::nodes::GUIElementNode final: public GUILayerNode
 	friend class GUIScreenNode;
 
 public:
-	STATIC_DLL_IMPEXT static string CONDITION_FOCUS;
-	STATIC_DLL_IMPEXT static string CONDITION_ALWAYS;
-	STATIC_DLL_IMPEXT static string CONDITION_ONMOUSEOVER;
-	STATIC_DLL_IMPEXT static string CONDITION_CLICK;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_FOCUS;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_ALWAYS;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_ONMOUSEOVER;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_CLICK;
 
 private:
 	string name;

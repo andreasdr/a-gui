@@ -37,8 +37,8 @@ class agui::gui::elements::GUISelectorHOptionController final
 	friend class GUISelectorHController;
 
 private:
-	STATIC_DLL_IMPEXT static string CONDITION_SELECTED;
-	STATIC_DLL_IMPEXT static string CONDITION_UNSELECTED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_SELECTED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_UNSELECTED;
 	GUIParentNode* selectorHNode { nullptr };
 	bool selected;
 	bool hidden;

@@ -31,8 +31,8 @@ class agui::gui::nodes::GUIElementIgnoreEventsController
 	friend class GUIElementNode;
 
 private:
-	STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
-	STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
 	bool disabled;
 	MutableString value;
 

@@ -14,8 +14,8 @@ using std::unique_ptr;
 class agui::os::filesystem::FileSystem
 {
 private:
-	STATIC_DLL_IMPEXT static unique_ptr<FileSystemInterface> standardFileSystem;
-	STATIC_DLL_IMPEXT static unique_ptr<FileSystemInterface> fileSystem;
+	AGUI_STATIC_DLL_IMPEXT static unique_ptr<FileSystemInterface> standardFileSystem;
+	AGUI_STATIC_DLL_IMPEXT static unique_ptr<FileSystemInterface> fileSystem;
 
 public:
 

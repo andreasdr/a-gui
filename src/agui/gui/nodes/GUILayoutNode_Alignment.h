@@ -24,9 +24,9 @@ namespace nodes {
 class agui::gui::nodes::GUILayoutNode_Alignment final: public Enum
 {
 public:
-	STATIC_DLL_IMPEXT static GUILayoutNode_Alignment* VERTICAL;
-	STATIC_DLL_IMPEXT static GUILayoutNode_Alignment* HORIZONTAL;
-	STATIC_DLL_IMPEXT static GUILayoutNode_Alignment* NONE;
+	AGUI_STATIC_DLL_IMPEXT static GUILayoutNode_Alignment* VERTICAL;
+	AGUI_STATIC_DLL_IMPEXT static GUILayoutNode_Alignment* HORIZONTAL;
+	AGUI_STATIC_DLL_IMPEXT static GUILayoutNode_Alignment* NONE;
 
 	/**
 	 * Public constructor

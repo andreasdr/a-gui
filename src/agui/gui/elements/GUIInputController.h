@@ -35,8 +35,8 @@ class agui::gui::elements::GUIInputController final
 	friend class GUIInput;
 
 private:
-	STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
-	STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
 	GUIInputInternalNode* inputNode { nullptr };
 	bool disabled;
 

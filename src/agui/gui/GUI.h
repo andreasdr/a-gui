@@ -85,7 +85,7 @@ class agui::gui::GUI final: public virtual GUIEventHandler
 	friend class agui::gui::nodes::GUIScreenNode;
 
 private:
-	STATIC_DLL_IMPEXT static bool disableTabFocusControl;
+	AGUI_STATIC_DLL_IMPEXT static bool disableTabFocusControl;
 
 	static GUIApplication* application;
 	static GUIRendererBackend* rendererBackend;

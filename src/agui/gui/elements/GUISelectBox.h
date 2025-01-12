@@ -34,7 +34,7 @@ class agui::gui::elements::GUISelectBox final
 {
 
 private:
-	STATIC_DLL_IMPEXT static string NAME;
+	AGUI_STATIC_DLL_IMPEXT static string NAME;
 
 public:
 	// forbid class copy

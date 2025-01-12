@@ -44,8 +44,8 @@ class agui::gui::elements::GUISelectorHController final
 	friend class GUISelectorHOptionController;
 
 private:
-	STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
-	STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
 	vector<GUISelectorHOptionController*> selectorHOptionControllers;
 	bool disabled;
 	MutableString value;

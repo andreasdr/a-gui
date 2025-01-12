@@ -39,9 +39,9 @@ class agui::gui::elements::GUISelectBoxController final
 	friend class GUISelectBoxOptionController;
 
 private:
-	STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
-	STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
-	STATIC_DLL_IMPEXT static constexpr char VALUE_DELIMITER { '|' };
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_DISABLED;
+	AGUI_STATIC_DLL_IMPEXT static string CONDITION_ENABLED;
+	AGUI_STATIC_DLL_IMPEXT static constexpr char VALUE_DELIMITER { '|' };
 	vector<GUISelectBoxOptionController*> selectBoxOptionControllers;
 	bool disabled;
 	bool multipleSelection;
