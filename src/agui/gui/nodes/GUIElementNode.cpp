@@ -24,6 +24,7 @@
 #include <agui/gui/nodes/GUIParentNode_Overflow.h>
 #include <agui/gui/nodes/GUIScreenNode.h>
 #include <agui/gui/GUI.h>
+#include <agui/gui/GUIApplication.h>
 #include <agui/utilities/Console.h>
 #include <agui/utilities/Float.h>
 #include <agui/utilities/Integer.h>
@@ -57,6 +58,7 @@ using agui::gui::nodes::GUIParentNode;
 using agui::gui::nodes::GUIParentNode_Overflow;
 using agui::gui::nodes::GUIScreenNode;
 using agui::gui::GUI;
+using agui::gui::GUIApplication;
 using agui::utilities::Console;
 using agui::utilities::Float;
 using agui::utilities::Integer;
@@ -145,7 +147,7 @@ bool GUIElementNode::isContentNode()
 
 void GUIElementNode::executeExpression(GUIScreenNode* screenNode, const string& expression) {
 	if (StringTools::startsWith(expression, "http://") == true || StringTools::startsWith(expression, "https://") == true) {
-		GUI::openBrowser(expression);
+		GUI::getApplication()->openBrowser(expression);
 		return;
 	}
 	StringTokenizer t1;

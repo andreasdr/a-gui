@@ -22,8 +22,8 @@
 
 #include <agui/agui.h>
 #include <agui/application/fwd-agui.h>
-#include <agui/application/InputEventHandler.h>
-
+#include <agui/gui/GUIApplication.h>
+#include <agui/gui/GUIEventHandler.h>
 #include <agui/gui/renderer/fwd-agui.h>
 
 using std::array;
@@ -37,6 +37,8 @@ using std::vector;
 namespace agui {
 namespace application {
 	using ::agui::gui::renderer::GUIRendererBackend;
+	using ::agui::gui::GUIApplication;
+	using ::agui::gui::GUIEventHandler;
 }
 }
 
@@ -44,10 +46,8 @@ namespace application {
  * Application base class, please make sure to allocate application on heap to have correct application shutdown working
  * @author Andreas Drewke
  */
-class agui::application::Application
+class agui::application::Application: public GUIApplication
 {
-	friend class InputEventHandler;
-
 public:
 	// forbid class copy
 	FORBID_CLASS_COPY(Application)
@@ -101,6 +101,11 @@ public:
 	}
 
 	/**
+	 * @return If window is active on Win32, on other platforms it currently always return true
+	 */
+	static bool isActive();
+
+	/**
 	 * @return Operating system the application is running on
 	 */
 	static string getOSName();
@@ -115,6 +120,41 @@ public:
 	 * @param locale locale
 	 */
 	static void setLocale(const string& locale);
+
+	/**
+	 * Windows only: Install exception handler that will print a stack trace if crashing
+	 */
+	static void installExceptionHandler();
+
+	/**
+	 * Swap rendering buffers
+	 */
+	static void swapBuffers();
+
+	/**
+	 * Cancels a users requested exit (ALT-F4 or X button)
+	 */
+	static void cancelExit();
+
+	/**
+	 * Exits this application with given exit code
+	 * @param exitCode exit code
+	 */
+	static void exit(int exitCode);
+
+	/**
+	 * Execute a command and wait until it finished running
+	 * @param command command to execute
+	 * @throws std::runtime_error
+	 * @return application output
+	 */
+	static string execute(const string& command);
+
+	/**
+	 * Execute a command in background
+	 * @param command command to execute
+	 */
+	static void executeBackground(const string& command);
 
 	/**
 	 * Public constructor
@@ -148,46 +188,12 @@ public:
 	}
 
 	/**
-	 * Set input event handler
-	 * @param inputEventHandler input event handler
+	 * Set event handler
+	 * @param eventHandler event handler
 	 */
-	void setInputEventHandler(InputEventHandler* inputEventHandler);
-
-	/**
-	 * Execute a command and wait until it finished running
-	 * @param command command to execute
-	 * @throws std::runtime_error
-	 * @return application output
-	 */
-	static string execute(const string& command);
-
-	/**
-	 * Execute a command in background
-	 * @param command command to execute
-	 */
-	static void executeBackground(const string& command);
-
-	/**
-	 * Open browser with given url
-	 * @param url url
-	 */
-	static void openBrowser(const string& url);
-
-	/**
-	 * Cancels a users requested exit (ALT-F4 or X button)
-	 */
-	static void cancelExit();
-
-	/**
-	 * Exits this application with given exit code
-	 * @param exitCode exit code
-	 */
-	static void exit(int exitCode);
-
-	/**
-	 * @return If window is active on Win32, on other platforms it currently always return true
-	 */
-	static bool isActive();
+	inline void setEventHandler(GUIEventHandler* eventHandler) {
+		Application::eventHandler = eventHandler;
+	}
 
 	/**
 	 * @return window X position
@@ -214,7 +220,7 @@ public:
 	/**
 	 * @return window width
 	 */
-	int getWindowWidth() const;
+	int getWindowWidth();
 
 	/**
 	 * Set window width
@@ -225,7 +231,7 @@ public:
 	/**
 	 * @return window height
 	 */
-	int getWindowHeight() const;
+	int getWindowHeight();
 
 	/**
 	 * Set window height
@@ -245,14 +251,9 @@ public:
 	void setFullScreen(bool fullScreen);
 
 	/**
-	 * Windows only: Install exception handler that will print a stack trace if crashing
-	 */
-	static void installExceptionHandler();
-
-	/**
 	 * @return mouse cursor
 	 */
-	inline static int getMouseCursor() {
+	inline int getMouseCursor() {
 		return mouseCursor;
 	}
 
@@ -260,29 +261,24 @@ public:
 	 * Set mouse cursor
 	 * @param mouseCursor mouse cursor, see MOUSE_CURSOR_*
 	 */
-	static void setMouseCursor(int mouseCursor);
+	void setMouseCursor(int mouseCursor);
 
 	/**
 	 * @return get mouse X position
 	 */
-	static int getMousePositionX();
+	int getMousePositionX();
 
 	/**
 	 * @return get mouse Y position
 	 */
-	static int getMousePositionY();
+	int getMousePositionY();
 
 	/**
 	 * Set mouse position
 	 * @param x x
 	 * @param y y
 	 */
-	static void setMousePosition(int x, int y);
-
-	/**
-	 * Swap rendering buffers
-	 */
-	static void swapBuffers();
+	void setMousePosition(int x, int y);
 
 	/**
 	 * @return clipboard content as utf8 string
@@ -296,15 +292,21 @@ public:
 	void setClipboardContent(const string& content);
 
 	/**
+	 * Open browser with given url
+	 * @param url url
+	 */
+	void openBrowser(const string& url);
+
+	/**
 	 * Run this application
 	 * @param argc argument count
 	 * @param argv argument values
 	 * @param title title
-	 * @param inputEventHandler application input event handler
+	 * @param eventHandler event handler
 	 * @param windowHints window hints
 	 * @return exit code
 	 */
-	int run(int argc, char** argv, const string& title, InputEventHandler* inputEventHandler = nullptr, int windowHints = WINDOW_HINT_NONE);
+	int run(int argc, char** argv, const string& title, GUIEventHandler* eventHandler = nullptr, int windowHints = WINDOW_HINT_NONE);
 
 	/**
 	 * Init
@@ -342,7 +344,7 @@ public:
 private:
 	STATIC_DLL_IMPEXT static unique_ptr<GUIRendererBackend> rendererBackend;
 	STATIC_DLL_IMPEXT static unique_ptr<Application> application;
-	STATIC_DLL_IMPEXT static InputEventHandler* inputEventHandler;
+	STATIC_DLL_IMPEXT static GUIEventHandler* eventHandler;
 	int windowHints { WINDOW_HINT_NONE };
 	string executableFileName;
 	bool debuggingEnabled { false };

@@ -12,6 +12,7 @@
 #include <agui/gui/nodes/GUINode_RequestedConstraints_RequestedConstraintsType.h>
 #include <agui/gui/nodes/GUIStyledTextNode.h>
 #include <agui/gui/GUI.h>
+#include <agui/gui/GUIApplication.h>
 #include <agui/math/Math.h>
 #include <agui/utilities/Character.h>
 #include <agui/utilities/Console.h>
@@ -31,6 +32,7 @@ using agui::gui::nodes::GUINode;
 using agui::gui::nodes::GUIStyledTextNode;
 using agui::gui::nodes::GUIStyledTextNodeController;
 using agui::gui::GUI;
+using agui::gui::GUIApplication;
 using agui::utilities::Character;
 using agui::utilities::Console;
 using agui::utilities::MutableString;
@@ -175,15 +177,15 @@ void GUIStyledTextNodeController::handleMouseEvent(GUINode* node, GUIMouseEvent*
 								continue;
 							}
 							urlAreaHit = &urlArea;
-							if (GUI::getMouseCursor() != MOUSE_CURSOR_HAND) {
-								GUI::setMouseCursor(MOUSE_CURSOR_HAND);
+							if (GUI::getApplication()->getMouseCursor() != MOUSE_CURSOR_HAND) {
+								GUI::getApplication()->setMouseCursor(MOUSE_CURSOR_HAND);
 								Console::printLine("hand: " + node->getId() + "(" + urlAreaHit->url + ")");
 							}
 							break;
 						}
 						if (urlAreaHit == nullptr) {
-							if (GUI::getMouseCursor() != MOUSE_CURSOR_ENABLED) {
-								GUI::setMouseCursor(MOUSE_CURSOR_ENABLED);
+							if (GUI::getApplication()->getMouseCursor() != MOUSE_CURSOR_ENABLED) {
+								GUI::getApplication()->setMouseCursor(MOUSE_CURSOR_ENABLED);
 								Console::printLine("normal: " + node->getId());
 							}
 						}
@@ -272,7 +274,7 @@ void GUIStyledTextNodeController::handleMouseEvent(GUINode* node, GUIMouseEvent*
 						if (urlAreaHit != nullptr) {
 							node->getScreenNode()->getGUI()->addMouseOutCandidateNode(styledTextNode);
 							if (StringTools::startsWith(urlAreaHit->url, "http://") == true || StringTools::startsWith(urlAreaHit->url, "https://") == true) {
-								GUI::openBrowser(urlAreaHit->url);
+								GUI::getApplication()->openBrowser(urlAreaHit->url);
 								return;
 							}
 						}
@@ -1262,7 +1264,7 @@ void GUIStyledTextNodeController::cut() {
 	if (index != -1 && selectionIndex != -1 && index != selectionIndex) {
 		auto styledTextNode = required_dynamic_cast<GUIStyledTextNode*>(this->node);
 		const auto& text = styledTextNode->getText();
-		GUI::setClipboardContent(StringTools::substring(text.getString(), Math::min(text.getUtf8BinaryIndex(index), text.getUtf8BinaryIndex(selectionIndex)), Math::max(text.getUtf8BinaryIndex(index), text.getUtf8BinaryIndex(selectionIndex))));
+		GUI::getApplication()->setClipboardContent(StringTools::substring(text.getString(), Math::min(text.getUtf8BinaryIndex(index), text.getUtf8BinaryIndex(selectionIndex)), Math::max(text.getUtf8BinaryIndex(index), text.getUtf8BinaryIndex(selectionIndex))));
 		storeDeletionHistoryEntryStoreTypingEntry(Math::min(index, selectionIndex), Math::abs(index - selectionIndex));
 		styledTextNode->removeText(Math::min(index, selectionIndex), Math::abs(index - selectionIndex));
 		styledTextNode->scrollToIndex();
@@ -1278,7 +1280,7 @@ void GUIStyledTextNodeController::copy() {
 	if (index != -1 && selectionIndex != -1 && index != selectionIndex) {
 		auto styledTextNode = required_dynamic_cast<GUIStyledTextNode*>(this->node);
 		const auto& text = styledTextNode->getText();
-		GUI::setClipboardContent(StringTools::substring(text.getString(), Math::min(text.getUtf8BinaryIndex(index), text.getUtf8BinaryIndex(selectionIndex)), Math::max(text.getUtf8BinaryIndex(index), text.getUtf8BinaryIndex(selectionIndex))));
+		GUI::getApplication()->setClipboardContent(StringTools::substring(text.getString(), Math::min(text.getUtf8BinaryIndex(index), text.getUtf8BinaryIndex(selectionIndex)), Math::max(text.getUtf8BinaryIndex(index), text.getUtf8BinaryIndex(selectionIndex))));
 	}
 }
 
@@ -1288,7 +1290,7 @@ void GUIStyledTextNodeController::paste() {
 	//
 	auto styledTextNode = required_dynamic_cast<GUIStyledTextNode*>(this->node);
 	auto maxLength = 0;
-	auto clipboardContent = GUI::getClipboardContent();
+	auto clipboardContent = GUI::getApplication()->getClipboardContent();
 	auto clipboardContentLength = StringTools::getUTF8Length(clipboardContent);
 	if (index != -1 && selectionIndex != -1 && index != selectionIndex) {
 		if (maxLength == 0 || styledTextNode->getTextLength() - Math::abs(index - selectionIndex) + clipboardContentLength < maxLength) {

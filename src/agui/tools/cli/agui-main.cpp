@@ -52,12 +52,17 @@ public:
 	 */
 	void initialize() {
 		//
-		gui = make_unique<GUI>(Application::getRendererBackend(), getWindowWidth(), getWindowHeight());
+		gui = make_unique<GUI>(
+			Application::getApplication(),
+			Application::getRendererBackend(),
+			getWindowWidth(),
+			getWindowHeight()
+		);
 		gui->initialize();
 		//
 		GUIParser::initialize();
 		//
-		Application::setInputEventHandler(gui.get());
+		Application::setEventHandler(gui.get());
 		//
 		auto screenNode = GUIParser::parse(
 			FileSystem::getStandardFileSystem()->getPathName(screenFileName),

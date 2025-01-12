@@ -7,7 +7,6 @@
 #include <vector>
 
 #include <agui/agui.h>
-#include <agui/application/InputEventHandler.h>
 
 #include <agui/gui/fwd-agui.h>
 #include <agui/gui/elements/fwd-agui.h>
@@ -22,6 +21,7 @@
 #include <agui/gui/renderer/fwd-agui.h>
 #include <agui/gui/textures/fwd-agui.h>
 #include <agui/gui/vbos/fwd-agui.h>
+#include <agui/gui/GUIEventHandler.h>
 #include <agui/utilities/fwd-agui.h>
 #include <agui/utilities/Console.h>
 #include <agui/utilities/Exception.h>
@@ -39,7 +39,6 @@ using std::vector;
 // namespaces
 namespace agui {
 namespace gui {
-	using ::agui::application::InputEventHandler;
 	using ::agui::gui::events::GUIKeyboardEvent;
 	using ::agui::gui::events::GUIMouseEvent;
 	using ::agui::gui::misc::GUITiming;
@@ -52,6 +51,7 @@ namespace gui {
 	using ::agui::gui::renderer::GUIShader;
 	using ::agui::gui::textures::GUITextureManager;
 	using ::agui::gui::vbos::GUIVBOManager;
+	using ::agui::gui::GUIEventHandler;
 	using ::agui::utilities::Console;
 	using ::agui::utilities::Exception;
 	using ::agui::utilities::RTTI;
@@ -80,13 +80,14 @@ static T required_dynamic_cast(U u)
  * GUI module class
  * @author Andreas Drewke
  */
-class agui::gui::GUI final: public virtual InputEventHandler
+class agui::gui::GUI final: public virtual GUIEventHandler
 {
 	friend class agui::gui::nodes::GUIScreenNode;
 
 private:
 	STATIC_DLL_IMPEXT static bool disableTabFocusControl;
 
+	static GUIApplication* application;
 	static GUIRendererBackend* rendererBackend;
 	static unique_ptr<GUIRenderer> renderer;
 	static unique_ptr<GUITextureManager> textureManager;
@@ -180,6 +181,13 @@ public:
 	}
 
 	/**
+	 * @return application
+	 */
+	static inline GUIApplication* getApplication() {
+		return application;
+	}
+
+	/**
 	 * @return renderer backend
 	 */
 	static inline GUIRendererBackend* getRendererBackend() {
@@ -214,61 +222,17 @@ public:
 		return shader.get();
 	}
 
-	/**
-	 * @return mouse cursor
-	 */
-	static int getMouseCursor();
-
-	/**
-	 * Set mouse cursor
-	 * @param mouseCursor mouse cursor, see MOUSE_CURSOR_*
-	 */
-	static void setMouseCursor(int mouseCursor);
-
-	/**
-	 * @return get mouse X position
-	 */
-	static int getMousePositionX();
-
-	/**
-	 * @return get mouse Y position
-	 */
-	static int getMousePositionY();
-
-	/**
-	 * Set mouse position
-	 * @param x x
-	 * @param y y
-	 */
-	static void setMousePosition(int x, int y);
-
-	/**
-	 * Open browser with given url
-	 * @param url url
-	 */
-	static void openBrowser(const string& url);
-
-	/**
-	 * @return clipboard content as utf8 string
-	 */
-	static string getClipboardContent();
-
-	/**
-	 * Set clipboard content
-	 * @param content content
-	 */
-	static void setClipboardContent(const string& content);
-
 	// forbid class copy
 	FORBID_CLASS_COPY(GUI)
 
 	/**
 	 * Public constructor
+	 * @param application application
 	 * @param rendererBackend renderer backend
 	 * @param width width
 	 * @param height height
 	 */
-	GUI(GUIRendererBackend* rendererBackend, int width, int height);
+	GUI(GUIApplication* application, GUIRendererBackend* rendererBackend, int width, int height);
 
 	/**
 	 * Destructor

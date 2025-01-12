@@ -16,6 +16,7 @@
 #include <agui/gui/nodes/GUIScreenNode.h>
 #include <agui/gui/renderer/GUIFont.h>
 #include <agui/gui/GUI.h>
+#include <agui/gui/GUIApplication.h>
 #include <agui/math/Math.h>
 #include <agui/utilities/Character.h>
 #include <agui/utilities/Float.h>
@@ -42,6 +43,7 @@ using agui::gui::nodes::GUIParentNode;
 using agui::gui::nodes::GUIScreenNode;
 using agui::gui::renderer::GUIFont;
 using agui::gui::GUI;
+using agui::gui::GUIApplication;
 using agui::math::Math;
 using agui::utilities::Character;
 using agui::utilities::Float;
@@ -187,9 +189,9 @@ void GUIInputInternalController::handleMouseEvent(GUINode* node, GUIMouseEvent* 
 			}
 		} else
 		if (mouseDraggingSlideValueActive == true) {
-			GUI::setMousePosition(mouseOriginalPosition[0], mouseOriginalPosition[1]);
+			GUI::getApplication()->setMousePosition(mouseOriginalPosition[0], mouseOriginalPosition[1]);
 		}
-		GUI::setMouseCursor(MOUSE_CURSOR_NORMAL); // TODO: fix me
+		GUI::getApplication()->setMouseCursor(MOUSE_CURSOR_NORMAL); // TODO: fix me
 		mouseDraggingInit = false;
 		mouseDraggingSlideValueActive = false;
 		mouseDraggingSelectionActive = false;
@@ -205,14 +207,14 @@ void GUIInputInternalController::handleMouseEvent(GUINode* node, GUIMouseEvent* 
 			mouseDraggingInit = false;
 			if (editMode == false) {
 				mouseDraggingSlideValueActive = true;
-				GUI::setMouseCursor(MOUSE_CURSOR_DISABLED);
-				GUI::setMousePosition(mouseOriginalPosition[0], mouseOriginalPosition[1]);
+				GUI::getApplication()->setMouseCursor(MOUSE_CURSOR_DISABLED);
+				GUI::getApplication()->setMousePosition(mouseOriginalPosition[0], mouseOriginalPosition[1]);
 			} else {
 				mouseDraggingSelectionActive = true;
 				selectionIndex = index;
 			}
-			mouseDragPosition[0] = GUI::getMousePositionX();
-			mouseDragPosition[1] = GUI::getMousePositionY();
+			mouseDragPosition[0] = GUI::getApplication()->getMousePositionX();
+			mouseDragPosition[1] = GUI::getApplication()->getMousePositionY();
 		}
 		if (mouseDraggingSlideValueActive == true) {
 			auto textInputNode = required_dynamic_cast<GUIInputInternalNode*>(node);
@@ -221,7 +223,7 @@ void GUIInputInternalController::handleMouseEvent(GUINode* node, GUIMouseEvent* 
 					break;
 				case TYPE_FLOAT:
 					{
-						auto mouseDraggedX = GUI::getMousePositionX() - mouseDragPosition[0];
+						auto mouseDraggedX = GUI::getApplication()->getMousePositionX() - mouseDragPosition[0];
 						auto value = Float::parse(textInputNode->getText().getString());
 						if (haveStep == true) {
 							value+= static_cast<float>(mouseDraggedX) * step;
@@ -238,7 +240,7 @@ void GUIInputInternalController::handleMouseEvent(GUINode* node, GUIMouseEvent* 
 					break;
 				case TYPE_INT:
 					{
-						auto mouseDraggedX = GUI::getMousePositionX() - mouseDragPosition[0];
+						auto mouseDraggedX = GUI::getApplication()->getMousePositionX() - mouseDragPosition[0];
 						auto value = Integer::parse(textInputNode->getText().getString());
 						if (haveStep == true) {
 							value+= mouseDraggedX * static_cast<int>(step);
@@ -254,9 +256,9 @@ void GUIInputInternalController::handleMouseEvent(GUINode* node, GUIMouseEvent* 
 					}
 					break;
 			}
-			GUI::setMousePosition(mouseOriginalPosition[0], mouseOriginalPosition[1]);
-			mouseDragPosition[0] = GUI::getMousePositionX();
-			mouseDragPosition[1] = GUI::getMousePositionY();
+			GUI::getApplication()->setMousePosition(mouseOriginalPosition[0], mouseOriginalPosition[1]);
+			mouseDragPosition[0] = GUI::getApplication()->getMousePositionX();
+			mouseDragPosition[1] = GUI::getApplication()->getMousePositionY();
 		} else
 		if (mouseDraggingSelectionActive == true) {
 			auto textInputNode = required_dynamic_cast<GUIInputInternalNode*>(node);
@@ -301,8 +303,8 @@ void GUIInputInternalController::handleMouseEvent(GUINode* node, GUIMouseEvent* 
 		);
 		resetCursorMode();
 		mouseDraggingInit = true;
-		mouseOriginalPosition[0] = GUI::getMousePositionX();
-		mouseOriginalPosition[1] = GUI::getMousePositionY();
+		mouseOriginalPosition[0] = GUI::getApplication()->getMousePositionX();
+		mouseOriginalPosition[1] = GUI::getApplication()->getMousePositionY();
 		selectionIndex = -1;
 		event->setProcessed(true);
 	}
@@ -402,7 +404,7 @@ void GUIInputInternalController::handleKeyboardEvent(GUIKeyboardEvent* event)
 		if (keyControlX == true && disabled == false) {
 			if (index != -1 && selectionIndex != -1 && index != selectionIndex) {
 				const auto& text = textInputNode->getText();
-				GUI::setClipboardContent(StringTools::substring(text.getString(), Math::min(text.getUtf8BinaryIndex(index), text.getUtf8BinaryIndex(selectionIndex)), Math::max(text.getUtf8BinaryIndex(index), text.getUtf8BinaryIndex(selectionIndex))));
+				GUI::getApplication()->setClipboardContent(StringTools::substring(text.getString(), Math::min(text.getUtf8BinaryIndex(index), text.getUtf8BinaryIndex(selectionIndex)), Math::max(text.getUtf8BinaryIndex(index), text.getUtf8BinaryIndex(selectionIndex))));
 				textInputNode->getText().remove(Math::min(index, selectionIndex), Math::abs(index - selectionIndex));
 				index = Math::min(index, selectionIndex);
 				selectionIndex = -1;
@@ -412,12 +414,12 @@ void GUIInputInternalController::handleKeyboardEvent(GUIKeyboardEvent* event)
 		if (keyControlC == true || keyControlX == true) {
 			if (index != -1 && selectionIndex != -1 && index != selectionIndex) {
 				const auto& text = textInputNode->getText();
-				GUI::setClipboardContent(StringTools::substring(text.getString(), Math::min(text.getUtf8BinaryIndex(index), text.getUtf8BinaryIndex(selectionIndex)), Math::max(text.getUtf8BinaryIndex(index), text.getUtf8BinaryIndex(selectionIndex))));
+				GUI::getApplication()->setClipboardContent(StringTools::substring(text.getString(), Math::min(text.getUtf8BinaryIndex(index), text.getUtf8BinaryIndex(selectionIndex)), Math::max(text.getUtf8BinaryIndex(index), text.getUtf8BinaryIndex(selectionIndex))));
 			}
 		} else
 		if (keyControlV == true) {
 			if (disabled == false) {
-				auto clipboardContent = GUI::getClipboardContent();
+				auto clipboardContent = GUI::getApplication()->getClipboardContent();
 				auto clipboardContentLength = StringTools::getUTF8Length(clipboardContent);
 				if (index != -1 && selectionIndex != -1 && index != selectionIndex) {
 					if (textInputNode->getMaxLength() == 0 || textInputNode->getText().length() - Math::abs(index - selectionIndex) + clipboardContentLength < textInputNode->getMaxLength()) {

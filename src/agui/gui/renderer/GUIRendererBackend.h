@@ -664,12 +664,12 @@ public:
 	/**
 	 * Set up renderer for GUI rendering
 	 */
-	virtual void initGuiMode() = 0;
+	virtual void initGUIMode() = 0;
 
 	/**
 	 * Set up renderer for 3d rendering
 	 */
-	virtual void doneGuiMode() = 0;
+	virtual void doneGUIMode() = 0;
 
 	/**
 	 * Enable/Disable v-sync

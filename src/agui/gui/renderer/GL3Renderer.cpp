@@ -639,7 +639,7 @@ ByteBuffer* GL3Renderer::readPixels(int32_t x, int32_t y, int32_t width, int32_t
 	return pixelBuffer;
 }
 
-void GL3Renderer::initGuiMode()
+void GL3Renderer::initGUIMode()
 {
 	setTextureUnit(CONTEXTINDEX_DEFAULT, 0);
 	glBindTexture(GL_TEXTURE_2D, ID_NONE);
@@ -651,7 +651,7 @@ void GL3Renderer::initGuiMode()
 	glGetError();
 }
 
-void GL3Renderer::doneGuiMode()
+void GL3Renderer::doneGUIMode()
 {
 	glGetError();
 	glBindTexture(GL_TEXTURE_2D, ID_NONE);

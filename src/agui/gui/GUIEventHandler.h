@@ -1,20 +1,20 @@
 #pragma once
 
 #include <agui/agui.h>
-#include <agui/application/fwd-agui.h>
-#include <agui/application/InputDefinitions.h>
+#include <agui/gui/fwd-agui.h>
+#include <agui/gui/GUIInputDefinitions.h>
 
 /**
- * Application input event handler interface
+ * Application event handler interface
  * @author Andreas Drewke
  */
-class agui::application::InputEventHandler
+class agui::gui::GUIEventHandler
 {
 public:
 	/**
 	 * Destructor
 	 */
-	virtual ~InputEventHandler() {}
+	virtual ~GUIEventHandler() {}
 
 	/**
 	 * On char

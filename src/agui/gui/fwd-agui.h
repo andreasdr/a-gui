@@ -4,6 +4,8 @@
 namespace agui {
 namespace gui {
 	class GUI;
+	class GUIApplication;
+	class GUIEventHandler;
 	class GUIParser;
 	class GUIParserException;
 	class GUIVersion;

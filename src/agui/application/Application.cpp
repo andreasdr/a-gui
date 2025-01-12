@@ -37,12 +37,12 @@
 #include <agui/agui.h>
 
 #include <agui/application/Application.h>
-#include <agui/application/InputEventHandler.h>
 #include <agui/audio/Audio.h>
 #include <agui/gui/textures/GUITexture.h>
 #include <agui/gui/fileio/TextureReader.h>
 #include <agui/gui/renderer/ApplicationGL3Renderer.h>
 #include <agui/gui/renderer/GUIRendererBackend.h>
+#include <agui/gui/GUIEventHandler.h>
 #include <agui/os/filesystem/FileSystem.h>
 #include <agui/os/filesystem/FileSystemInterface.h>
 #include <agui/os/threading/Thread.h>
@@ -64,12 +64,12 @@ using std::string;
 using std::to_string;
 
 using agui::application::Application;
-using agui::application::InputEventHandler;
 using agui::audio::Audio;
 using agui::gui::textures::GUITexture;
 using agui::gui::fileio::TextureReader;
 using agui::gui::renderer::ApplicationGL3Renderer;
 using agui::gui::renderer::GUIRendererBackend;
+using agui::gui::GUIEventHandler;
 using agui::os::filesystem::FileSystem;
 using agui::os::filesystem::FileSystemInterface;
 using agui::os::threading::Thread;
@@ -85,7 +85,7 @@ using agui::utilities::Time;
 
 unique_ptr<GUIRendererBackend> Application::rendererBackend = nullptr;
 unique_ptr<Application> Application::application = nullptr;
-InputEventHandler* Application::inputEventHandler = nullptr;
+GUIEventHandler* Application::eventHandler = nullptr;
 int64_t Application::timeLast = -1L;
 bool Application::limitFPS = true;
 
@@ -97,57 +97,56 @@ GLFWcursor* Application::glfwHandCursor = nullptr;
 
 int Application::mouseCursor = MOUSE_CURSOR_ENABLED;
 
-string Application::execute(const string& command) {
-	// see: https://stackoverflow.com/questions/478898/how-to-execute-a-command-and-get-output-of-command-within-c-using-posix
-	array<char, 128> buffer;
-	string result;
-	#if defined(_MSC_VER)
-		shared_ptr<FILE> pipe(_popen(command.c_str(), "r"), _pclose);
-	#else
-		shared_ptr<FILE> pipe(popen(command.c_str(), "r"), pclose);
-	#endif
-	if (!pipe) throw std::runtime_error("popen() failed!");
-	while (!feof(pipe.get())) {
-		if (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
-			result += buffer.data();
-	}
-	return result;
-}
-
-void Application::executeBackground(const string& command) {
+bool Application::isActive() {
 	#if defined(_WIN32)
-		system(("start " + command).c_str());
+		return GetActiveWindow() == GetForegroundWindow();
 	#else
-		system((command + " </dev/null &>/dev/null &").c_str());
+		return true;
 	#endif
 }
 
-void Application::openBrowser(const string& url) {
-	#if defined(_WIN32)
-		execute("explorer \"" + url + "\"");
-	#elif defined(__APPLE__) || defined(__HAIKU__)
-		execute("open \"" + url + "\"");
+string Application::getOSName() {
+	#if defined(__FreeBSD__)
+		return "FreeBSD";
+	#elif defined(__HAIKU__)
+		return "Haiku";
+	#elif defined(__linux__)
+		return "Linux";
+	#elif defined(__APPLE__)
+		return "MacOSX";
+	#elif defined(__NetBSD__)
+		return "NetBSD";
+	#elif defined(__OpenBSD__)
+		return "OpenBSD";
+	#elif defined(_MSC_VER)
+		return "Windows-MSC";
+	#elif defined(_WIN32)
+		return "Windows-MINGW";
 	#else
-		execute("xdg-open \"" + url + "\"");
+		return "Unknown";
 	#endif
 }
 
-void Application::cancelExit() {
-	glfwSetWindowShouldClose(glfwWindow, GLFW_FALSE);
+string Application::getCPUName() {
+	#if defined(__amd64__) || defined(_M_X64)
+		return "x64";
+	#elif defined(__ia64__) || defined(_M_IA64)
+		return "ia64";
+	#elif defined(__aarch64__)
+		return "arm64";
+	#elif defined(__arm__) || defined(_M_ARM)
+		return "arm";
+	#elif defined(__powerpc64__)
+		return "ppc64";
+	#elif defined(__powerpc__)
+		return "ppc";
+	#else
+		return "Unknown";
+	#endif
 }
 
-void Application::exit(int exitCode) {
-	if (Application::application == nullptr) {
-		Console::shutdown();
-		::exit(exitCode);
-	} else {
-		if (Application::application->initialized == false) {
-			::exit(exitCode);
-		} else {
-			Application::application->exitCode = exitCode;
-			glfwSetWindowShouldClose(glfwWindow, GLFW_TRUE);
-		}
-	}
+void Application::setLocale(const string& locale) {
+	setlocale(LC_ALL, locale.c_str());
 }
 
 #if defined(_WIN32)
@@ -342,6 +341,69 @@ void Application::exit(int exitCode) {
 	}
 #endif
 
+void Application::installExceptionHandler() {
+	#if defined(_WIN32)
+		SetUnhandledExceptionFilter(windowsExceptionHandler);
+	#endif
+}
+
+void Application::swapBuffers() {
+	glfwSwapBuffers(glfwWindow);
+}
+
+void Application::cancelExit() {
+	glfwSetWindowShouldClose(glfwWindow, GLFW_FALSE);
+}
+
+void Application::exit(int exitCode) {
+	if (Application::application == nullptr) {
+		Console::shutdown();
+		::exit(exitCode);
+	} else {
+		if (Application::application->initialized == false) {
+			::exit(exitCode);
+		} else {
+			Application::application->exitCode = exitCode;
+			glfwSetWindowShouldClose(glfwWindow, GLFW_TRUE);
+		}
+	}
+}
+
+string Application::execute(const string& command) {
+	// see: https://stackoverflow.com/questions/478898/how-to-execute-a-command-and-get-output-of-command-within-c-using-posix
+	array<char, 128> buffer;
+	string result;
+	#if defined(_MSC_VER)
+		shared_ptr<FILE> pipe(_popen(command.c_str(), "r"), _pclose);
+	#else
+		shared_ptr<FILE> pipe(popen(command.c_str(), "r"), pclose);
+	#endif
+	if (!pipe) throw std::runtime_error("popen() failed!");
+	while (!feof(pipe.get())) {
+		if (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
+			result += buffer.data();
+	}
+	return result;
+}
+
+void Application::executeBackground(const string& command) {
+	#if defined(_WIN32)
+		system(("start " + command).c_str());
+	#else
+		system((command + " </dev/null &>/dev/null &").c_str());
+	#endif
+}
+
+void Application::openBrowser(const string& url) {
+	#if defined(_WIN32)
+		execute("explorer \"" + url + "\"");
+	#elif defined(__APPLE__) || defined(__HAIKU__)
+		execute("open \"" + url + "\"");
+	#else
+		execute("xdg-open \"" + url + "\"");
+	#endif
+}
+
 Application::Application() {
 	Application::application = unique_ptr<Application>(this);
 	installExceptionHandler();
@@ -350,69 +412,13 @@ Application::Application() {
 Application::~Application() {
 }
 
-string Application::getOSName() {
-	#if defined(__FreeBSD__)
-		return "FreeBSD";
-	#elif defined(__HAIKU__)
-		return "Haiku";
-	#elif defined(__linux__)
-		return "Linux";
-	#elif defined(__APPLE__)
-		return "MacOSX";
-	#elif defined(__NetBSD__)
-		return "NetBSD";
-	#elif defined(__OpenBSD__)
-		return "OpenBSD";
-	#elif defined(_MSC_VER)
-		return "Windows-MSC";
-	#elif defined(_WIN32)
-		return "Windows-MINGW";
-	#else
-		return "Unknown";
-	#endif
-}
-
-string Application::getCPUName() {
-	#if defined(__amd64__) || defined(_M_X64)
-		return "x64";
-	#elif defined(__ia64__) || defined(_M_IA64)
-		return "ia64";
-	#elif defined(__aarch64__)
-		return "arm64";
-	#elif defined(__arm__) || defined(_M_ARM)
-		return "arm";
-	#elif defined(__powerpc64__)
-		return "ppc64";
-	#elif defined(__powerpc__)
-		return "ppc";
-	#else
-		return "Unknown";
-	#endif
-}
-
-void Application::setLocale(const string& locale) {
-	setlocale(LC_ALL, locale.c_str());
-}
-
-void Application::setInputEventHandler(InputEventHandler* inputEventHandler) {
-	Application::inputEventHandler = inputEventHandler;
-}
-
-bool Application::isActive() {
-	#if defined(_WIN32)
-		return GetActiveWindow() == GetForegroundWindow();
-	#else
-		return true;
-	#endif
-}
-
 int Application::getWindowXPosition() {
 	if (glfwWindow != nullptr) glfwGetWindowPos(glfwWindow, &windowXPosition, &windowYPosition);
 	return windowXPosition;
 }
 
 void Application::setWindowXPosition(int windowXPosition) {
-	if (glfwWindow != nullptr) glfwSetWindowPos(glfwWindow, windowXPosition, windowYPosition);
+	if (glfwWindow != nullptr) glfwSetWindowPos(glfwWindow, windowXPosition, getWindowYPosition());
 	this->windowXPosition = windowXPosition;
 }
 
@@ -422,29 +428,31 @@ int Application::getWindowYPosition() {
 }
 
 void Application::setWindowYPosition(int windowYPosition) {
-	if (glfwWindow != nullptr) glfwSetWindowPos(glfwWindow, windowXPosition, windowYPosition);
+	if (glfwWindow != nullptr) glfwSetWindowPos(glfwWindow, getWindowXPosition(), windowYPosition);
 	this->windowYPosition = windowYPosition;
 }
 
-int Application::getWindowWidth() const {
+int Application::getWindowWidth() {
+	if (glfwWindow != nullptr) glfwGetWindowPos(glfwWindow, &windowWidth, &windowHeight);
 	return windowWidth;
 }
 
 void Application::setWindowWidth(int windowWidth) {
 	this->windowWidth = windowWidth;
 	if (initialized == true) {
-		if (fullScreen == false) glfwSetWindowSize(glfwWindow, windowWidth, windowHeight);
+		if (fullScreen == false) glfwSetWindowSize(glfwWindow, windowWidth, getWindowHeight());
 	}
 }
 
-int Application::getWindowHeight() const {
+int Application::getWindowHeight() {
+	if (glfwWindow != nullptr) glfwGetWindowPos(glfwWindow, &windowWidth, &windowHeight);
 	return windowHeight;
 }
 
 void Application::setWindowHeight(int windowHeight) {
 	this->windowHeight = windowHeight;
 	if (initialized == true) {
-		if (fullScreen == false) glfwSetWindowSize(glfwWindow, windowWidth, windowHeight);
+		if (fullScreen == false) glfwSetWindowSize(glfwWindow, getWindowWidth(), windowHeight);
 	}
 }
 
@@ -470,12 +478,6 @@ void Application::setFullScreen(bool fullScreen) {
 			}
 		}
 	}
-}
-
-void Application::installExceptionHandler() {
-	#if defined(_WIN32)
-		SetUnhandledExceptionFilter(windowsExceptionHandler);
-	#endif
 }
 
 void Application::setMouseCursor(int mouseCursor) {
@@ -520,10 +522,6 @@ void Application::setMousePosition(int x, int y) {
 	#endif
 }
 
-void Application::swapBuffers() {
-	glfwSwapBuffers(glfwWindow);
-}
-
 string Application::getClipboardContent() {
 	return string(glfwGetClipboardString(glfwWindow));
 }
@@ -536,12 +534,12 @@ static void glfwErrorCallback(int error, const char* description) {
 	Console::printLine(string("glfwErrorCallback(): ") + description);
 }
 
-int Application::run(int argc, char** argv, const string& title, InputEventHandler* inputEventHandler, int windowHints) {
+int Application::run(int argc, char** argv, const string& title, GUIEventHandler* eventHandler, int windowHints) {
 	//
 	this->title = title;
 	this->windowHints = windowHints;
 	executableFileName = FileSystem::getInstance()->getFileName(argv[0]);
-	Application::inputEventHandler = inputEventHandler;
+	Application::eventHandler = eventHandler;
 	glfwSetErrorCallback(glfwErrorCallback);
 	if (glfwInit() == false) {
 		Console::printLine("glflInit(): failed!");
@@ -696,6 +694,61 @@ void Application::setIcon() {
 	}
 }
 
+void Application::updateJoystickInput(int joystickIdx) {
+	if (Application::eventHandler == nullptr) return;
+	// no joystick support yet, as I just dont have a joystick :DDD
+}
+
+void Application::updateGamepadInput(int joystickIdx) {
+	if (Application::eventHandler == nullptr) return;
+	//
+	double mouseX, mouseY;
+	glfwGetCursorPos(glfwWindow, &mouseX, &mouseY);
+	GLFWgamepadstate gamepadState;
+	//
+	auto now = Time::getCurrentMillis();
+	auto handleButton = [&](int buttonIdx, int keyCode, int modifier = KEYBOARD_MODIFIER_NONE) -> void {
+		// press
+		if (gamepadState.buttons[buttonIdx] == GLFW_PRESS &&
+			joystickButtons[joystickIdx][buttonIdx] == -1LL) {
+			Application::eventHandler->onKeyDown(-1, keyCode, static_cast<int>(mouseX), static_cast<int>(mouseY), false, modifier);
+			joystickButtons[joystickIdx][buttonIdx] = now;
+		} else
+		// release
+		if (gamepadState.buttons[buttonIdx] == GLFW_RELEASE &&
+			joystickButtons[joystickIdx][buttonIdx] != -1LL) {
+			Application::eventHandler->onKeyUp(-1, keyCode, static_cast<int>(mouseX), static_cast<int>(mouseY));
+			joystickButtons[joystickIdx][buttonIdx] = -1LL;
+		} else
+		// repeat
+		if (gamepadState.buttons[buttonIdx] == GLFW_PRESS &&
+			joystickButtons[joystickIdx][buttonIdx] != 0LL &&
+			now - joystickButtons[joystickIdx][buttonIdx] >= JOYSTICK_BUTTON_TIME_REPEAT) {
+			Application::eventHandler->onKeyDown(-1, keyCode, static_cast<int>(mouseX), static_cast<int>(mouseY), true, modifier);
+			joystickButtons[joystickIdx][buttonIdx] = now;
+		}
+	};
+	//
+	if (glfwGetGamepadState(joystickIdx, &gamepadState) == GLFW_TRUE) {
+		// left
+		handleButton(GLFW_GAMEPAD_BUTTON_DPAD_LEFT, KEYBOARD_KEYCODE_LEFT);
+		// right
+		handleButton(GLFW_GAMEPAD_BUTTON_DPAD_RIGHT, KEYBOARD_KEYCODE_RIGHT);
+		// up
+		handleButton(GLFW_GAMEPAD_BUTTON_DPAD_UP, KEYBOARD_KEYCODE_UP);
+		// down
+		handleButton(GLFW_GAMEPAD_BUTTON_DPAD_DOWN, KEYBOARD_KEYCODE_DOWN);
+		// shift/tab
+		handleButton(GLFW_GAMEPAD_BUTTON_LEFT_BUMPER, KEYBOARD_KEYCODE_TAB, KEYBOARD_MODIFIER_SHIFT);
+		// tab
+		handleButton(GLFW_GAMEPAD_BUTTON_RIGHT_BUMPER, KEYBOARD_KEYCODE_TAB);
+		// space
+		handleButton(GLFW_GAMEPAD_BUTTON_CROSS, KEYBOARD_KEYCODE_SPACE);
+		// back
+		handleButton(GLFW_GAMEPAD_BUTTON_CIRCLE, KEYBOARD_KEYCODE_ESCAPE);
+	}
+}
+
 void Application::displayInternal() {
 	if (Application::application->initialized == false) {
 		Application::application->initialize();
@@ -722,14 +775,14 @@ void Application::reshapeInternal(int width, int height) {
 }
 
 void Application::glfwOnChar(GLFWwindow* window, unsigned int key) {
-	if (Application::inputEventHandler == nullptr) return;
+	if (Application::eventHandler == nullptr) return;
 	double mouseX, mouseY;
 	glfwGetCursorPos(window, &mouseX, &mouseY);
-	Application::inputEventHandler->onChar(key, static_cast<int>(mouseX), static_cast<int>(mouseY));
+	Application::eventHandler->onChar(key, static_cast<int>(mouseX), static_cast<int>(mouseY));
 }
 
 void Application::glfwOnKey(GLFWwindow* window, int key, int scanCode, int action, int mods) {
-	if (Application::inputEventHandler == nullptr) return;
+	if (Application::eventHandler == nullptr) return;
 	double mouseX, mouseY;
 	glfwGetCursorPos(window, &mouseX, &mouseY);
 	// TODO: Use GLFW_MOD_CAPS_LOCK, which does not seem to be available with my version, need to update perhabs
@@ -740,7 +793,7 @@ void Application::glfwOnKey(GLFWwindow* window, int key, int scanCode, int actio
 	}
 	if (action == GLFW_PRESS || action == GLFW_REPEAT) {
 		auto keyName = key == GLFW_KEY_SPACE?" ":glfwGetKeyName(key, scanCode);
-		Application::inputEventHandler->onKeyDown(
+		Application::eventHandler->onKeyDown(
 			keyName == nullptr?-1:((mods & GLFW_MOD_SHIFT) == 0 && glfwCapsLockEnabled == false?Character::toLowerCase(keyName[0]):keyName[0]),
 			key,
 			static_cast<int>(mouseX),
@@ -751,7 +804,7 @@ void Application::glfwOnKey(GLFWwindow* window, int key, int scanCode, int actio
 	} else
 	if (action == GLFW_RELEASE) {
 		auto keyName = key == GLFW_KEY_SPACE?" ":glfwGetKeyName(key, scanCode);
-		Application::inputEventHandler->onKeyUp(
+		Application::eventHandler->onKeyUp(
 			keyName == nullptr?-1:((mods & GLFW_MOD_SHIFT) == 0 && glfwCapsLockEnabled == false?Character::toLowerCase(keyName[0]):keyName[0]),
 			key,
 			(int)mouseX,
@@ -761,19 +814,19 @@ void Application::glfwOnKey(GLFWwindow* window, int key, int scanCode, int actio
 }
 
 void Application::glfwOnMouseMoved(GLFWwindow* window, double x, double y) {
-	if (Application::inputEventHandler == nullptr) return;
+	if (Application::eventHandler == nullptr) return;
 	if (glfwMouseButtonLast != -1 && glfwMouseButtonDownFrames[glfwMouseButtonLast] > 0) {
-		Application::inputEventHandler->onMouseDragged(static_cast<int>(x), static_cast<int>(y));
+		Application::eventHandler->onMouseDragged(static_cast<int>(x), static_cast<int>(y));
 	} else {
-		Application::inputEventHandler->onMouseMoved(static_cast<int>(x), static_cast<int>(y));
+		Application::eventHandler->onMouseMoved(static_cast<int>(x), static_cast<int>(y));
 	}
 }
 
 void Application::glfwOnMouseButton(GLFWwindow* window, int button, int action, int mods) {
-	if (Application::inputEventHandler == nullptr) return;
+	if (Application::eventHandler == nullptr) return;
 	double mouseX, mouseY;
 	glfwGetCursorPos(window, &mouseX, &mouseY);
-	Application::inputEventHandler->onMouseButton(button, action == GLFW_PRESS?MOUSE_BUTTON_DOWN:MOUSE_BUTTON_UP, static_cast<int>(mouseX), static_cast<int>(mouseY));
+	Application::eventHandler->onMouseButton(button, action == GLFW_PRESS?MOUSE_BUTTON_DOWN:MOUSE_BUTTON_UP, static_cast<int>(mouseX), static_cast<int>(mouseY));
 	if (action == GLFW_PRESS) {
 		glfwMouseButtonDownFrames[button]++;
 	} else {
@@ -783,11 +836,11 @@ void Application::glfwOnMouseButton(GLFWwindow* window, int button, int action, 
 }
 
 void Application::glfwOnMouseWheel(GLFWwindow* window, double x, double y) {
-	if (Application::inputEventHandler == nullptr) return;
+	if (Application::eventHandler == nullptr) return;
 	double mouseX, mouseY;
 	glfwGetCursorPos(window, &mouseX, &mouseY);
-	if (x != 0.0) Application::inputEventHandler->onMouseWheel(0, static_cast<int>(x), static_cast<int>(mouseX), static_cast<int>(mouseY));
-	if (y != 0.0) Application::inputEventHandler->onMouseWheel(1, static_cast<int>(y), static_cast<int>(mouseX), static_cast<int>(mouseY));
+	if (x != 0.0) Application::eventHandler->onMouseWheel(0, static_cast<int>(x), static_cast<int>(mouseX), static_cast<int>(mouseY));
+	if (y != 0.0) Application::eventHandler->onMouseWheel(1, static_cast<int>(y), static_cast<int>(mouseX), static_cast<int>(mouseY));
 }
 
 void Application::glfwOnWindowResize(GLFWwindow* window, int width, int height) {
@@ -823,61 +876,6 @@ void Application::glfwOnJoystickConnect(int joystickIdx, int event) {
 		Console::printLine("Application::glfwOnJoystickConnect(): disconnected joystick/gamepad with idx = " + to_string(joystickIdx));
 		Application::application->connectedGamepads.erase(joystickIdx);
 		Application::application->connectedJoysticks.erase(joystickIdx);
-	}
-}
-
-void Application::updateJoystickInput(int joystickIdx) {
-	if (Application::inputEventHandler == nullptr) return;
-	// no joystick support yet, as I just dont have a joystick :DDD
-}
-
-void Application::updateGamepadInput(int joystickIdx) {
-	if (Application::inputEventHandler == nullptr) return;
-	//
-	double mouseX, mouseY;
-	glfwGetCursorPos(glfwWindow, &mouseX, &mouseY);
-	GLFWgamepadstate gamepadState;
-	//
-	auto now = Time::getCurrentMillis();
-	auto handleButton = [&](int buttonIdx, int keyCode, int modifier = KEYBOARD_MODIFIER_NONE) -> void {
-		// press
-		if (gamepadState.buttons[buttonIdx] == GLFW_PRESS &&
-			joystickButtons[joystickIdx][buttonIdx] == -1LL) {
-			Application::inputEventHandler->onKeyDown(-1, keyCode, static_cast<int>(mouseX), static_cast<int>(mouseY), false, modifier);
-			joystickButtons[joystickIdx][buttonIdx] = now;
-		} else
-		// release
-		if (gamepadState.buttons[buttonIdx] == GLFW_RELEASE &&
-			joystickButtons[joystickIdx][buttonIdx] != -1LL) {
-			Application::inputEventHandler->onKeyUp(-1, keyCode, static_cast<int>(mouseX), static_cast<int>(mouseY));
-			joystickButtons[joystickIdx][buttonIdx] = -1LL;
-		} else
-		// repeat
-		if (gamepadState.buttons[buttonIdx] == GLFW_PRESS &&
-			joystickButtons[joystickIdx][buttonIdx] != 0LL &&
-			now - joystickButtons[joystickIdx][buttonIdx] >= JOYSTICK_BUTTON_TIME_REPEAT) {
-			Application::inputEventHandler->onKeyDown(-1, keyCode, static_cast<int>(mouseX), static_cast<int>(mouseY), true, modifier);
-			joystickButtons[joystickIdx][buttonIdx] = now;
-		}
-	};
-	//
-	if (glfwGetGamepadState(joystickIdx, &gamepadState) == GLFW_TRUE) {
-		// left
-		handleButton(GLFW_GAMEPAD_BUTTON_DPAD_LEFT, KEYBOARD_KEYCODE_LEFT);
-		// right
-		handleButton(GLFW_GAMEPAD_BUTTON_DPAD_RIGHT, KEYBOARD_KEYCODE_RIGHT);
-		// up
-		handleButton(GLFW_GAMEPAD_BUTTON_DPAD_UP, KEYBOARD_KEYCODE_UP);
-		// down
-		handleButton(GLFW_GAMEPAD_BUTTON_DPAD_DOWN, KEYBOARD_KEYCODE_DOWN);
-		// shift/tab
-		handleButton(GLFW_GAMEPAD_BUTTON_LEFT_BUMPER, KEYBOARD_KEYCODE_TAB, KEYBOARD_MODIFIER_SHIFT);
-		// tab
-		handleButton(GLFW_GAMEPAD_BUTTON_RIGHT_BUMPER, KEYBOARD_KEYCODE_TAB);
-		// space
-		handleButton(GLFW_GAMEPAD_BUTTON_CROSS, KEYBOARD_KEYCODE_SPACE);
-		// back
-		handleButton(GLFW_GAMEPAD_BUTTON_CIRCLE, KEYBOARD_KEYCODE_ESCAPE);
 	}
 }
 

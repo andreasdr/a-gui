@@ -1,7 +1,7 @@
 #pragma once
 
 #include <agui/agui.h>
-#include <agui/application/InputDefinitions.h>
+#include <agui/gui/GUIInputDefinitions.h>
 #include <agui/gui/events/fwd-agui.h>
 
 /**

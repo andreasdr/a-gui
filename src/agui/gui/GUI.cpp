@@ -12,7 +12,6 @@
 #include <vector>
 
 #include <agui/agui.h>
-#include <agui/application/Application.h>
 #include <agui/gui/events/GUIInputEventHandler.h>
 #include <agui/gui/events/GUIKeyboardEvent.h>
 #include <agui/gui/events/GUIMouseEvent.h>
@@ -30,6 +29,7 @@
 #include <agui/gui/scripting/GUIMinitScript.h>
 #include <agui/gui/textures/GUITextureManager.h>
 #include <agui/gui/vbos/GUIVBOManager.h>
+#include <agui/gui/GUIApplication.h>
 #include <agui/gui/GUIParser.h>
 #include <agui/gui/GUIParserException.h>
 #include <agui/utilities/Console.h>
@@ -47,7 +47,6 @@ using std::unordered_map;
 using std::unordered_set;
 using std::vector;
 
-using agui::application::Application;
 using agui::gui::events::GUIInputEventHandler;
 using agui::gui::events::GUIKeyboardEvent;
 using agui::gui::events::GUIMouseEvent;
@@ -66,6 +65,7 @@ using agui::gui::scripting::GUIMinitScript;
 using agui::gui::textures::GUITextureManager;
 using agui::gui::vbos::GUIVBOManager;
 using agui::gui::GUI;
+using agui::gui::GUIApplication;
 using agui::gui::GUIParser;
 using agui::gui::GUIParserException;
 using agui::utilities::Console;
@@ -79,47 +79,16 @@ static unique_ptr<GUIVBOManager> vboManager;
 static unique_ptr<GUIShader> shader;
 
 bool GUI::disableTabFocusControl = false;
+GUIApplication* GUI::application = nullptr;
 GUIRendererBackend* GUI::rendererBackend = nullptr;
 unique_ptr<GUIRenderer> GUI::renderer;
 unique_ptr<GUITextureManager> GUI::textureManager;
 unique_ptr<GUIVBOManager> GUI::vboManager;
 unique_ptr<GUIShader> GUI::shader;
 
-int GUI::getMouseCursor() {
-	return Application::getMouseCursor();
-}
-
-void GUI::setMouseCursor(int mouseCursor) {
-	Application::setMouseCursor(mouseCursor);
-}
-
-int GUI::getMousePositionX() {
-	return Application::getMousePositionX();
-}
-
-int GUI::getMousePositionY() {
-	return Application::getMousePositionY();
-}
-
-void GUI::setMousePosition(int x, int y) {
-	Application::setMousePosition(x, y);
-}
-
-void GUI::openBrowser(const string& url) {
-	Application::openBrowser(url);
-}
-
-string GUI::getClipboardContent() {
-	return Application::getApplication()->getClipboardContent();
-}
-
-void GUI::setClipboardContent(const string& content) {
-	Application::getApplication()->setClipboardContent(content);
-}
-
-
-GUI::GUI(GUIRendererBackend* rendererBackend, int width, int height)
+GUI::GUI(GUIApplication* application, GUIRendererBackend* rendererBackend, int width, int height)
 {
+	this->application = application;
 	this->rendererBackend = rendererBackend;
 	this->lastMouseButton = 0;
 	this->width = width;
@@ -409,9 +378,9 @@ void GUI::render()
 	}
 
 	//
-	Application::getRendererBackend()->initGuiMode();
-	Application::getRendererBackend()->setViewPort(width, height);
-	Application::getRendererBackend()->updateViewPort();
+	rendererBackend->initGUIMode();
+	rendererBackend->setViewPort(width, height);
+	rendererBackend->updateViewPort();
 
 	//
 	shader->useProgram();
@@ -431,7 +400,7 @@ void GUI::render()
 	//
 	shader->unUseProgram();
 	//
-	Application::getRendererBackend()->doneGuiMode();
+	rendererBackend->doneGUIMode();
 }
 
 bool GUI::isHavingMouseInteraction(GUINode* node) {

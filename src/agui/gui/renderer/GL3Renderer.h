@@ -109,8 +109,8 @@ public:
 	int32_t getTextureUnit(int contextIdx) override;
 	void setTextureUnit(int contextIdx, int32_t textureUnit) override;
 	ByteBuffer* readPixels(int32_t x, int32_t y, int32_t width, int32_t height) override;
-	void initGuiMode() override;
-	void doneGuiMode() override;
+	void initGUIMode() override;
+	void doneGUIMode() override;
 	void setVSync(bool vSync) override;
 	const Renderer_Statistics getStatistics() override;
 
