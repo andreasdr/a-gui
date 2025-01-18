@@ -30,5 +30,5 @@ jobs:
           mingw-w64-x86_64-dlfcn
           mingw-w64-x86_64-freetype
     - uses: actions/checkout@v2
-    - name: make mains
-      run: make mains
+    - name: build
+      run: cd ext\minitscript\ && cd ./ext/windows-msc && 7z x tools.zip && cd ../.. && nmake -f Makefile.nmake && copy ".\lib\*.dll" ".\bin\minitscript\tools\" && .\scripts\windows-prepare-platform-libs.bat && copy "platform\libs\*.dll" ".\bin\minitscript\tools\" && .\bin\minitscript\tools\minitscript --working-directory=../.. ../../make.tscript --arguments clean libraries executables && cd ..\..
