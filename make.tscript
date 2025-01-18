@@ -95,7 +95,7 @@ function: main()
 			$executableLdFlags = $executableLdFlags + " " + "/LIBPATH \"lib/libagui.lib\""
 		elseif ($$.application::OS == "Windows-MINGW")
 			$minitScriptLdFlags = "-lws2_32"
-			$aguiLdFlags = "-lws2_32"
+			$aguiLdFlags = $aguiLdFlags + " " + "-lws2_32 -lopengl32 -luser32 -dbghelp"
 		end
 
 		script.call(
@@ -179,6 +179,22 @@ function: main()
 				"ext/tinyxml/tinyxml.cpp",
 				"ext/tinyxml/tinyxmlerror.cpp",
 				"ext/tinyxml/tinyxmlparser.cpp",
+				# zlib
+				"ext/zlib/adler32.c",
+				"ext/zlib/crc32.c",
+				"ext/zlib/deflate.c",
+				"ext/zlib/infback.c",
+				"ext/zlib/inffast.c",
+				"ext/zlib/inflate.c",
+				"ext/zlib/inftrees.c",
+				"ext/zlib/trees.c",
+				"ext/zlib/zutil.c",
+				"ext/zlib/compress.c",
+				"ext/zlib/uncompr.c",
+				"ext/zlib/gzclose.c",
+				"ext/zlib/gzlib.c",
+				"ext/zlib/gzread.c",
+				"ext/zlib/gzwrite.c",
 				# libpng
 				"ext/libpng/pngrio.c",
 				"ext/libpng/pngwio.c",
@@ -238,6 +254,7 @@ function: main()
 			$buildLibrary,
 			"libagui",
 			[
+				"glew",
 				"glfw3",
 				"openal",
 				"freetype2",
@@ -382,7 +399,6 @@ function: main()
 				"src/agui/os/filesystem/FileSystemException.cpp",
 				"src/agui/os/filesystem/StandardFileSystem.cpp",
 				"src/agui/os/threading/Barrier.cpp",
-				"src/agui/tools/cli/agui-main.cpp",
 				"src/agui/utilities/Console.cpp",
 				"src/agui/utilities/ExceptionBase.cpp",
 				"src/agui/utilities/Float.cpp",

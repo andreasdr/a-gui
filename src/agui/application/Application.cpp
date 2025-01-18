@@ -23,10 +23,6 @@
 	#include <Carbon/Carbon.h>
 #endif
 
-#if !defined(_MSC_VER)
-	#include <dlfcn.h>
-#endif
-
 #include <stdlib.h>
 
 #include <array>
