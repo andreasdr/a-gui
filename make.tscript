@@ -80,7 +80,10 @@ function: main()
 		elseif ($$.application::OS == "OpenBSD")
 			#
 		elseif ($$.application::OS == "Windows-MSC")
+			$aguiLdFlags = ""
+			$aguiLdFlags = $aguiLdFlags + " " + "/LIBPATH \"" + getWindowsSDKPathNameMSC() + "/um/x64/opengl32.lib" + "\""
 			$aguiLdFlags = $aguiLdFlags + " " + "/LIBPATH \"lib/libminitscript.lib\""
+			$aguiLdFlags = $aguiLdFlags + " " + "/LIBPATH \"lib/libagui-ext.lib\""
 			$aguiLdFlags = $aguiLdFlags + " " + "/LIBPATH \"lib/libagui-ext.lib\""
 			$buildLibrary = "buildLibraryMSC"
 			$buildExecutables = "buildExecutablesMSC"
