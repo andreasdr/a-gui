@@ -29,6 +29,7 @@ jobs:
           mingw-w64-x86_64-glew
           mingw-w64-x86_64-dlfcn
           mingw-w64-x86_64-freetype
+          mingw-w64-x86_64-pkgconf
           unzip
     - uses: actions/checkout@v2
     - name: build
