@@ -1,0 +1,424 @@
+use: make-unix-module.tscript
+use: make-msc-module.tscript
+
+function: clean()
+	console.printLine("Cleaning")
+	console.printLine()
+	#
+	$objectPath = "obj"
+	$libraryPath = "lib"
+	$binaryPath = "bin"
+
+	try
+		filesystem.removePath($objectPath, true)
+	catch ($exception)
+	end
+	try
+		filesystem.removePath($libraryPath, true)
+	catch ($exception)
+	end
+	try
+		filesystem.removePath($binaryPath, true)
+	catch ($exception)
+	end
+end
+
+function: printUsage()
+	console.printLine("Usage: minitscript [clean] [libraries] [executables]")
+end
+
+function: main()
+	console.printLine("-------------------")
+	console.printLine("A-GUI build script")
+	console.printLine("-------------------")
+	console.printLine()
+
+	if (application.getArguments()->getSize() == 1)
+			printUsage()
+			return ($$.application::EXITCODE_FAILURE)
+	end
+
+	$argumentIdx = 0
+	forEach($argument in application.getArguments())
+		if ($argumentIdx == 0) 
+			continue
+		end
+		if ($argument != "clean" && $argument != "libraries" && $argument != "executables")
+			printUsage()
+			return ($$.application::EXITCODE_FAILURE)
+		end
+		++$argumentIdx
+	end
+
+	if (application.getArguments()->contains("clean") == true)
+		clean()
+	end
+	
+	if (application.getArguments()->contains("libraries") == true || application.getArguments()->contains("executables") == true)
+		$minitScriptLdFlags = ""
+		$minitScriptDefinitions = ""
+		$aguiIncludes = ""
+		$aguiLdFlags = "-Llib -lminitscript -lagui-ext"
+		$aguiDefinitions = ""
+		$glfwDefinitions = ""
+		$executableDefinitions = "-Llib -lagui -lagui-ext -lminitscript -pthread"
+		$executableLdFlags = "-Llib -lagui -lagui-ext -lminitscript -pthread"
+		$buildLibrary = "buildLibraryUnix"
+		$buildExecutables = "buildExecutablesUnix"
+		if ($$.application::OS == "FreeBSD")
+			$minitScriptLdFlags = "-L/usr/lib -ldl -lexecinfo"
+			$aguiLdFlags = $aguiLdFlags + " " + "-L/usr/lib -ldl -lexecinfo"
+		elseif ($$.application::OS == "Haiku")
+			#
+		elseif ($$.application::OS == "Linux")
+			$aguiIncludes = "-Iext/fbx/linux/include"
+		elseif ($$.application::OS == "MacOSX")
+			$aguiIncludes = "-Iext/fbx/linux/include"
+		elseif ($$.application::OS == "NetBSD")
+			$minitScriptLdFlags = "-L/usr/lib -lexecinfo"
+			$aguiLdFlags = $aguiLdFlags + " " + "-L/usr/lib -lexecinfo"
+		elseif ($$.application::OS == "OpenBSD")
+			#
+		elseif ($$.application::OS == "Windows-MSC")
+			$aguiLdFlags = $aguiLdFlags + " " + "/LIBPATH \"lib/libminitscript.lib\""
+			$aguiLdFlags = $aguiLdFlags + " " + "/LIBPATH \"lib/libagui-ext.lib\""
+			$buildLibrary = "buildLibraryMSC"
+			$buildExecutables = "buildExecutablesMSC"
+			$minitScriptLdFlags = ""
+			$minitScriptDefinitions = "/D MINITSCRIPT_DLL_EXPORT"
+			$aguiDefinitions = "/D MINITSCRIPT_DLL_IMPORT"
+			$glfwDefinitions = "/D GLFW_DLL"
+			$executableDefinitions = "/D MINITSCRIPT_DLL_IMPORT /D TDME2_DLL_IMPORT"
+			$executableLdFlags = ""
+			$executableLdFlags = $executableLdFlags + " " + "/LIBPATH \"lib/libminitscript.lib\""
+			$executableLdFlags = $executableLdFlags + " " + "/LIBPATH \"lib/libagui-ext.lib\""
+			$executableLdFlags = $executableLdFlags + " " + "/LIBPATH \"lib/libagui.lib\""
+		elseif ($$.application::OS == "Windows-MINGW")
+			$minitScriptLdFlags = "-lws2_32"
+			$aguiLdFlags = "-lws2_32"
+		end
+
+		script.call(
+			$buildLibrary,
+			"libminitscript",
+			[
+				"libssl", 
+				"libcrypto"
+			],
+			$minitScriptDefinitions,
+			"-Iext/minitscript/src",
+			$minitScriptLdFlags,
+			[
+				"ext/minitscript/src/minitscript/minitscript/BaseMethods.cpp",
+				"ext/minitscript/src/minitscript/minitscript/StringMethods.cpp",
+				"ext/minitscript/src/minitscript/minitscript/Documentation.cpp",
+				"ext/minitscript/src/minitscript/minitscript/TimeMethods.cpp",
+				"ext/minitscript/src/minitscript/minitscript/NetworkMethods.cpp",
+				"ext/minitscript/src/minitscript/minitscript/ContextMethods.cpp",
+				"ext/minitscript/src/minitscript/minitscript/MapMethods.cpp",
+				"ext/minitscript/src/minitscript/minitscript/HTTPDownloadClientClass.cpp",
+				"ext/minitscript/src/minitscript/minitscript/Generator.cpp",
+				"ext/minitscript/src/minitscript/minitscript/Validations.cpp",
+				"ext/minitscript/src/minitscript/minitscript/Transpiler.cpp",
+				"ext/minitscript/src/minitscript/minitscript/FileSystemMethods.cpp",
+				"ext/minitscript/src/minitscript/minitscript/ArrayMethods.cpp",
+				"ext/minitscript/src/minitscript/minitscript/JSONMethods.cpp",
+				"ext/minitscript/src/minitscript/minitscript/XMLMethods.cpp",
+				"ext/minitscript/src/minitscript/minitscript/Version.cpp",
+				"ext/minitscript/src/minitscript/minitscript/SetMethods.cpp",
+				"ext/minitscript/src/minitscript/minitscript/MathMethods.cpp",
+				"ext/minitscript/src/minitscript/minitscript/ByteArrayMethods.cpp",
+				"ext/minitscript/src/minitscript/minitscript/MinitScript.cpp",
+				"ext/minitscript/src/minitscript/minitscript/ApplicationMethods.cpp",
+				"ext/minitscript/src/minitscript/minitscript/CryptographyMethods.cpp",
+				"ext/minitscript/src/minitscript/minitscript/Setup.cpp",
+				"ext/minitscript/src/minitscript/minitscript/Library.cpp",
+				"ext/minitscript/src/minitscript/minitscript/ConsoleMethods.cpp",
+				"ext/minitscript/src/minitscript/minitscript/Context.cpp",
+				"ext/minitscript/src/minitscript/minitscript/ScriptMethods.cpp",
+				"ext/minitscript/src/minitscript/os/filesystem/FileSystem.cpp",
+				"ext/minitscript/src/minitscript/os/network/TCPSocket.cpp",
+				"ext/minitscript/src/minitscript/os/network/SecureTCPSocket.cpp",
+				"ext/minitscript/src/minitscript/os/network/NetworkSocketClosedException.cpp",
+				"ext/minitscript/src/minitscript/os/network/NetworkSocket.cpp",
+				"ext/minitscript/src/minitscript/os/network/NetworkSocketException.cpp",
+				"ext/minitscript/src/minitscript/os/network/NetworkException.cpp",
+				"ext/minitscript/src/minitscript/os/network/Network.cpp",
+				"ext/minitscript/src/minitscript/os/network/NetworkIOException.cpp",
+				"ext/minitscript/src/minitscript/utilities/Float.cpp",
+				"ext/minitscript/src/minitscript/utilities/Base64.cpp",
+				"ext/minitscript/src/minitscript/utilities/UTF8StringTools.cpp",
+				"ext/minitscript/src/minitscript/utilities/ExceptionBase.cpp",
+				"ext/minitscript/src/minitscript/utilities/ErrorConsole.cpp",
+				"ext/minitscript/src/minitscript/utilities/UTF8StringTokenizer.cpp",
+				"ext/minitscript/src/minitscript/utilities/Console.cpp",
+				"ext/minitscript/src/minitscript/utilities/Properties.cpp",
+				"ext/minitscript/src/minitscript/utilities/Integer.cpp",
+				"ext/minitscript/src/minitscript/utilities/SHA256.cpp",
+				"ext/minitscript/src/minitscript/utilities/Hex.cpp",
+				"ext/minitscript/src/minitscript/utilities/RTTI.cpp",
+				"ext/minitscript/src/minitscript/utilities/StringTools.cpp",
+				"ext/minitscript/src/minitscript/utilities/StringTokenizer.cpp",
+				"ext/minitscript/src/minitscript/network/httpclient/HTTPClient.cpp",
+				"ext/minitscript/src/minitscript/network/httpclient/HTTPClientException.cpp",
+				"ext/minitscript/src/minitscript/network/httpclient/HTTPDownloadClient.cpp"
+			],
+			false
+		)
+	
+		script.call(
+			$buildLibrary,
+			"libagui-ext",
+			[],
+			"",
+			"-Iext -I. -Iext/cpp-spline/src -Iext/zlib",
+			"",
+			[
+				# tiny xml
+				"ext/tinyxml/tinystr.cpp",
+				"ext/tinyxml/tinyxml.cpp",
+				"ext/tinyxml/tinyxmlerror.cpp",
+				"ext/tinyxml/tinyxmlparser.cpp",
+				# libpng
+				"ext/libpng/pngrio.c",
+				"ext/libpng/pngwio.c",
+				"ext/libpng/pngmem.c",
+				"ext/libpng/pngwtran.c",
+				"ext/libpng/pngtrans.c",
+				"ext/libpng/pngerror.c",
+				"ext/libpng/pngpread.c",
+				"ext/libpng/pngget.c",
+				"ext/libpng/pngset.c",
+				"ext/libpng/pngwrite.c",
+				"ext/libpng/pngwutil.c",
+				"ext/libpng/pngread.c",
+				"ext/libpng/pngrutil.c",
+				"ext/libpng/png.c",
+				"ext/libpng/pngrtran.c",
+				# vorbis
+				"ext/vorbis/analysis.c",
+				"ext/vorbis/bitrate.c",
+				"ext/vorbis/block.c",
+				"ext/vorbis/codebook.c",
+				"ext/vorbis/envelope.c",
+				"ext/vorbis/floor0.c",
+				"ext/vorbis/floor1.c",
+				"ext/vorbis/info.c",
+				"ext/vorbis/lookup.c",
+				"ext/vorbis/lpc.c",
+				"ext/vorbis/lsp.c",
+				"ext/vorbis/mapping0.c",
+				"ext/vorbis/mdct.c",
+				"ext/vorbis/psy.c",
+				"ext/vorbis/registry.c",
+				"ext/vorbis/res0.c",
+				"ext/vorbis/sharedbook.c",
+				"ext/vorbis/smallft.c",
+				"ext/vorbis/synthesis.c",
+				"ext/vorbis/vorbisenc.c",
+				"ext/vorbis/vorbisfile.c",
+				"ext/vorbis/window.c",
+				# ogg
+				"ext/ogg/bitwise.c",
+				"ext/ogg/framing.c",
+				# cppspline
+				"ext/cpp-spline/src/Bezier.cpp",
+				"ext/cpp-spline/src/BSpline.cpp",
+				"ext/cpp-spline/src/CatmullRom.cpp",
+				"ext/cpp-spline/src/Curve.cpp",
+				"ext/cpp-spline/src/Vector.cpp",
+				# bc 7
+				"ext/bc7enc_rdo/bc7decomp.cpp",
+				"ext/bc7enc_rdo/bc7enc.cpp"
+			],
+			false
+		)
+	
+		script.call(
+			$buildLibrary,
+			"libagui",
+			[
+				"glfw3",
+				"openal",
+				"freetype2",
+				"libssl",
+				"libcrypto"
+			],
+			$glfwDefinitions + " " + $aguiDefinitions,
+			"-Isrc -Iext -I. -Iext/cpp-spline/src -Iext/zlib -Iext/minitscript/src" + " " + $aguiIncludes,
+			$aguiLdFlags,
+			[
+				"src/agui/application/Application.cpp",
+				"src/agui/audio/AudioBufferManager.cpp",
+				"src/agui/audio/Audio.cpp",
+				"src/agui/audio/AudioStream.cpp",
+				"src/agui/audio/decoder/AudioDecoderException.cpp",
+				"src/agui/audio/decoder/VorbisDecoder.cpp",
+				"src/agui/audio/PacketAudioStream.cpp",
+				"src/agui/audio/Sound.cpp",
+				"src/agui/audio/VorbisAudioStream.cpp",
+				"src/agui/gui/effects/GUIColorEffect.cpp",
+				"src/agui/gui/effects/GUIEffect.cpp",
+				"src/agui/gui/effects/GUIPositionEffect.cpp",
+				"src/agui/gui/elements/GUIButtonController.cpp",
+				"src/agui/gui/elements/GUIButton.cpp",
+				"src/agui/gui/elements/GUICheckboxController.cpp",
+				"src/agui/gui/elements/GUICheckbox.cpp",
+				"src/agui/gui/elements/GUIContextMenuController.cpp",
+				"src/agui/gui/elements/GUIContextMenu.cpp",
+				"src/agui/gui/elements/GUIContextMenuItemController.cpp",
+				"src/agui/gui/elements/GUIContextMenuItem.cpp",
+				"src/agui/gui/elements/GUIDropDownController.cpp",
+				"src/agui/gui/elements/GUIDropDown.cpp",
+				"src/agui/gui/elements/GUIDropDownOptionController.cpp",
+				"src/agui/gui/elements/GUIDropDownOption.cpp",
+				"src/agui/gui/elements/GUIGridController.cpp",
+				"src/agui/gui/elements/GUIGrid.cpp",
+				"src/agui/gui/elements/GUIGridItemController.cpp",
+				"src/agui/gui/elements/GUIGridItem.cpp",
+				"src/agui/gui/elements/GUIImageButton.cpp",
+				"src/agui/gui/elements/GUIInputController.cpp",
+				"src/agui/gui/elements/GUIInput.cpp",
+				"src/agui/gui/elements/GUIKnobController.cpp",
+				"src/agui/gui/elements/GUIKnob.cpp",
+				"src/agui/gui/elements/GUIMenuHeaderController.cpp",
+				"src/agui/gui/elements/GUIMenuHeader.cpp",
+				"src/agui/gui/elements/GUIMenuHeaderItemController.cpp",
+				"src/agui/gui/elements/GUIMenuHeaderItem.cpp",
+				"src/agui/gui/elements/GUIMenuItemController.cpp",
+				"src/agui/gui/elements/GUIMenuItem.cpp",
+				"src/agui/gui/elements/GUIMenuSeparator.cpp",
+				"src/agui/gui/elements/GUIMoveableController.cpp",
+				"src/agui/gui/elements/GUIMoveable.cpp",
+				"src/agui/gui/elements/GUIProgressBarController.cpp",
+				"src/agui/gui/elements/GUIProgressBar.cpp",
+				"src/agui/gui/elements/GUIRadioButtonController.cpp",
+				"src/agui/gui/elements/GUIRadioButton.cpp",
+				"src/agui/gui/elements/GUIScrollAreaController.cpp",
+				"src/agui/gui/elements/GUIScrollArea.cpp",
+				"src/agui/gui/elements/GUISelectBoxController.cpp",
+				"src/agui/gui/elements/GUISelectBox.cpp",
+				"src/agui/gui/elements/GUISelectBoxOptionController.cpp",
+				"src/agui/gui/elements/GUISelectBoxOption.cpp",
+				"src/agui/gui/elements/GUISelectBoxParentOptionController.cpp",
+				"src/agui/gui/elements/GUISelectBoxParentOption.cpp",
+				"src/agui/gui/elements/GUISelectorHController.cpp",
+				"src/agui/gui/elements/GUISelectorH.cpp",
+				"src/agui/gui/elements/GUISelectorHOptionController.cpp",
+				"src/agui/gui/elements/GUISelectorHOption.cpp",
+				"src/agui/gui/elements/GUISliderHController.cpp",
+				"src/agui/gui/elements/GUISliderH.cpp",
+				"src/agui/gui/elements/GUISliderVController.cpp",
+				"src/agui/gui/elements/GUISliderV.cpp",
+				"src/agui/gui/elements/GUIStyledInputController.cpp",
+				"src/agui/gui/elements/GUIStyledInput.cpp",
+				"src/agui/gui/elements/GUITabContentController.cpp",
+				"src/agui/gui/elements/GUITabContent.cpp",
+				"src/agui/gui/elements/GUITabController.cpp",
+				"src/agui/gui/elements/GUITab.cpp",
+				"src/agui/gui/elements/GUITabsContent.cpp",
+				"src/agui/gui/elements/GUITabsController.cpp",
+				"src/agui/gui/elements/GUITabs.cpp",
+				"src/agui/gui/elements/GUITabsHeaderController.cpp",
+				"src/agui/gui/elements/GUITabsHeader.cpp",
+				"src/agui/gui/fileio/BC7TextureReader.cpp",
+				"src/agui/gui/fileio/BC7TextureWriter.cpp",
+				"src/agui/gui/fileio/PNGTextureReader.cpp",
+				"src/agui/gui/fileio/PNGTextureWriter.cpp",
+				"src/agui/gui/fileio/TextureReader.cpp",
+				"src/agui/gui/GUI.cpp",
+				"src/agui/gui/GUIParser.cpp",
+				"src/agui/gui/GUIParserException.cpp",
+				"src/agui/gui/GUIVersion.cpp",
+				"src/agui/gui/misc/GUIColorTextureCanvas.cpp",
+				"src/agui/gui/misc/GUIDynamicColorTexture.cpp",
+				"src/agui/gui/misc/GUITiming.cpp",
+				"src/agui/gui/nodes/GUIColor.cpp",
+				"src/agui/gui/nodes/GUIElementController.cpp",
+				"src/agui/gui/nodes/GUIElementIgnoreEventsController.cpp",
+				"src/agui/gui/nodes/GUIElementNode.cpp",
+				"src/agui/gui/nodes/GUIGradientNode.cpp",
+				"src/agui/gui/nodes/GUIHorizontalScrollbarInternalController.cpp",
+				"src/agui/gui/nodes/GUIHorizontalScrollbarInternalNode.cpp",
+				"src/agui/gui/nodes/GUIImageNode.cpp",
+				"src/agui/gui/nodes/GUIInputInternalController.cpp",
+				"src/agui/gui/nodes/GUIInputInternalNode.cpp",
+				"src/agui/gui/nodes/GUILayerNode.cpp",
+				"src/agui/gui/nodes/GUILayoutNode_Alignment.cpp",
+				"src/agui/gui/nodes/GUILayoutNode.cpp",
+				"src/agui/gui/nodes/GUINode_AlignmentHorizontal.cpp",
+				"src/agui/gui/nodes/GUINode_AlignmentVertical.cpp",
+				"src/agui/gui/nodes/GUINodeConditions.cpp",
+				"src/agui/gui/nodes/GUINode.cpp",
+				"src/agui/gui/nodes/GUINode_Flow.cpp",
+				"src/agui/gui/nodes/GUINode_RequestedConstraints_RequestedConstraintsType.cpp",
+				"src/agui/gui/nodes/GUIPanelNode.cpp",
+				"src/agui/gui/nodes/GUIParentNode.cpp",
+				"src/agui/gui/nodes/GUIParentNode_Overflow.cpp",
+				"src/agui/gui/nodes/GUIScreenNode.cpp",
+				"src/agui/gui/nodes/GUISpaceNode.cpp",
+				"src/agui/gui/nodes/GUIStyledTextNodeController.cpp",
+				"src/agui/gui/nodes/GUIStyledTextNode.cpp",
+				"src/agui/gui/nodes/GUITableCellNode.cpp",
+				"src/agui/gui/nodes/GUITableNode.cpp",
+				"src/agui/gui/nodes/GUITableRowNode.cpp",
+				"src/agui/gui/nodes/GUITextNode.cpp",
+				"src/agui/gui/nodes/GUITextureBaseNode.cpp",
+				"src/agui/gui/nodes/GUIVerticalScrollbarInternalController.cpp",
+				"src/agui/gui/nodes/GUIVerticalScrollbarInternalNode.cpp",
+				"src/agui/gui/nodes/GUIVideoNode.cpp",
+				"src/agui/gui/renderer/ApplicationGL3Renderer.cpp",
+				"src/agui/gui/renderer/GL3Renderer.cpp",
+				"src/agui/gui/renderer/GUIFont.cpp",
+				"src/agui/gui/renderer/GUIRendererBackend.cpp",
+				"src/agui/gui/renderer/GUIRenderer.cpp",
+				"src/agui/gui/renderer/GUIShader.cpp",
+				"src/agui/gui/renderer/GUIShaderParameters.cpp",
+				"src/agui/gui/scripting/GUIMinitScript.cpp",
+				"src/agui/gui/textures/GUITexture.cpp",
+				"src/agui/gui/textures/GUITextureManager.cpp",
+				"src/agui/gui/vbos/GUIVBOManager.cpp",
+				"src/agui/os/filesystem/FileSystem.cpp",
+				"src/agui/os/filesystem/FileSystemException.cpp",
+				"src/agui/os/filesystem/StandardFileSystem.cpp",
+				"src/agui/os/threading/Barrier.cpp",
+				"src/agui/tools/cli/agui-main.cpp",
+				"src/agui/utilities/Console.cpp",
+				"src/agui/utilities/ExceptionBase.cpp",
+				"src/agui/utilities/Float.cpp",
+				"src/agui/utilities/Hex.cpp",
+				"src/agui/utilities/Integer.cpp",
+				"src/agui/utilities/Properties.cpp",
+				"src/agui/utilities/RTTI.cpp",
+				"src/agui/utilities/StringTokenizer.cpp",
+				"src/agui/utilities/StringTools.cpp",
+				"src/agui/utilities/TextureAtlas.cpp",
+				"src/agui/video/decoder/MPEG1Decoder.cpp",
+				"src/agui/video/decoder/VideoDecoderException.cpp"
+			],
+			false
+		)
+
+	end
+
+	if (application.getArguments()->contains("executables") == true)
+		script.call(
+			$buildExecutables,
+			[
+				"glew",
+				"glfw3",
+				"openal",
+				"freetype2",
+				"libssl",
+				"libcrypto"
+			],
+			$glfwDefinitions + " " + $executableDefinitions,
+			"-Isrc -Iext -I. -Iext/cpp-spline/src -Iext/zlib -Iext/yannet/src -Iext/minitscript/src",
+			$executableLdFlags,
+			[
+				"src/agui/tools/cli/agui-main.cpp"
+			],
+			false
+		)
+	end
+end
