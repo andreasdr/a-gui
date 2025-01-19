@@ -71,9 +71,7 @@ function: main()
 		elseif ($$.application::OS == "Haiku")
 			#
 		elseif ($$.application::OS == "Linux")
-			$aguiIncludes = "-Iext/fbx/linux/include"
 		elseif ($$.application::OS == "MacOSX")
-			$aguiIncludes = "-Iext/fbx/linux/include"
 		elseif ($$.application::OS == "NetBSD")
 			$minitScriptLdFlags = "-L/usr/lib -lexecinfo"
 			$aguiLdFlags = $aguiLdFlags + " " + "-L/usr/lib -lexecinfo"
