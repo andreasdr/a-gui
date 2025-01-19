@@ -54,6 +54,7 @@ public:
 			//
 		}
 
+	public:
 		/**
 		 * @return texture id
 		 */
@@ -68,23 +69,6 @@ public:
 			return referenceCounter;
 		}
 
-		/**
-		 * decrement reference counter
-		 * @return if reference counter = 0
-		 */
-		inline bool decrementReferenceCounter() {
-			referenceCounter--;
-			return referenceCounter == 0;
-		}
-
-		/**
-		 * increment reference counter
-		 */
-		inline void incrementReferenceCounter() {
-			referenceCounter++;
-		}
-
-	public:
 		/**
 		 * @return texture renderer id
 		 */
@@ -107,6 +91,22 @@ public:
 			return uploaded;
 		}
 
+	private:
+		/**
+		 * decrement reference counter
+		 * @return if reference counter = 0
+		 */
+		inline bool decrementReferenceCounter() {
+			referenceCounter--;
+			return referenceCounter == 0;
+		}
+
+		/**
+		 * increment reference counter
+		 */
+		inline void incrementReferenceCounter() {
+			referenceCounter++;
+		}
 	};
 
 private:

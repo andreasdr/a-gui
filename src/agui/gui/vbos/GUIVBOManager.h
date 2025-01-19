@@ -74,6 +74,21 @@ public:
 			return referenceCounter;
 		}
 
+		/**
+		 * Set uploaded
+		 * @param uploaded uploaded
+		 */
+		inline void setUploaded(bool uploaded) {
+			this->uploaded = uploaded;
+		}
+
+		/**
+		 * @return if vbo's have been uploaded
+		 */
+		inline bool isUploaded() {
+			return uploaded;
+		}
+
 	private:
 		/**
 		 * decrement reference counter
@@ -90,24 +105,6 @@ public:
 		inline void incrementReferenceCounter() {
 			referenceCounter++;
 		}
-
-	public:
-
-		/**
-		 * Set uploaded
-		 * @param uploaded uploaded
-		 */
-		inline void setUploaded(bool uploaded) {
-			this->uploaded = uploaded;
-		}
-
-		/**
-		 * @return if vbo's have been uploaded
-		 */
-		inline bool isUploaded() {
-			return uploaded;
-		}
-
 	};
 
 private:
