@@ -120,7 +120,6 @@ function: buildLibraryUnix($name, $libraries, $definitions, $includes, $ldFlags,
 	end
 
 	try
-
 		# create paths
 		createPathRecusively($objectPath)
 		createPathRecusively($libraryPath)
@@ -266,8 +265,8 @@ function: buildLibraryUnix($name, $libraries, $definitions, $includes, $ldFlags,
 	console.printLine()
 end
 
-function: buildExecutablesUnix($libraries, $definitions, $includes, $ldFlags, $files, $optional)
-	console.printLine("Building executables")
+function: buildExecutablesUnix($name, $libraries, $definitions, $includes, $ldFlags, $files, $optional)
+	console.printLine("Building executables: " + $name)
 	console.printLine()
 
 	$librariesIncludes = ""

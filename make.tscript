@@ -421,6 +421,7 @@ function: main()
 	if (application.getArguments()->contains("executables") == true)
 		script.call(
 			$buildExecutables,
+			"executables",
 			[
 				"glew",
 				"glfw3",

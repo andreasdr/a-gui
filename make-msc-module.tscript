@@ -199,33 +199,28 @@ function: buildLibraryMSC($name, $libraries, $definitions, $includes, $ldFlags, 
 	$libraryExtension = ".dll"
 
 	try
-		try
-			filesystem.removePath($objectPath, true)
-		catch ($exception)
-		end
-
 		# create paths
 		createPathRecusively($objectPath)
 		createPathRecusively($libraryPath)
 
 		# compile each compilation units
-		$compilationUnitIdx = 0
 		$commands = []
 		$compilationUnits = ""
+		$compilationUnitsArray = []
 		forEach($file in $files)
 			#
-			# $fileObjectPath = filesystem.getPathName($file)
-			$fileObjectPath = ""
+			$fileObjectPath = filesystem.getPathName($file)
 			
 			# create file object path
 			createPathRecusively($objectPath + "/" + $fileObjectPath)
 
 			#
-			$compilationUnit = $objectPath + "/" + ($compilationUnitIdx++) + ".obj"
+			$compilationUnit = $objectPath + "/" + filesystem.removeFileExtension($file) + ".obj"
 			if ($compilationUnits->isEmpty() == false)
 				$compilationUnits = $compilationUnits + " "
 			end
 			$compilationUnits = $compilationUnits + $compilationUnit
+			$compilationUnitsArray[] = $compilationUnit
 
 			#
 			$timeStampFile = 0
@@ -250,6 +245,7 @@ function: buildLibraryMSC($name, $libraries, $definitions, $includes, $ldFlags, 
 			
 			# command
 			$command =
+				"chcp 65001 > nul && " +
 				$cxx +
 				" " +
 				"/c" +
@@ -263,9 +259,7 @@ function: buildLibraryMSC($name, $libraries, $definitions, $includes, $ldFlags, 
 				" " +
 				$includes +
 				" " +
-				$file + 
-				" " + 
-				"> nul"
+				$file 
 			#
 			if ($command == null)
 				continue
@@ -290,50 +284,61 @@ function: buildLibraryMSC($name, $libraries, $definitions, $includes, $ldFlags, 
 			$linkerSymbolsFile = $libraryPath + "/" + $name + ".symbols"
 			$linkerDefFile = $libraryPath + "/" + $name + ".def"
 
-			# link #1
-			$command =
-				"lib" +
-				" " +
-				"/OUT:" +
-				$libraryPath + "/" + $name + ".lib" +
-				" " +
-				$compilationUnits
-			console.printLine($command)
+			#
+			filesystem.setContentFromString(
+				filesystem.getPathName($linkerSymbolsFile),
+				filesystem.getFileName($linkerSymbolsFile),
+				""
+			)
 
-			# execute
-			$exitCode = $$.application::EXITCODE_SUCCESS
-			$error = null
-			$result = application.execute($command, $exitCode, $error)
+			#
+			forEach($compilationUnit in $compilationUnitsArray)
+				# link #1
+				$command =
+					"chcp 65001 > nul && " +
+					"lib" +
+					" " +
+					"/OUT:" +
+					$libraryFile +
+					" " +
+					$compilationUnit
 
-			if ($exitCode != $$.application::EXITCODE_SUCCESS)
-				console.printLine("lib exited with exit code " + $exitCode + ", see error: " + $error)
-				if ($optional == false)
-					console.printLine()
-					application.exit($$.application::EXITCODE_FAILURE)
+				# execute
+				$exitCode = $$.application::EXITCODE_SUCCESS
+				$error = null
+				$result = application.execute($command, $exitCode, $error)
+
+				if ($exitCode != $$.application::EXITCODE_SUCCESS)
+					console.printLine("lib exited with exit code " + $exitCode + ", see error: " + $error)
+					if ($optional == false)
+						console.printLine()
+						application.exit($$.application::EXITCODE_FAILURE)
+					end
 				end
-			end
 
-			# dump bin
-			$command =
-				"dumpbin" +
-				" " +
-				"/LINKERMEMBER" +
-				" " +
-				$libraryFile +
-				" " +
-				"> " + 
-				$linkerSymbolsFile
+				# dump bin
+				$command =
+					"chcp 65001 > nul && " +
+					"dumpbin" +
+					" " +
+					"/LINKERMEMBER" +
+					" " +
+					$libraryFile +
+					" " +
+					">> " +
+					$linkerSymbolsFile
 
-			# execute
-			$exitCode = $$.application::EXITCODE_SUCCESS
-			$error = null
-			$result = application.execute($command, $exitCode, $error)
+				# execute
+				$exitCode = $$.application::EXITCODE_SUCCESS
+				$error = null
+				$result = application.execute($command, $exitCode, $error)
 
-			if ($exitCode != $$.application::EXITCODE_SUCCESS)
-				console.printLine("dumpbin exited with exit code " + $exitCode + ", see error: " + $error)
-				if ($optional == false)
-					console.printLine()
-					application.exit($$.application::EXITCODE_FAILURE)
+				if ($exitCode != $$.application::EXITCODE_SUCCESS)
+					console.printLine("dumpbin exited with exit code " + $exitCode + ", see error: " + $error)
+					if ($optional == false)
+						console.printLine()
+						application.exit($$.application::EXITCODE_FAILURE)
+					end
 				end
 			end
 
@@ -357,6 +362,7 @@ function: buildLibraryMSC($name, $libraries, $definitions, $includes, $ldFlags, 
 
 			# rc
 			$command =
+				"chcp 65001 > nul && " +
 				"rc" +
 				" " +
 				$libraryDLLFile + ".rc"
@@ -375,12 +381,10 @@ function: buildLibraryMSC($name, $libraries, $definitions, $includes, $ldFlags, 
 				end
 			end
 
-			# link $(LD_FLAGS) /DLL /DEF:$(MSCBIN)\libtdme.def /DEBUG /IGNORE:4197 /IGNORE:4102 $** $(MSCBIN)\libtdme.dll.res $(LIBS_LDFLAGS) /LIBPATH $(MSCBIN)\libtdme-ext.lib /OUT:$(MSCBIN)\libtdme.dll
-
-			# link
-			$command =
-				"link" +
-				" " +
+			# response file
+			filesystem.setContentFromString(
+				".",
+				"link.response",
 				$librariesLdFlags +
 				" " +
 				$ldFlags +
@@ -399,7 +403,15 @@ function: buildLibraryMSC($name, $libraries, $definitions, $includes, $ldFlags, 
 				" " +
 				$libraryDLLRESFile + 
 				" " +
-				"/OUT:" + $libraryDLLFile 
+				"/OUT:" + $libraryDLLFile
+			) 
+
+			# link
+			$command =
+				"chcp 65001 > nul && " +
+				"link" +
+				" " +
+				"@link.response" 
 
 			console.printLine($command)
 
@@ -415,7 +427,12 @@ function: buildLibraryMSC($name, $libraries, $definitions, $includes, $ldFlags, 
 					application.exit($$.application::EXITCODE_FAILURE)
 				end
 			end
-			
+
+			# remove response file
+			filesystem.removeFile(
+				".",
+				"link.response"
+			) 
 		end
 	catch ($exception)
 		console.printLine("An error occurred: " + $exception)
@@ -424,8 +441,8 @@ function: buildLibraryMSC($name, $libraries, $definitions, $includes, $ldFlags, 
 	console.printLine()
 end
 
-function: buildExecutablesMSC($libraries, $definitions, $includes, $ldFlags, $files, $optional)
-	console.printLine("Building executables")
+function: buildExecutablesMSC($name, $libraries, $definitions, $includes, $ldFlags, $files, $optional)
+	console.printLine("Building executables: " + $name)
 	console.printLine()
 
 	$librariesIncludes = ""
@@ -553,9 +570,7 @@ function: buildExecutablesMSC($libraries, $definitions, $includes, $ldFlags, $fi
 				" " +
 				$librariesLdFlags +
 				" " +
-				$ldFlags +
-				" " # +
-				# "> nul"
+				$ldFlags
 			console.printLine($command)
 
 			# execute
