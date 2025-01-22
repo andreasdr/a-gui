@@ -1,7 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/andreasdr/a-gui/blob/master/LICENSE)
 [![NIX Build Status](https://github.com/andreasdr/a-gui/actions/workflows/nix.yml/badge.svg)](https://github.com/andreasdr/a-gui/actions)
 [![MacOSX Build Status](https://github.com/andreasdr/a-gui/actions/workflows/macosx.yml/badge.svg)](https://github.com/andreasdr/a-gui/actions)
-[![Windows/MINGW Build Status](https://github.com/andreasdr/a-gui/actions/workflows/windows-mingw.yml/badge.svg)](https://github.com/andreasdr/a-gui/actions)
 [![Windows/MSC Build Status](https://github.com/andreasdr/a-gui/actions/workflows/windows-msc.yml/badge.svg)](https://github.com/andreasdr/a-gui/actions)
 [![Coverity Scan Build Status](https://scan.coverity.com/projects/15611/badge.svg)](https://scan.coverity.com/projects/andreasdr-a-gui)  
 
