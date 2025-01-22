@@ -164,7 +164,7 @@ public:
 	 * @param texture texture
 	 * @param releaseTextureReference release texture reference on dispose
 	 */
-	inline void assignTexture(GUITexture* texture, bool releaseTextureReference);
+	void assignTexture(GUITexture* texture, bool releaseTextureReference);
 
 	// overridden methods
 	void dispose() override;
