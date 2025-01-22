@@ -144,13 +144,13 @@ public:
 	/**
 	 * Clear source handlers
 	 */
-	void clearSourceHandlers();
+	static void clearSourceHandlers();
 
 	/**
 	 * Add source handler
 	 * @param sourceHandler source handler
 	 */
-	void addSourceHandler(SourceHandler* sourceHandler);
+	static void addSourceHandler(SourceHandler* sourceHandler);
 
 	/**
 	 * Allocate thumbnail texture index
