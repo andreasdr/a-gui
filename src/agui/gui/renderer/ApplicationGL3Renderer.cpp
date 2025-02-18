@@ -55,14 +55,14 @@ bool ApplicationGL3Renderer::prepareWindowSystemRendererContext(int tryIdx) {
 bool ApplicationGL3Renderer::initializeWindowSystemRendererContext(GLFWwindow* glfwWindow) {
 	glfwMakeContextCurrent(glfwWindow);
 	if (glfwGetCurrentContext() == nullptr) {
-		Console::printLine("EngineGL3Renderer::initializeWindowSystemRendererContext(): glfwMakeContextCurrent(): Error: No window attached to context");
+		Console::printLine("ApplicationGL3Renderer::initializeWindowSystemRendererContext(): glfwMakeContextCurrent(): Error: No window attached to context");
 		return false;
 	}
 	#if !defined(__APPLE__)
 		//glewExperimental = true;
 		GLenum glewInitStatus = glewInit();
 		if (glewInitStatus != GLEW_OK) {
-			Console::printLine("EngineGL3Renderer::initializeWindowSystemRendererContext(): glewInit(): Error: " + (string((char*)glewGetErrorString(glewInitStatus))));
+			Console::printLine("ApplicationGL3Renderer::initializeWindowSystemRendererContext(): glewInit(): Error: " + (string((char*)glewGetErrorString(glewInitStatus))));
 			return false;
 		}
 	#endif
