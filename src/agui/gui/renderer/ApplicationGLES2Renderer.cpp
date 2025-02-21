@@ -13,10 +13,17 @@
 #include <agui/agui.h>
 #include <agui/gui/renderer/GUIShader.h>
 #include <agui/gui/GUI.h>
+#include <agui/gui/GUIVersion.h>
+#include <agui/utilities/Console.h>
 
 using std::string;
 
 using agui::gui::renderer::ApplicationGLES2Renderer;
+
+using agui::gui::renderer::GUIShader;
+using agui::gui::GUI;
+using agui::gui::GUIVersion;
+using agui::utilities::Console;
 
 ApplicationGLES2Renderer::ApplicationGLES2Renderer()
 {
@@ -53,4 +60,14 @@ void ApplicationGLES2Renderer::onUpdateTextureMatrix(int contextIdx)
 void ApplicationGLES2Renderer::onUpdateEffect(int contextIdx)
 {
 	GUI::getShader()->updateEffect();
+}
+
+extern "C" ApplicationGLES2Renderer* createInstance()
+{
+	if (ApplicationGLES2Renderer::getRendererVersion() != GUIVersion::getVersion()) {
+		Console::printLine("ApplicationGL2Renderer::createInstance(): Engine and renderer backend version do not match: '" + ApplicationGLES2Renderer::getRendererVersion() + "' != '" + GUIVersion::getVersion() + "'");
+		return nullptr;
+	}
+	Console::printLine("ApplicationGLES2Renderer::createInstance(): Creating ApplicationGLES2Renderer instance!");
+	return new ApplicationGLES2Renderer();
 }

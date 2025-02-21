@@ -57,40 +57,31 @@ function: main()
 	if (application.getArguments()->contains("libraries") == true || application.getArguments()->contains("executables") == true)
 		$minitScriptLdFlags = ""
 		$minitScriptDefinitions = ""
-		$aguiPlatformFiles = []
 		$aguiIncludes = ""
+		$aguiRendererLdFlags = "-Llib -lagui"
 		$aguiLdFlags = "-Llib -lminitscript -lagui-ext"
 		$aguiDefinitions = ""
+		$aguiRendererDefinitions = ""
+		$aguiRendererIncludes = "-Isrc -Iext/minitscript/src"
 		$glfwDefinitions = ""
 		$executableDefinitions = "-Llib -lagui -lagui-ext -lminitscript -pthread"
 		$executableLdFlags = "-Llib -lagui -lagui-ext -lminitscript -pthread"
 		$buildLibrary = "buildLibraryUnix"
 		$buildExecutables = "buildExecutablesUnix"
 		if ($$.application::OS == "FreeBSD")
-			$aguiPlatformFiles = [
-				"src/agui/gui/renderer/ApplicationGLES2Renderer.cpp",
-				"src/agui/gui/renderer/GLES2Renderer.cpp"
-			]
 			$minitScriptLdFlags = "-L/usr/lib -ldl -lexecinfo"
 			$aguiLdFlags = $aguiLdFlags + " " + "-L/usr/lib -ldl -lexecinfo"
 		elseif ($$.application::OS == "Haiku")
 			#
 		elseif ($$.application::OS == "Linux")
-			$aguiPlatformFiles = [
-				"src/agui/gui/renderer/ApplicationGLES2Renderer.cpp",
-				"src/agui/gui/renderer/GLES2Renderer.cpp"
-			]
 		elseif ($$.application::OS == "MacOSX")
 		elseif ($$.application::OS == "NetBSD")
-			$aguiPlatformFiles = [
-				"src/agui/gui/renderer/ApplicationGLES2Renderer.cpp",
-				"src/agui/gui/renderer/GLES2Renderer.cpp"
-			]
 			$minitScriptLdFlags = "-L/usr/lib -lexecinfo"
 			$aguiLdFlags = $aguiLdFlags + " " + "-L/usr/lib -lexecinfo"
 		elseif ($$.application::OS == "OpenBSD")
 			#
 		elseif ($$.application::OS == "Windows-MSC")
+			$aguiRendererDefinitions = "/D AGUI_DLL_IMPORT"
 			$aguiLdFlags = ""
 			$aguiLdFlags = $aguiLdFlags + " " + "/LIBPATH \"" + getWindowsSDKPathNameMSC() + "/um/x64/opengl32.lib" + "\""
 			$aguiLdFlags = $aguiLdFlags + " " + "/LIBPATH \"lib/libminitscript.lib\""
@@ -398,10 +389,6 @@ function: main()
 				"src/agui/gui/nodes/GUIVerticalScrollbarInternalController.cpp",
 				"src/agui/gui/nodes/GUIVerticalScrollbarInternalNode.cpp",
 				"src/agui/gui/nodes/GUIVideoNode.cpp",
-				"src/agui/gui/renderer/ApplicationGL2Renderer.cpp",
-				"src/agui/gui/renderer/ApplicationGL3Renderer.cpp",
-				"src/agui/gui/renderer/GL2Renderer.cpp",
-				"src/agui/gui/renderer/GL3Renderer.cpp",
 				"src/agui/gui/renderer/GUIFont.cpp",
 				"src/agui/gui/renderer/GUIRendererBackend.cpp",
 				"src/agui/gui/renderer/GUIRenderer.cpp",
@@ -427,10 +414,61 @@ function: main()
 				"src/agui/utilities/TextureAtlas.cpp",
 				"src/agui/video/decoder/MPEG1Decoder.cpp",
 				"src/agui/video/decoder/VideoDecoderException.cpp"
-			] + $aguiPlatformFiles,
+			],
 			false
 		)
 
+		script.call(
+			$buildLibrary,
+			"libguiopengl2renderer",
+			[
+				"glew",
+				"glfw3"
+			],
+			$glfwDefinitions + " " + $aguiRendererDefinitions,
+			$aguiRendererIncludes,
+			$aguiRendererLdFlags,
+			[
+				"src/agui/gui/renderer/ApplicationGL2Renderer.cpp",
+				"src/agui/gui/renderer/GL2Renderer.cpp"
+			],
+			true
+		)
+
+		script.call(
+			$buildLibrary,
+			"libguiopengl3corerenderer",
+			[
+				"glew",
+				"glfw3"
+			],
+			$glfwDefinitions + " " + $aguiRendererDefinitions,
+			$aguiRendererIncludes,
+			$aguiRendererLdFlags,
+			[
+				"src/agui/gui/renderer/ApplicationGL3Renderer.cpp",
+				"src/agui/gui/renderer/GL3Renderer.cpp"
+			],
+			true
+		)
+
+		script.call(
+			$buildLibrary,
+			"libguiopengles2renderer",
+			[
+				"glesv2",
+				"egl",
+				"glfw3"
+			],
+			$glfwDefinitions + " " + $aguiRendererDefinitions,
+			$aguiRendererIncludes,
+			$aguiRendererLdFlags,
+			[
+				"src/agui/gui/renderer/ApplicationGLES2Renderer.cpp",
+				"src/agui/gui/renderer/GLES2Renderer.cpp"
+			],
+			true
+		)
 	end
 
 	if (application.getArguments()->contains("executables") == true)

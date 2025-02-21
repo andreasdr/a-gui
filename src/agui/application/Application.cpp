@@ -23,6 +23,10 @@
 	#include <Carbon/Carbon.h>
 #endif
 
+#if !defined(_MSC_VER)
+	#include <dlfcn.h>
+#endif
+
 #include <stdlib.h>
 
 #include <array>
@@ -79,7 +83,7 @@ using agui::utilities::StringTokenizer;
 using agui::utilities::StringTools;
 using agui::utilities::Time;
 
-unique_ptr<GUIRendererBackend> Application::rendererBackend = nullptr;
+unique_ptr<GUIRendererBackend> Application::guiRendererBackend = nullptr;
 unique_ptr<Application> Application::application = nullptr;
 GUIEventHandler* Application::eventHandler = nullptr;
 int64_t Application::timeLast = -1L;
@@ -562,8 +566,21 @@ int Application::run(int argc, char** argv, const string& title, GUIEventHandler
 		}
 	}
 
-	// renderer
-	rendererBackend = make_unique<ApplicationGL3Renderer>();
+	// renderer backend library
+	string rendererBackendType = "opengl3core";
+	for (auto i = 1; i < argc; i++) {
+		auto argValue = string(argv[i]);
+		if (argValue == "--debug") debuggingEnabled = true; else
+		if (argValue == "--gles2") rendererBackendType = "opengles2"; else
+		if (argValue == "--gl2") rendererBackendType = "opengl2"; else
+		if (argValue == "--gl3core") rendererBackendType = "opengl3core"; else
+		if (argValue == "--vulkan") rendererBackendType = "vulkan";
+	}
+
+	// load engine renderer backend plugin
+	if (loadGUIRendererPlugin(rendererBackendType) == false) {
+		return EXITCODE_FAILURE;
+	}
 
 	// window hints
 	if ((windowHints & WINDOW_HINT_NOTRESIZEABLE) == WINDOW_HINT_NOTRESIZEABLE) glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
@@ -572,7 +589,7 @@ int Application::run(int argc, char** argv, const string& title, GUIEventHandler
 	if ((windowHints & WINDOW_HINT_MAXIMIZED) == WINDOW_HINT_MAXIMIZED) glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 
 	//
-	for (auto i = 0; rendererBackend->prepareWindowSystemRendererContext(i) == true; i++) {
+	for (auto i = 0; guiRendererBackend->prepareWindowSystemRendererContext(i) == true; i++) {
 		glfwWindow = glfwCreateWindow(windowWidth, windowHeight, title.c_str(), NULL, NULL);
 		if (glfwWindow != nullptr) break;
 	}
@@ -585,14 +602,14 @@ int Application::run(int argc, char** argv, const string& title, GUIEventHandler
 	}
 
 	//
-	if (rendererBackend->initializeWindowSystemRendererContext(glfwWindow) == false) {
+	if (guiRendererBackend->initializeWindowSystemRendererContext(glfwWindow) == false) {
 		Console::printLine("glfwCreateWindow(): Could not initialize window system renderer context");
 		glfwTerminate();
 		return EXITCODE_FAILURE;
 	}
 
 	//
-	rendererBackend->initialize();
+	guiRendererBackend->initialize();
 
 	//
 	if ((windowHints & WINDOW_HINT_MAXIMIZED) == 0) glfwSetWindowPos(glfwWindow, windowXPosition, windowYPosition);
@@ -655,13 +672,81 @@ int Application::run(int argc, char** argv, const string& title, GUIEventHandler
 		Console::printLine("Application::run(): Shutting down application");
 		Application::application->dispose();
 		Audio::shutdown();
-		Application::rendererBackend = nullptr;
+		Application::guiRendererBackend = nullptr;
 		Console::shutdown();
 		//
 		Application::application = nullptr;
 	}
 	//
 	return localExitCode;
+}
+
+bool Application::loadGUIRendererPlugin(const string& rendererType) {
+	string guiRendererBackendLibrary = "libgui" + rendererType + "renderer";
+	#if defined(_WIN32)
+		guiRendererBackendLibrary = guiRendererBackendLibrary + ".dll";
+	#elif defined(__APPLE__)
+		guiRendererBackendLibrary = guiRendererBackendLibrary + ".dylib";
+	#else
+		guiRendererBackendLibrary = guiRendererBackendLibrary + ".so";
+	#endif
+
+	// renderer
+	Console::printLine("Application::run(): Opening GUI renderer backend library: " + guiRendererBackendLibrary);
+
+	#if defined(_MSC_VER)
+		//
+		auto guiRendererBackendLibraryHandle = LoadLibrary(guiRendererBackendLibrary.c_str());
+		if (guiRendererBackendLibraryHandle == nullptr) {
+			Console::printLine("Application::run(): Could not open GUI renderer backend library");
+			glfwTerminate();
+			return false;
+		}
+		//
+		GUIRendererBackend* (*guiRendererBackendCreateInstance)() = (GUIRendererBackend*(*)())GetProcAddress(guiRendererBackendLibraryHandle, "createInstance");
+		//
+		if (guiRendererBackendCreateInstance == nullptr) {
+			Console::printLine("Application::run(): Could not find GUI renderer backend library createInstance() entry point");
+			glfwTerminate();
+			return false;
+		}
+		//
+		guiRendererBackend = unique_ptr<GUIRendererBackend>((GUIRendererBackend*)guiRendererBackendCreateInstance());
+		if (guiRendererBackend == nullptr) {
+			Console::printLine("Application::run(): Could not create renderer backend");
+			glfwTerminate();
+			return false;
+		}
+	#else
+		//
+		#if defined(__HAIKU__)
+			auto guiRendererBackendLibraryHandle = dlopen(("lib/" + guiRendererBackendLibrary).c_str(), RTLD_NOW);
+		#else
+			auto guiRendererBackendLibraryHandle = dlopen(guiRendererBackendLibrary.c_str(), RTLD_NOW);
+		#endif
+		if (guiRendererBackendLibraryHandle == nullptr) {
+			Console::printLine("Application::run(): Could not open GUI renderer backend library");
+			glfwTerminate();
+			return false;
+		}
+		//
+		GUIRendererBackend* (*guiRendererBackendCreateInstance)() = (GUIRendererBackend*(*)())dlsym(guiRendererBackendLibraryHandle, "createInstance");
+		//
+		if (guiRendererBackendCreateInstance == nullptr) {
+			Console::printLine("Application::run(): Could not find GUI renderer backend library createInstance() entry point");
+			glfwTerminate();
+			return false;
+		}
+		//
+		guiRendererBackend = unique_ptr<GUIRendererBackend>((GUIRendererBackend*)guiRendererBackendCreateInstance());
+		if (guiRendererBackend == nullptr) {
+			Console::printLine("Application::run(): Could not create GUI renderer backend");
+			glfwTerminate();
+			return false;
+		}
+	#endif
+	//
+	return true;
 }
 
 void Application::setIcon() {

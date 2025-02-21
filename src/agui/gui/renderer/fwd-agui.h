@@ -17,6 +17,7 @@ namespace renderer {
 	class GUIShader;
 	class GUIShaderParameter;
 	class GUIShaderParameters;
+	class GUIRendererBackendPlugin;
 }  // namespace renderer
 }  // namespace gui
 }  // namespace agui

@@ -76,7 +76,7 @@ public:
 	 * @returns renderer backend
 	 */
 	inline static GUIRendererBackend* getRendererBackend() {
-		return rendererBackend.get();
+		return guiRendererBackend.get();
 	}
 
 	/**
@@ -350,7 +350,7 @@ public:
 	virtual void onDrop(const vector<string>& paths);
 
 private:
-	AGUI_STATIC_DLL_IMPEXT static unique_ptr<GUIRendererBackend> rendererBackend;
+	AGUI_STATIC_DLL_IMPEXT static unique_ptr<GUIRendererBackend> guiRendererBackend;
 	AGUI_STATIC_DLL_IMPEXT static unique_ptr<Application> application;
 	AGUI_STATIC_DLL_IMPEXT static GUIEventHandler* eventHandler;
 	int windowHints { WINDOW_HINT_NONE };
@@ -378,6 +378,12 @@ private:
 	unordered_set<int> connectedJoysticks;
 	unordered_set<int> connectedGamepads;
 	array<array<int64_t, 16>, 16> joystickButtons;
+
+	/**
+	 * Load GUI renderer backend plugin
+	 * @param rendererType renderer type
+	 */
+	bool loadGUIRendererPlugin(const string& rendererType);
 
 	/**
 	 * Set application icon

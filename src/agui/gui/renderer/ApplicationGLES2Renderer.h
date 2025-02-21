@@ -13,6 +13,7 @@
 #include <agui/agui.h>
 #include <agui/gui/renderer/fwd-agui.h>
 #include <agui/gui/renderer/GLES2Renderer.h>
+#include <agui/gui/renderer/GUIRendererBackendPlugin.h>
 
 using std::string;
 
@@ -20,7 +21,7 @@ using std::string;
  * Application GLES2 renderer
  * @author Andreas Drewke
  */
-class agui::gui::renderer::ApplicationGLES2Renderer: public GLES2Renderer
+class agui::gui::renderer::ApplicationGLES2Renderer: public GLES2Renderer, public GUIRendererBackendPlugin
 {
 public:
 	// forbid class copy

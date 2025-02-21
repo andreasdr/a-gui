@@ -13,6 +13,7 @@
 #include <agui/agui.h>
 #include <agui/gui/renderer/fwd-agui.h>
 #include <agui/gui/renderer/GL3Renderer.h>
+#include <agui/gui/renderer/GUIRendererBackendPlugin.h>
 
 using std::string;
 
@@ -20,7 +21,7 @@ using std::string;
  * Application GL3 renderer
  * @author Andreas Drewke
  */
-class agui::gui::renderer::ApplicationGL3Renderer: public GL3Renderer
+class agui::gui::renderer::ApplicationGL3Renderer: public GL3Renderer, public GUIRendererBackendPlugin
 {
 public:
 	// forbid class copy
